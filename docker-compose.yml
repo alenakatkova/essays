@@ -1,0 +1,25 @@
+version: "3"
+services:
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    environment:
+      - MONGO_USER=alenakatkova
+      - MONGO_PASSWORD=mypassword
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=alenakatkova
+      - MONGO_INITDB_ROOT_PASSWORD=mypassword
+    volumes:
+      - db:/data/db
+
+volumes:
+  db:
