@@ -7,9 +7,12 @@ const {
   MONGO_USER
 } = require("./config/config");
 const postRouter = require("./routes/post");
+const cors = require("cors");
+
+
 
 const app = express();
-
+app.use(cors());
 const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
 
 const connectWithRetry = () => {

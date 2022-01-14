@@ -1,7 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import axios from "axios";
+import "./App.css";
+
+const apiUrl = "http://localhost:8080";
 
 function App() {
+  const [posts, setPosts] = React.useState([]);
+
+  React.useEffect(() => {
+    loadPosts();
+  }, []);
+
+  const loadPosts = async () => {
+    const res = await axios.get(apiUrl + "/posts");
+    console.log(res.data.data.posts)
+    setPosts(res.data.data.posts);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +33,11 @@ function App() {
         >
           Learn React
         </a>
+        <ul>
+          {posts.map(post => (
+              <li key={post._id}>body: {post.body}</li>
+          ))}
+        </ul>
       </header>
     </div>
   );
