@@ -4,6 +4,9 @@ services:
     build: ./client
     ports:
       - "3000:3000"
+    volumes:
+      - /client/node_modules
+      - ./client:/client
     depends_on:
       - server
 
@@ -19,8 +22,9 @@ services:
     environment:
       - MONGO_USER=alenakatkova
       - MONGO_PASSWORD=mypassword
+    command: yarn run dev
 
-  mongo:
+  mongodb:
     image: mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=alenakatkova

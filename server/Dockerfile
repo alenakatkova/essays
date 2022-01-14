@@ -1,5 +1,5 @@
 # Create a layzer from https://hub.docker.com/_/node Docker image
-FROM node:17
+FROM node:16.13.1
 
 # Set working directory
 WORKDIR /server
@@ -15,7 +15,7 @@ COPY . ./
 EXPOSE 8080
 
 # What command to run
-CMD ["yarn", "start", "dev"]
+CMD ["node", "index.js"]
 
 
 

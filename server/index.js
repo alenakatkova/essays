@@ -6,6 +6,7 @@ const {
   MONGO_PORT,
   MONGO_USER
 } = require("./config/config");
+const postRouter = require("./routes/post");
 
 const app = express();
 
@@ -29,10 +30,12 @@ connectWithRetry();
 app.use(express.json());
 
 // setting up a quick route for testing purposes
-app.get("/api", (req, res) => {
-  res.send("<h2>Hi there</h2>")
+app.get("/", (req, res) => {
+  res.send("<h2>Hello there</h2>")
 });
 
+//app.use("/api/v1/posts", postRouter);
+app.use("/posts", postRouter);
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => console.log(`listening on port ${port}`));
