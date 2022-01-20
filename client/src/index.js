@@ -1,12 +1,21 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import "./i18nextConfig";
+
+const Loader = () => (
+  <div className="App">
+    <div>loading...</div>
+  </div>
+);
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Suspense fallback={<Loader />}>
+      <App />
+    </Suspense>
   </BrowserRouter>,
   document.getElementById("root")
 );

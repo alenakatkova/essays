@@ -1,13 +1,10 @@
 import React from "react";
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const Essay = () => {
-  //const { t } = useTranslation();
+  const { t } = useTranslation();
 
-  return (
-      // <div>{t('essay page title')}</div>
-      <div>Essay</div>
-  )
+  return <div>{t("essay.title")}</div>;
 };
 
 export default Essay;

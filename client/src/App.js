@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import Essay from "./Essay";
+import Header from "./Header";
 
 const apiUrl = "http://localhost:8080";
 
@@ -55,7 +56,7 @@ function App() {
         ))}
       </ul>
 
-      {/*<Header/>*/}
+      <Header />
       <Routes>
         <Route path="/essay" element={<Essay />} />
         <Route path="/my-essay" element={<Essay />} />

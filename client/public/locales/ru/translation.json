@@ -1,0 +1,26 @@
+{
+  "languages": {
+    "english": "Английский",
+    "german": "Немецкий",
+    "russian": "Русский",
+    "french": "Французский"
+  },
+  "home": {
+    "title": "Главная"
+  },
+  "essay": {
+    "title": "Просмотр эссе"
+  },
+  "signup": {
+    "title": "Регистрация"
+  },
+  "profile": {
+    "title": "Профиль"
+  },
+  "feed": {
+    "title": "Лента"
+  },
+  "writing": {
+    "title": "Тренажер"
+  }
+}
