@@ -4,6 +4,7 @@ import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import Essay from "./Essay";
 import Header from "./Header";
+import SignUp from "./SignUp";
 
 const apiUrl = "http://localhost:8080";
 
@@ -18,6 +19,17 @@ function App() {
     const res = await axios.get(apiUrl + "/posts");
     console.log(res.data.data.posts);
     setPosts(res.data.data.posts);
+  };
+
+  const deletePost = async (id) => {
+    axios
+      .delete(apiUrl + "/posts/" + id)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -46,13 +58,16 @@ function App() {
             <Link to="/writing">Writing</Link>
           </li>
           <li>
-            <Link to="/signup">Sign up</Link>
+            <Link to="/sign-up">Sign up</Link>
           </li>
         </ul>
       </nav>
       <ul>
         {posts.map((post) => (
-          <li key={post._id}>body: {post.body}</li>
+          <li key={post._id}>
+            body: {post.body}{" "}
+            <button onClick={() => deletePost(post._id)}>X</button>
+          </li>
         ))}
       </ul>
 
@@ -64,7 +79,7 @@ function App() {
         <Route path="/profile" element={<Essay />} />
         <Route path="/feed" element={<Essay />} />
         <Route path="/writing" element={<Essay />} />
-        <Route path="/signup" element={<Essay />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Essay />} />
       </Routes>
       {/*<Footer/>*/}

@@ -16,13 +16,13 @@ const router = express.Router();
 //     .delete(protect, postController.deletePost);
 
 router
-    .route("/")
-    .get(postController.getAllPosts)
-    .post(postController.createPost);
+  .route("/")
+  .get(postController.getAllPosts)
+  .post(postController.createPost);
 router
-    .route("/:id")
-    .get(postController.getOnePost)
-    .patch(postController.updatePost)
-    .delete(postController.deletePost)
+  .route("/:id")
+  .get(postController.getOnePost)
+  .patch(postController.updatePost)
+  .delete(postController.deletePost);
 
 module.exports = router;

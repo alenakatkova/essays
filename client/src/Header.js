@@ -7,7 +7,7 @@ const lngs = {
 };
 
 const Header = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   return (
     <header>
