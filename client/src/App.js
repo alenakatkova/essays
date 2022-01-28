@@ -5,6 +5,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Essay from "./Essay";
 import Header from "./Header";
 import SignUp from "./SignUp";
+import Writing from "./Writing";
 
 const apiUrl = "http://localhost:8080";
 
@@ -92,7 +93,7 @@ function App() {
         <Route path="/writing-settings" element={<Essay />} />
         <Route path="/profile" element={<Essay />} />
         <Route path="/feed" element={<Essay />} />
-        <Route path="/writing" element={<Essay />} />
+        <Route path="/writing" element={<Writing />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Essay />} />
       </Routes>

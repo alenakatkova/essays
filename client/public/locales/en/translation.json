@@ -25,6 +25,10 @@
     "title": "Feed"
   },
   "writing": {
-    "title": "Writing"
+    "title": "Writing",
+    "form": {
+      "title": "Title",
+      "text": "Text"
+    }
   }
 }
