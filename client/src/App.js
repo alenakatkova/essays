@@ -10,15 +10,23 @@ const apiUrl = "http://localhost:8080";
 
 function App() {
   const [posts, setPosts] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {
     loadPosts();
+    loadUsers();
   }, []);
 
   const loadPosts = async () => {
     const res = await axios.get(apiUrl + "/posts");
     console.log(res.data.data.posts);
     setPosts(res.data.data.posts);
+  };
+
+  const loadUsers = async () => {
+    const res = await axios.get(apiUrl + "/users");
+    console.log(res.data.data.users);
+    setUsers(res.data.data.users);
   };
 
   const deletePost = async (id) => {
@@ -65,9 +73,15 @@ function App() {
       <ul>
         {posts.map((post) => (
           <li key={post._id}>
-            body: {post.body}{" "}
+            body: {post.body}
             <button onClick={() => deletePost(post._id)}>X</button>
           </li>
+        ))}
+      </ul>
+
+      <ul>
+        {users.map((user) => (
+          <li key={user._id}>username: {user.username}</li>
         ))}
       </ul>
 

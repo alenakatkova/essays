@@ -9,6 +9,24 @@ const SignUp = () => {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
 
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const signUp = (e) => {
+    e.preventDefault();
+    axios
+      .post(apiUrl + "/users" + "/signup", {
+        username,
+        password,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const postSmth = (e) => {
     e.preventDefault();
     axios
@@ -41,6 +59,24 @@ const SignUp = () => {
           id="body"
           value={body}
           onChange={(e) => setBody(e.target.value)}
+        />
+        <input type="submit" value="send" />
+      </form>
+
+      <form action="" method="post" onSubmit={signUp}>
+        <label htmlFor="username">{t("sign-up.form.username")}</label>
+        <input
+          name="username"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <label htmlFor="password">{t("sign-up.form.password")}</label>
+        <input
+          name="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <input type="submit" value="send" />
       </form>

@@ -12,7 +12,11 @@
     "title": "Preview"
   },
   "sign-up": {
-    "title": "Sign up"
+    "title": "Sign up",
+    "form": {
+      "username": "Username",
+      "password": "Password"
+    }
   },
   "profile": {
     "title": "Profile"
