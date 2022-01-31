@@ -27,8 +27,13 @@
   "writing": {
     "title": "Тренажер",
     "form": {
-      "title": "Название",
-      "text": "Текст"
+      "settings": {
+        "title": "Настройки",
+        "words-count": "Количество слов",
+        "timing-in-minutes": "Время, в минутах",
+        "language": "Язык",
+        "test": "Экзамен"
+      }
     }
   }
 }
