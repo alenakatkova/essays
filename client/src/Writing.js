@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 // import { centered } from "./grid";
 // import styled from "styled-components";
 import { randomUser, languages, tests } from "./data";
+import axios from "axios";
 
 // const apiUrl = "http://localhost:8080";
 
@@ -13,11 +14,13 @@ const Writing = () => {
   const { t } = useTranslation();
   const { register, handleSubmit, setValue, errors } = useForm();
 
+  const [wikiArticles, setWikiArticles] = React.useState([]);
+
   // TODO будет использоваться для записи данных, запрошенных в бд
   //const [languages, setLanguages] = React.useState([]);
   //const [tests, setTests] = React.useState([]);
 
-  const [isSettingsDisabled] = React.useState(false);
+  //const [isSettingsDisabled, setIsSettingsDisabled] = React.useState(false);
   // const [isTopicChoiceDisabled] = React.useState(false);
   // const [isWritingDisabled] = React.useState(true);
 
@@ -25,7 +28,37 @@ const Writing = () => {
     console.log(data);
   };
 
+  const getRandomArticlesFromWiki = async (languageCode) => {
+    let wikiUrl = `https://${languageCode}.wikipedia.org/w/api.php?origin=*`;
+
+    const params = {
+      action: "query",
+      rnnamespace: 0,
+      format: "json",
+      list: "random",
+      rnlimit: "5",
+    };
+
+    Object.keys(params).forEach(function (key) {
+      wikiUrl += "&" + key + "=" + params[key];
+    });
+
+    await axios
+      .get(wikiUrl)
+      .then(function (response) {
+        setWikiArticles(response.data.query.random);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
   React.useEffect(() => {
+    // WIKI
+    getRandomArticlesFromWiki("en");
+
+    //---------------------------------------------------------------------------
+    // SETTINGS
     const writingSettings = randomUser["writing-settings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
     //setLanguages(langs); // TODO запрос в бд на список языков
     // setTests(tests); // TODO запрос в бд на список экзаменов
@@ -58,7 +91,7 @@ const Writing = () => {
           {/*TODO 8. добавить errors для required И ограничений на поля*/}
           <fieldset
             className="row justify-content-center"
-            disabled={isSettingsDisabled}
+            // disabled={isSettingsDisabled}
           >
             <legend>{t("writing.form.settings.title")}</legend>
             <Form.Group className="col-6 mb-3">
@@ -113,6 +146,8 @@ const Writing = () => {
               />
             </Form.Group>
           </fieldset>
+          <fieldset>ff</fieldset>
+
           <Button type="submit">{t("writing.form.settings.submit")}</Button>
         </Form>
       </div>

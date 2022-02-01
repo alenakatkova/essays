@@ -1,8 +1,8 @@
 export const languages = [
-  { language: "english", id: "lang1" },
-  { language: "russian", id: "lang2" },
-  { language: "french", id: "lang3" },
-  { language: "german", id: "lang4" },
+  { language: "english", id: "lang1", code: "en" },
+  { language: "russian", id: "lang2", code: "ru" },
+  { language: "french", id: "lang3", code: "fr" },
+  { language: "german", id: "lang4", code: "de" },
 ];
 
 export const tests = [
