@@ -28,6 +28,36 @@ const Writing = () => {
     console.log(data);
   };
 
+  const getArticleUrl = async (languageCode, title) => {
+    var url = "https://en.wikipedia.org/w/api.php";
+
+    var params = {
+      action: "query",
+      format: "json",
+      titles: title,
+      prop: "info",
+      inprop: "url|talkid",
+    };
+
+    url = url + "?origin=*";
+    Object.keys(params).forEach(function (key) {
+      url += "&" + key + "=" + params[key];
+    });
+
+    try {
+      let res = await axios.get(url);
+      let pages = await res.data.query.pages;
+      let fullUrl = "";
+      for (let page in pages) {
+        fullUrl = pages[page].fullurl;
+      }
+
+      return fullUrl;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const getRandomArticlesFromWiki = async (languageCode) => {
     let wikiUrl = `https://${languageCode}.wikipedia.org/w/api.php?origin=*`;
 
@@ -43,32 +73,34 @@ const Writing = () => {
       wikiUrl += "&" + key + "=" + params[key];
     });
 
-    await axios
-      .get(wikiUrl)
-      .then(function (response) {
-        setWikiArticles(response.data.query.random);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    try {
+      const res = await axios.get(wikiUrl);
+
+      setWikiArticles(res.data.query.random);
+
+      console.log(await getArticleUrl("en", res.data.query.random[0].title));
+      // TODO запросить ссылки на все полученные ранее рандомные статьи
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   React.useEffect(() => {
+    const writingSettings = randomUser["writing-settings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
+    const language = languages.find(
+      (lang) => lang.id === writingSettings["language-id"]
+    );
     // WIKI
-    getRandomArticlesFromWiki("en");
+    getRandomArticlesFromWiki(language.code);
 
     //---------------------------------------------------------------------------
     // SETTINGS
-    const writingSettings = randomUser["writing-settings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
     //setLanguages(langs); // TODO запрос в бд на список языков
     // setTests(tests); // TODO запрос в бд на список экзаменов
     setValue("words-count", writingSettings["words-count"]);
     setValue("timing-in-minutes", writingSettings["timing-in-minutes"]);
 
-    const language = languages.find(
-      (lang) => lang.id === writingSettings["language-id"]
-    ).language;
-    setValue("language", t(`languages.${language}`));
+    setValue("language", t(`languages.${language.language}`));
 
     const test = tests.find(
       (test) => test.id === writingSettings["test-id"]
@@ -146,8 +178,14 @@ const Writing = () => {
               />
             </Form.Group>
           </fieldset>
-          <fieldset>ff</fieldset>
-
+          <fieldset>
+            ff
+            {/*// TODO радио инпут на статьи, кнопка запуска таймера*/}
+          </fieldset>
+          <fieldset>
+            аа
+            {/*// TODO форма для написания эссе*/}
+          </fieldset>
           <Button type="submit">{t("writing.form.settings.submit")}</Button>
         </Form>
       </div>
