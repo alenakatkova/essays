@@ -1,38 +1,61 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Button } from "react-bootstrap";
-import axios from "axios";
-import { centered } from "./grid";
-import styled from "styled-components";
+import { useForm } from "react-hook-form";
+// import axios from "axios";
+// import { centered } from "./grid";
+// import styled from "styled-components";
+import { randomUser, languages, tests } from "./data";
 
-const apiUrl = "http://localhost:8080";
+// const apiUrl = "http://localhost:8080";
 
 const Writing = () => {
   const { t } = useTranslation();
+  const { register, handleSubmit, setValue, errors } = useForm();
+
+  // TODO будет использоваться для записи данных, запрошенных в бд
+  //const [languages, setLanguages] = React.useState([]);
+  //const [tests, setTests] = React.useState([]);
 
   const [isSettingsDisabled] = React.useState(false);
-  const [isTopicChoiceDisabled] = React.useState(false);
-  const [isWritingDisabled] = React.useState(true);
+  // const [isTopicChoiceDisabled] = React.useState(false);
+  // const [isWritingDisabled] = React.useState(true);
 
-  const [wordsCount, setWordsCount] = React.useState(200);
-  const [timingInMinutes, setTimingInMinutes] = React.useState(20);
-  const [language, setLanguage] = React.useState(t("languages.english"));
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   React.useEffect(() => {
-    // TODO запросить у бд настройки: количество слов, минуты, дефолтный язык, дефолтный экзамен
-  }, []);
+    const writingSettings = randomUser["writing-settings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
+    //setLanguages(langs); // TODO запрос в бд на список языков
+    // setTests(tests); // TODO запрос в бд на список экзаменов
+    setValue("words-count", writingSettings["words-count"]);
+    setValue("timing-in-minutes", writingSettings["timing-in-minutes"]);
+
+    const language = languages.find(
+      (lang) => lang.id === writingSettings["language-id"]
+    ).language;
+    setValue("language", t(`languages.${language}`));
+
+    const test = tests.find(
+      (test) => test.id === writingSettings["test-id"]
+    ).test;
+    setValue("test", test);
+  }, [setValue]);
 
   return (
     <div>
       <div className="container">
         <h1>{t("writing.title")}</h1>
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           {/*TODO 1. сделать кнопку сохранения настроек*/}
           {/*TODO 2. сделать запрос к апи вики*/}
           {/*TODO 3. сделать кнопку начать*/}
           {/*TODO 4. сделать таймер*/}
           {/*TODO 5. сделать форму написания эссе*/}
           {/*TODO 6. сделать логику сохранения в бд*/}
+          {/*TODO 7. добавить register ко всем полям*/}
+          {/*TODO 8. добавить errors для required И ограничений на поля*/}
           <fieldset
             className="row justify-content-center"
             disabled={isSettingsDisabled}
@@ -42,8 +65,12 @@ const Writing = () => {
               <Form.Label>{t("writing.form.settings.words-count")}</Form.Label>
               <Form.Control
                 type="number"
-                name="words-count"
-                placeholder={200}
+                {...register("words-count", {
+                  required: t("writing.form.settings.words-count-required"),
+                  valueAsNumber: true,
+                  min: 1,
+                  max: 500,
+                })}
               />
             </Form.Group>
             <Form.Group className="col-6 mb-3">
@@ -52,23 +79,41 @@ const Writing = () => {
               </Form.Label>
               <Form.Control
                 type="number"
-                name="timing-in-minutes"
-                placeholder={20}
+                {...register("timing-in-minutes", {
+                  required: t("writing.form.settings.timing-in-minutes"),
+                  valueAsNumber: true,
+                  min: 1,
+                  max: 60,
+                })}
               />
             </Form.Group>
             <Form.Group className="col-6 mb-3">
               <Form.Label>{t("writing.form.settings.language")}</Form.Label>
-              <Form.Select name="language">
-                <option>{language}</option>
+              <Form.Select {...register("language")}>
+                {languages.map((language) => (
+                  <option key={language.id}>
+                    {t(`languages.${language.language}`)}
+                  </option>
+                ))}
               </Form.Select>
             </Form.Group>
             <Form.Group className="col-6 mb-3">
               <Form.Label>{t("writing.form.settings.test")}</Form.Label>
-              <Form.Select name="test">
-                <option>toefl</option>
+              <Form.Select {...register("test")}>
+                {tests.map((test) => (
+                  <option key={test.id}>{test.test}</option>
+                ))}
               </Form.Select>
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Check
+                type="checkbox"
+                label={t("writing.form.settings.save-settings")}
+                {...register("save-settings")}
+              />
+            </Form.Group>
           </fieldset>
+          <Button type="submit">{t("writing.form.settings.submit")}</Button>
         </Form>
       </div>
     </div>

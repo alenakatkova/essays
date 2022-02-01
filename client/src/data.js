@@ -18,9 +18,9 @@ export const randomUser = {
   email: "oleg@gmail.fr",
   photo: "",
   "writing-settings": {
-    language: "lang1",
+    "language-id": "lang3",
     "words-count": 180,
     "timing-in-minutes": 15,
-    test: "toefl",
+    "test-id": "test2",
   },
 };
