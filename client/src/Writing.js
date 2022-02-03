@@ -8,22 +8,24 @@ import { useForm } from "react-hook-form";
 import { randomUser, languages, tests } from "./data";
 import axios from "axios";
 import { BsLink45Deg } from "react-icons/bs";
+import Timer from "./Timer";
 
 // const apiUrl = "http://localhost:8080";
 
 const Writing = () => {
   const { t } = useTranslation();
-  const { register, handleSubmit, setValue, errors } = useForm();
+  const { register, handleSubmit, setValue, getValues, errors } = useForm();
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
+  const [isFieldsetDisabled, setIsFieldsetDisabled] = React.useState(false);
+
+  const toggleChoiceDisabled = (isDisabled) => {
+    setIsFieldsetDisabled(isDisabled);
+  };
 
   // TODO будет использоваться для записи данных, запрошенных в бд
   //const [languages, setLanguages] = React.useState([]);
   //const [tests, setTests] = React.useState([]);
-
-  //const [isSettingsDisabled, setIsSettingsDisabled] = React.useState(false);
-  // const [isTopicChoiceDisabled] = React.useState(false);
-  // const [isWritingDisabled] = React.useState(true);
 
   const onSubmit = (data) => {
     if (data["save-settings"]) {
@@ -107,7 +109,7 @@ const Writing = () => {
           {/*TODO 8. добавить errors для required И ограничений на поля*/}
           <fieldset
             className="row justify-content-center"
-            // disabled={isSettingsDisabled}
+            disabled={isFieldsetDisabled}
           >
             <legend>{t("writing.form.settings.title")}</legend>
             <Form.Group className="col-6 mb-3">
@@ -162,7 +164,7 @@ const Writing = () => {
               />
             </Form.Group>
           </fieldset>
-          <fieldset>
+          <fieldset disabled={isFieldsetDisabled}>
             {wikiArticles.map((article) => (
               <Form.Check
                 key={article.id}
@@ -186,8 +188,11 @@ const Writing = () => {
                 {...register("article", { required: true })}
               />
             ))}
-            {/*// TODO радио инпут на статьи, кнопка запуска таймера*/}
           </fieldset>
+          <Timer
+            timeInMinutes={getValues("timing-in-minutes")}
+            disableForm={toggleChoiceDisabled}
+          />
           <fieldset>
             аа
             {/*// TODO форма для написания эссе*/}
