@@ -20,13 +20,13 @@ function App() {
 
   const loadPosts = async () => {
     const res = await axios.get(apiUrl + "/posts");
-    console.log(res.data.data.posts);
+    //console.log(res.data.data.posts);
     setPosts(res.data.data.posts);
   };
 
   const loadUsers = async () => {
     const res = await axios.get(apiUrl + "/users");
-    console.log(res.data.data.users);
+    //console.log(res.data.data.users);
     setUsers(res.data.data.users);
   };
 

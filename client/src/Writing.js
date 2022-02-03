@@ -25,37 +25,11 @@ const Writing = () => {
   // const [isWritingDisabled] = React.useState(true);
 
   const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  const getArticleUrl = async (languageCode, title) => {
-    var url = "https://en.wikipedia.org/w/api.php";
-
-    var params = {
-      action: "query",
-      format: "json",
-      titles: title,
-      prop: "info",
-      inprop: "url|talkid",
-    };
-
-    url = url + "?origin=*";
-    Object.keys(params).forEach(function (key) {
-      url += "&" + key + "=" + params[key];
-    });
-
-    try {
-      let res = await axios.get(url);
-      let pages = await res.data.query.pages;
-      let fullUrl = "";
-      for (let page in pages) {
-        fullUrl = pages[page].fullurl;
-      }
-
-      return fullUrl;
-    } catch (e) {
-      console.error(e);
+    if (data["save-settings"]) {
+      // TODO запись настроек в документ пользователя в бд
     }
+    // логика сохранения или несохранения эссе
+    console.log(data);
   };
 
   const getRandomArticlesFromWiki = async (languageCode) => {
@@ -74,12 +48,21 @@ const Writing = () => {
     });
 
     try {
-      const res = await axios.get(wikiUrl);
-
-      setWikiArticles(res.data.query.random);
-
-      console.log(await getArticleUrl("en", res.data.query.random[0].title));
-      // TODO запросить ссылки на все полученные ранее рандомные статьи
+      const response = await axios.get(wikiUrl);
+      const randomArticlesWithUrls = response.data.query.random.reduce(
+        (articles, currentArticle) => {
+          return [
+            ...articles,
+            {
+              id: currentArticle.id,
+              title: currentArticle.title,
+              url: `https://${languageCode}.wikipedia.org/wiki/${currentArticle.title}`,
+            },
+          ];
+        },
+        []
+      );
+      setWikiArticles(randomArticlesWithUrls);
     } catch (e) {
       console.error(e);
     }
@@ -131,7 +114,7 @@ const Writing = () => {
               <Form.Control
                 type="number"
                 {...register("words-count", {
-                  required: t("writing.form.settings.words-count-required"),
+                  required: t("writing.form.settings.words-count-required"), // TODO писать тру или сообщение. если тру, то сообщение в message
                   valueAsNumber: true,
                   min: 1,
                   max: 500,
@@ -179,7 +162,23 @@ const Writing = () => {
             </Form.Group>
           </fieldset>
           <fieldset>
-            ff
+            {wikiArticles.map((article) => (
+              <Form.Check
+                key={article.id}
+                type="radio"
+                id={article.id}
+                label={
+                  <span>
+                    {article.title}
+                    <a href={article.url} target="_blank">
+                      t("writing.form.articles.link")
+                    </a>
+                  </span>
+                }
+                value={article.title}
+                {...register("article", { required: true })}
+              />
+            ))}
             {/*// TODO радио инпут на статьи, кнопка запуска таймера*/}
           </fieldset>
           <fieldset>
