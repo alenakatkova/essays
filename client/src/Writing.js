@@ -1,12 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Badge } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 // import axios from "axios";
 // import { centered } from "./grid";
 // import styled from "styled-components";
 import { randomUser, languages, tests } from "./data";
 import axios from "axios";
+import { BsLink45Deg } from "react-icons/bs";
 
 // const apiUrl = "http://localhost:8080";
 
@@ -169,10 +170,16 @@ const Writing = () => {
                 id={article.id}
                 label={
                   <span>
-                    {article.title}
-                    <a href={article.url} target="_blank">
-                      t("writing.form.articles.link")
-                    </a>
+                    {article.title}{" "}
+                    <Badge bg="light" text="dark">
+                      <a
+                        href={article.url}
+                        target="_blank"
+                        title={t("writing.form.articles.link")}
+                      >
+                        <BsLink45Deg />
+                      </a>
+                    </Badge>
                   </span>
                 }
                 value={article.title}
@@ -185,7 +192,7 @@ const Writing = () => {
             аа
             {/*// TODO форма для написания эссе*/}
           </fieldset>
-          <Button type="submit">{t("writing.form.settings.submit")}</Button>
+          <Button type="submit">{t("writing.form.submit")}</Button>
         </Form>
       </div>
     </div>
