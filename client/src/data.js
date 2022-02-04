@@ -13,10 +13,8 @@ export const tests = [
 
 export const randomUser = {
   id: "user1",
-  name: "Oleg",
-  surname: "Starostin",
-  email: "oleg@gmail.fr",
-  photo: "",
+  username: "olegstarostin",
+  password: "dgsergjklsngkl",
   "writing-settings": {
     "language-id": "lang3",
     "words-count": 180,

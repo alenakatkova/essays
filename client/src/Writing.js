@@ -164,7 +164,7 @@ const Writing = () => {
               />
             </Form.Group>
           </fieldset>
-          <fieldset disabled={isFieldsetDisabled}>
+          <fieldset className="mb-3" disabled={isFieldsetDisabled}>
             {wikiArticles.map((article) => (
               <Form.Check
                 key={article.id}
@@ -189,13 +189,29 @@ const Writing = () => {
               />
             ))}
           </fieldset>
-          <Timer
-            timeInMinutes={getValues("timing-in-minutes")}
-            disableForm={toggleChoiceDisabled}
-          />
-          <fieldset>
-            аа
-            {/*// TODO форма для написания эссе*/}
+          <div className="mb-3">
+            <Timer
+              timeInMinutes={getValues("timing-in-minutes")}
+              disableForm={toggleChoiceDisabled}
+            />
+          </div>
+          <fieldset className="mb-3" disabled={!isFieldsetDisabled}>
+            <Form.Group>
+              <Form.Label>{t("writing.form.essay.title")}</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={1}
+                {...register("essay-title")}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>{t("writing.form.essay.text")}</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={10}
+                {...register("essay-text")}
+              />
+            </Form.Group>
           </fieldset>
           <Button type="submit">{t("writing.form.submit")}</Button>
         </Form>
