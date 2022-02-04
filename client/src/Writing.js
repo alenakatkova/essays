@@ -1,26 +1,32 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Button, Badge } from "react-bootstrap";
-import { useForm, useWatch } from "react-hook-form";
+import { Badge, Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 // import axios from "axios";
 // import styled from "styled-components";
-import { randomUser, languages, tests } from "./data";
-import axios from "axios";
+import { languages, randomUser, tests } from "./data";
 import { BsLink45Deg } from "react-icons/bs";
 import Timer from "./Timer";
+import { getRandomArticlesFromWiki } from "./api/RandomArticlesAPI";
 
 // const apiUrl = "http://localhost:8080";
 
 const Writing = () => {
   const { t } = useTranslation();
-  const { register, handleSubmit, setValue, getValues, control, errors } =
-    useForm();
+  const { register, handleSubmit, setValue, getValues } = useForm();
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
   const [isFieldsetDisabled, setIsFieldsetDisabled] = React.useState(false);
 
   const toggleChoiceDisabled = (isDisabled) => {
     setIsFieldsetDisabled(isDisabled);
+  };
+
+  const generateTopicsChoice = async () => {
+    const currentLanguage = getValues("language");
+    const language = languages.find((lang) => lang._id === currentLanguage);
+    const randomArticles = await getRandomArticlesFromWiki(language.code);
+    setWikiArticles(randomArticles);
   };
 
   //будет использоваться для записи данных, запрошенных в бд
@@ -31,46 +37,10 @@ const Writing = () => {
 
   const onSubmit = (data) => {
     if (data["saveSettings"]) {
-      // TODO запись настроек в документ пользователя в бд
+      // запись настроек в документ пользователя в бд
     }
     // логика сохранения или несохранения эссе
     console.log(data);
-  };
-
-  const getRandomArticlesFromWiki = async (languageCode) => {
-    let wikiUrl = `https://${languageCode}.wikipedia.org/w/api.php?origin=*`;
-
-    const params = {
-      action: "query",
-      rnnamespace: 0,
-      format: "json",
-      list: "random",
-      rnlimit: "5",
-    };
-
-    Object.keys(params).forEach(function (key) {
-      wikiUrl += "&" + key + "=" + params[key];
-    });
-
-    try {
-      const response = await axios.get(wikiUrl);
-      const randomArticlesWithUrls = response.data.query.random.reduce(
-        (articles, currentArticle) => {
-          return [
-            ...articles,
-            {
-              id: currentArticle.id,
-              title: currentArticle.title,
-              url: `https://${languageCode}.wikipedia.org/wiki/${currentArticle.title}`,
-            },
-          ];
-        },
-        []
-      );
-      setWikiArticles(randomArticlesWithUrls);
-    } catch (e) {
-      console.error(e);
-    }
   };
 
   React.useEffect(() => {
@@ -160,15 +130,7 @@ const Writing = () => {
           </fieldset>
           <fieldset className="mb-3" disabled={isFieldsetDisabled}>
             <div className="mb-3">
-              <Button
-                onClick={() => {
-                  const currentLanguage = getValues("language");
-                  const language = languages.find(
-                    (lang) => lang._id === currentLanguage
-                  );
-                  getRandomArticlesFromWiki(language.code);
-                }}
-              >
+              <Button onClick={generateTopicsChoice}>
                 {t("writing.form.articles.generate")}
               </Button>
             </div>
