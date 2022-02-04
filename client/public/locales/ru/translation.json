@@ -11,7 +11,7 @@
   "essay": {
     "title": "Просмотр эссе"
   },
-  "sign-up": {
+  "signUp": {
     "title": "Регистрация",
     "form": {
       "username": "Имя пользователя",
@@ -29,11 +29,11 @@
     "form": {
       "settings": {
         "title": "Настройки",
-        "words-count": "Количество слов",
-        "timing-in-minutes": "Время, в минутах",
+        "wordsCount": "Количество слов",
+        "timingInMinutes": "Время, в минутах",
         "language": "Язык",
         "test": "Экзамен",
-        "save-settings": "Сохранить настройки для будущих эссе"
+        "saveSettings": "Сохранить настройки для будущих эссе"
       },
       "articles": {
         "link": "Открыть",

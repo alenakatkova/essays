@@ -9,20 +9,19 @@ export const languages = [
 ];
 
 export const tests = [
-  { test: "any", id: "test0", "language-id": "" },
-  { test: "delf", id: "test1", "language-id": "" },
-  { test: "dalf", id: "test2", "language-id": "" },
-  { test: "toefl", id: "test3", "language-id": "" },
+  { _id: "delf", language_id: "french" },
+  { _id: "dalf", language_id: "french" },
+  { _id: "toefl", language_id: "english" },
 ];
 
 export const randomUser = {
   id: "user1",
   username: "olegstarostin",
   password: "dgsergjklsngkl",
-  "writing-settings": {
-    "language-id": "french",
-    "words-count": 180,
-    "timing-in-minutes": 15,
-    "test-id": "test2",
+  writingSettings: {
+    language_id: "french",
+    wordsCount: 180,
+    timingInMinutes: 15,
+    test_id: "delf",
   },
 };

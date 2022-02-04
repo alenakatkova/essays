@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Form, Button, Badge } from "react-bootstrap";
 import { useForm, useWatch } from "react-hook-form";
 // import axios from "axios";
-// import { centered } from "./grid";
 // import styled from "styled-components";
 import { randomUser, languages, tests } from "./data";
 import axios from "axios";
@@ -24,12 +23,14 @@ const Writing = () => {
     setIsFieldsetDisabled(isDisabled);
   };
 
-  // TODO будет использоваться для записи данных, запрошенных в бд
+  //будет использоваться для записи данных, запрошенных в бд
   //const [languages, setLanguages] = React.useState([]);
   //const [tests, setTests] = React.useState([]);
+  //const [levels, setLevels] = React.useState([]);
+  //const [tags, setTags] = React.useState([]); // на этапе выбора языка
 
   const onSubmit = (data) => {
-    if (data["save-settings"]) {
+    if (data["saveSettings"]) {
       // TODO запись настроек в документ пользователя в бд
     }
     // логика сохранения или несохранения эссе
@@ -73,26 +74,19 @@ const Writing = () => {
   };
 
   React.useEffect(() => {
-    const writingSettings = randomUser["writing-settings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
-
+    const writingSettings = randomUser["writingSettings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
     const language = languages.find(
-      (lang) => lang._id === writingSettings["language-id"]
+      (lang) => lang._id === writingSettings["language_id"]
     );
-    // WIKI
-    //getRandomArticlesFromWiki(language.code);
+    const test = tests.find((test) => test._id === writingSettings["test_id"]);
 
     //---------------------------------------------------------------------------
     // SETTINGS
-    //setLanguages(langs); // TODO запрос в бд на список языков
-    // setTests(tests); // TODO запрос в бд на список экзаменов
-    setValue("words-count", writingSettings["words-count"]);
-    setValue("timing-in-minutes", writingSettings["timing-in-minutes"]);
+    // setLanguages(langs); // TODO запрос в бд на список языков и т.д.
+    setValue("wordsCount", writingSettings["wordsCount"]);
+    setValue("timingInMinutes", writingSettings["timingInMinutes"]);
     setValue("language", language._id);
-
-    const test = tests.find(
-      (test) => test.id === writingSettings["test-id"]
-    ).test;
-    setValue("test", test);
+    setValue("test", test._id);
   }, []);
 
   return (
@@ -100,24 +94,17 @@ const Writing = () => {
       <div className="container">
         <h1>{t("writing.title")}</h1>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          {/*TODO 4. сделать таймер*/}
-          {/*TODO 5. сделать кнопку обновления списка тем*/}
-          {/*TODO 6. сделать логику сохранения в бд*/}
-          {/*TODO 7. добавить возможность ввести экзамен если нет в списке; добавить теги с автопоиском при вводе*/}
-          {/*TODO 8. добавить errors для required И ограничений на поля*/}
-          {/*TODO 9. добавить список уровней в форму и бд*/}
-          {/*TODO 10. фильтрация экзаменов по выбранному языку*/}
           <fieldset
             className="row justify-content-center"
             disabled={isFieldsetDisabled}
           >
             <legend>{t("writing.form.settings.title")}</legend>
             <Form.Group className="col-6 mb-3">
-              <Form.Label>{t("writing.form.settings.words-count")}</Form.Label>
+              <Form.Label>{t("writing.form.settings.wordsCount")}</Form.Label>
               <Form.Control
                 type="number"
-                {...register("words-count", {
-                  required: t("writing.form.settings.words-count-required"), // TODO писать тру или сообщение. если тру, то сообщение в message
+                {...register("wordsCount", {
+                  required: t("writing.form.settings.wordsCountRequired"),
                   valueAsNumber: true,
                   min: 1,
                   max: 500,
@@ -126,12 +113,12 @@ const Writing = () => {
             </Form.Group>
             <Form.Group className="col-6 mb-3">
               <Form.Label>
-                {t("writing.form.settings.timing-in-minutes")}
+                {t("writing.form.settings.timingInMinutes")}
               </Form.Label>
               <Form.Control
                 type="number"
-                {...register("timing-in-minutes", {
-                  required: t("writing.form.settings.timing-in-minutes"),
+                {...register("timingInMinutes", {
+                  required: t("writing.form.settings.timingInMinutes"),
                   valueAsNumber: true,
                   min: 1,
                   max: 60,
@@ -157,15 +144,17 @@ const Writing = () => {
               <Form.Label>{t("writing.form.settings.test")}</Form.Label>
               <Form.Select {...register("test")}>
                 {tests.map((test) => (
-                  <option key={test.id}>{test.test}</option>
+                  <option key={test._id} value={test._id}>
+                    {test._id}
+                  </option>
                 ))}
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Check
                 type="checkbox"
-                label={t("writing.form.settings.save-settings")}
-                {...register("save-settings")}
+                label={t("writing.form.settings.saveSettings")}
+                {...register("saveSettings")}
               />
             </Form.Group>
           </fieldset>

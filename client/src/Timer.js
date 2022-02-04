@@ -7,9 +7,6 @@ const addZeroIfLessThanTen = (number) => {
 };
 
 const Timer = ({ disableForm }) => {
-  // TODO получить время из формы
-  // TODO нельзя запускать таймер пока не будет выбрана статья (кнопка запуска неактивна)
-
   const { t } = useTranslation();
   const timeInMinutes = 16;
 
