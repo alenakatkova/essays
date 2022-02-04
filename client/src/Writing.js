@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Button, Badge } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 // import axios from "axios";
 // import { centered } from "./grid";
 // import styled from "styled-components";
@@ -14,7 +14,8 @@ import Timer from "./Timer";
 
 const Writing = () => {
   const { t } = useTranslation();
-  const { register, handleSubmit, setValue, getValues, errors } = useForm();
+  const { register, handleSubmit, setValue, getValues, control, errors } =
+    useForm();
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
   const [isFieldsetDisabled, setIsFieldsetDisabled] = React.useState(false);
@@ -73,11 +74,12 @@ const Writing = () => {
 
   React.useEffect(() => {
     const writingSettings = randomUser["writing-settings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
+
     const language = languages.find(
-      (lang) => lang.id === writingSettings["language-id"]
+      (lang) => lang._id === writingSettings["language-id"]
     );
     // WIKI
-    getRandomArticlesFromWiki(language.code);
+    //getRandomArticlesFromWiki(language.code);
 
     //---------------------------------------------------------------------------
     // SETTINGS
@@ -85,28 +87,26 @@ const Writing = () => {
     // setTests(tests); // TODO запрос в бд на список экзаменов
     setValue("words-count", writingSettings["words-count"]);
     setValue("timing-in-minutes", writingSettings["timing-in-minutes"]);
-
-    setValue("language", t(`languages.${language.language}`));
+    setValue("language", language._id);
 
     const test = tests.find(
       (test) => test.id === writingSettings["test-id"]
     ).test;
     setValue("test", test);
-  }, [setValue]);
+  }, []);
 
   return (
     <div>
       <div className="container">
         <h1>{t("writing.title")}</h1>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          {/*TODO 1. сделать кнопку сохранения настроек*/}
-          {/*TODO 2. сделать запрос к апи вики*/}
-          {/*TODO 3. сделать кнопку начать*/}
           {/*TODO 4. сделать таймер*/}
-          {/*TODO 5. сделать форму написания эссе*/}
+          {/*TODO 5. сделать кнопку обновления списка тем*/}
           {/*TODO 6. сделать логику сохранения в бд*/}
-          {/*TODO 7. добавить register ко всем полям*/}
+          {/*TODO 7. добавить возможность ввести экзамен если нет в списке; добавить теги с автопоиском при вводе*/}
           {/*TODO 8. добавить errors для required И ограничений на поля*/}
+          {/*TODO 9. добавить список уровней в форму и бд*/}
+          {/*TODO 10. фильтрация экзаменов по выбранному языку*/}
           <fieldset
             className="row justify-content-center"
             disabled={isFieldsetDisabled}
@@ -140,10 +140,15 @@ const Writing = () => {
             </Form.Group>
             <Form.Group className="col-6 mb-3">
               <Form.Label>{t("writing.form.settings.language")}</Form.Label>
-              <Form.Select {...register("language")}>
+              <Form.Select
+                {...register("language")}
+                onChange={() => {
+                  setWikiArticles([]);
+                }}
+              >
                 {languages.map((language) => (
-                  <option key={language.id}>
-                    {t(`languages.${language.language}`)}
+                  <option key={language._id} value={language._id}>
+                    {t(`languages.${language._id}`)}
                   </option>
                 ))}
               </Form.Select>
@@ -165,6 +170,19 @@ const Writing = () => {
             </Form.Group>
           </fieldset>
           <fieldset className="mb-3" disabled={isFieldsetDisabled}>
+            <div className="mb-3">
+              <Button
+                onClick={() => {
+                  const currentLanguage = getValues("language");
+                  const language = languages.find(
+                    (lang) => lang._id === currentLanguage
+                  );
+                  getRandomArticlesFromWiki(language.code);
+                }}
+              >
+                {t("writing.form.articles.generate")}
+              </Button>
+            </div>
             {wikiArticles.map((article) => (
               <Form.Check
                 key={article.id}
