@@ -2,6 +2,257 @@
 // TODO сделать название языка, теста айдишником https://en.wikipedia.org/wiki/List_of_language_proficiency_tests https://en.wikipedia.org/wiki/List_of_Wikipedias
 
 export const languages = [
+  { _id: "arabic", code: "ar", test_id: ["alpt", "telc"] },
+  { _id: "chinese", code: "zh", test_id: ["hsk", "tocfl", "ilce"] },
+  { _id: "czech", code: "cs", test_id: ["ecl", "cce"] },
+  { _id: "dutch", code: "nl", test_id: ["staatsexamen_nt2", "cnavt"] },
+  {
+    _id: "english",
+    code: "en",
+    test_id: ["ecl", "ilce", "cal", "ielts", "telc"],
+  },
+  {
+    _id: "french",
+    code: "fr",
+    test_id: ["ecl", "ilce", "delf", "dalf", "telc"],
+  },
+  { _id: "german", code: "de", test_id: ["ecl", "ilce", "telc", "testdaf"] },
+  { _id: "hebrew", code: "he", test_id: ["ecl", "yael"] },
+  {
+    _id: "italian",
+    code: "it",
+    test_id: ["ecl", "ilce", "telc", "cils", "celi"],
+  },
+  { _id: "japanese", code: "ja", test_id: ["ilce", "jlpt"] },
+  { _id: "korean", code: "ko", test_id: ["ilce", "topik", "klat"] },
+  {
+    _id: "polish",
+    code: "pl",
+    test_id: [
+      "ecl",
+      "telc",
+      "egzaminy_certyfikatowe_z_języka_polskiego_jako_obcego",
+    ],
+  },
+  { _id: "portuguese", code: "pt", test_id: ["telc", "caple"] },
+  { _id: "russian", code: "ru", test_id: ["ecl", "ilce", "telc", "torfl"] },
+  { _id: "spanish", code: "es", test_id: ["ecl", "ilce", "telc", "dele"] },
+  { _id: "swedish", code: "sv", test_id: ["swedex", "tisus"] },
+];
+
+export const tests = [
+  {
+    _id: "alpt",
+    name: "ALPT (Arabic Language Proficiency Test)",
+    url: "https://www.arabacademy.com/alpt",
+  },
+  {
+    _id: "hsk",
+    name: "HSK (Hanyu Shuiping Kaoshi)",
+    language_id: ["chinese"],
+    url: "http://www.chinesetest.cn/index.do",
+  },
+  {
+    _id: "tocfl",
+    name: "TOCFL (Test of Chinese as a Foreign Language)",
+    language_id: ["chinese"],
+    url: "https://tocfl.edu.tw/",
+  },
+  {
+    _id: "ilce",
+    name: "ILCE (International Language Certifications Exams)",
+    language_id: [
+      "chinese",
+      "english",
+      "italian",
+      "japanese",
+      "german",
+      "russian",
+      "spanish",
+      "french",
+      "korean",
+    ],
+    url: "http://ilcecefrlanguageexams.com/",
+  },
+  {
+    _id: "ecl",
+    name: "ECL (European Consortium for the Certificate of Attainment in Modern Languages)",
+    language_id: [
+      "czech",
+      "english",
+      "french",
+      "german",
+      "hebrew",
+      "italian",
+      "russian",
+      "spanish",
+    ],
+    url: "https://eclexam.eu/languages/",
+  },
+  {
+    _id: "cce",
+    name: "CCE (Czech Language Certificate Exam)",
+    language_id: ["czech"],
+    url: "https://ujop.cuni.cz/zkouska/certifikovana-zkouska-z-cestiny-pro-cizince-cce",
+  },
+  {
+    _id: "staatsexamen_nt2",
+    name: "Staatsexamen NT2 (Staatsexamen Nederlands als tweede taal)",
+    language_id: ["dutch"],
+    url: "https://www.staatsexamensnt2.nl/",
+  },
+  {
+    _id: "cnavt",
+    name: "CNaVT (Certificaat Nederlands als Vreemde Taal)",
+    language_id: ["dutch"],
+    url: "https://cnavt.org/",
+  },
+  {
+    _id: "cal",
+    name: "CAL English Proficiency Tests",
+    language_id: ["english"],
+    url: "https://www.cal.org/resource-center/publications-products/cal-ept",
+  },
+  {
+    _id: "ielts",
+    name: "IELTS (International English Language Testing System)",
+    language_id: ["english"],
+    url: "https://www.ielts.org/",
+  },
+  {
+    _id: "toefl",
+    name: "TOEFL (Test of English as a Foreign Language)",
+    language_id: ["english"],
+    url: "https://www.ets.org/toefl/",
+  },
+  {
+    _id: "delf",
+    name: "DELF (Diplôme d'études en langue française)",
+    language_id: ["french"],
+    url: "http://www.delfdalf.fr/index-en.html",
+  },
+  {
+    _id: "dalf",
+    name: "DALF (Diplôme approfondi de langue française)",
+    language_id: ["french"],
+    url: "http://www.delfdalf.fr/index-en.html",
+  },
+  {
+    _id: "goethe",
+    name: "Goethe Zertifikat Deutsch",
+    language_id: ["german"],
+    url: "https://www.goethe.de/de/spr/kup/prf/prf.html",
+  },
+  {
+    _id: "testdaf",
+    name: "TestDaF (Test Deutsch als Fremdsprache)",
+    language_id: ["german"],
+    url: "https://www.goethe.de/de/spr/kup/prf/prf/testdaf.html",
+  },
+  {
+    _id: "telc",
+    name: "TELC (The European Language Certificates)",
+    language_id: [
+      "german",
+      "italian",
+      "english",
+      "spanish",
+      "turkish",
+      "french",
+      "portuguese",
+      "russian",
+      "arabic",
+      "polish",
+    ],
+    url: "https://www.telc.net/",
+  },
+  {
+    _id: "yael",
+    name: "YAEL",
+    language_id: ["hebrew"],
+    url: "https://nite.org.il/other-tests/yael/?lang=en",
+  },
+  {
+    _id: "cils",
+    name: "CILS (Certificazione di Italiano come Lingua Straniera)",
+    language_id: ["italian"],
+    url: "https://cils.unistrasi.it/home.asp",
+  },
+  {
+    _id: "celi",
+    name: " CELI (Certificato di Conoscenza della Lingua Italiana)",
+    language_id: ["italian"],
+    url: "http://www.cvcl.it/categorie/categoria-14",
+  },
+  {
+    _id: "JLPT",
+    name: "JLPT (Japanese-Language Proficiency Test)",
+    language_id: ["japanese"],
+    url: "http://www.jlpt.jp/e/about/purpose.html",
+  },
+  {
+    _id: "topik",
+    name: "TOPIK (Test of Proficiency in Korean)",
+    language_id: ["korean"],
+    url: "https://www.topik.go.kr/intro_index2.html",
+  },
+  {
+    _id: "klat",
+    name: "KLAT (Korean Language Ability Test)",
+    language_id: ["korean"],
+    url: "http://www.kets.or.kr/",
+  },
+  {
+    _id: "egzaminy_certyfikatowe_z_języka_polskiego_jako_obcego",
+    name: "Egzaminy Certyfikatowe z Języka Polskiego jako Obcego",
+    language_id: [""],
+    url: "https://certyfikatpolski.pl/",
+  },
+  {
+    _id: "caple",
+    name: "CAPLE (Centro de Avaliação de Português Língua Estrangeira)",
+    language_id: ["portuguese"],
+    url: "https://caple.letras.ulisboa.pt/",
+  },
+  {
+    _id: "dele",
+    name: "DELE (Diplomas de Español como Lengua Extranjera)",
+    language_id: ["spanish"],
+    url: "https://examenes.cervantes.es/es/dele/calificaciones",
+  },
+  {
+    _id: "tisus",
+    name: "TISUS (Test i svenska för universitets- och högskolestudier)",
+    language_id: ["swedish"],
+    url: "https://www.su.se/svefler/tisus",
+  },
+  {
+    _id: "swedex",
+    name: "Swedex (Swedish Examination)",
+    language_id: ["swedish"],
+    url: "https://www.folkuniversitetet.se/in-english/swedex-swedish-examinations/",
+  },
+  {
+    _id: "torfl",
+    name: "TORFL (Test of Russian as a Foreign Language)",
+    language_id: ["russian"],
+    url: "https://english.spbu.ru/torfl",
+  },
+];
+
+export const randomUser = {
+  id: "user1",
+  username: "olegstarostin",
+  password: "dgsergjklsngkl",
+  writingSettings: {
+    language_id: "french",
+    wordsCount: 190,
+    timingInMinutes: 25,
+    test_id: "delf",
+  },
+};
+
+export const allLanguages = [
   {
     _id: "abkhazian",
     code: "ab",
@@ -735,21 +986,3 @@ export const languages = [
     code: "zu",
   },
 ];
-
-export const tests = [
-  { _id: "delf", language_id: "french" },
-  { _id: "dalf", language_id: "french" },
-  { _id: "toefl", language_id: "english" },
-];
-
-export const randomUser = {
-  id: "user1",
-  username: "olegstarostin",
-  password: "dgsergjklsngkl",
-  writingSettings: {
-    language_id: "french",
-    wordsCount: 190,
-    timingInMinutes: 25,
-    test_id: "delf",
-  },
-};

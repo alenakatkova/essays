@@ -161,7 +161,7 @@ const Writing = () => {
               <Form.Select {...register("test")}>
                 {tests.map((test) => (
                   <option key={test._id} value={test._id}>
-                    {test._id}
+                    {test.name}
                   </option>
                 ))}
               </Form.Select>
