@@ -17,10 +17,28 @@ const Writing = () => {
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
   const [isFieldsetDisabled, setIsFieldsetDisabled] = React.useState(false);
+  const [isStepDisabled, setIsStepDisabled] = React.useState({
+    settings: false,
+    topicChoice: false,
+    writing: true,
+  });
   const [isTopicChosen, setIsTopicChosen] = React.useState(false);
+  const [minutes, setMinutes] = React.useState(0);
 
   const toggleChoiceDisabled = (isDisabled) => {
     setIsFieldsetDisabled(isDisabled);
+  };
+
+  const disableSettingsSteps = () => {
+    setIsStepDisabled({ ...isStepDisabled, settings: true, topicChoice: true });
+  };
+
+  const enableSettingsSteps = () => {
+    setIsStepDisabled({
+      ...isStepDisabled,
+      settings: false,
+      topicChoice: false,
+    });
   };
 
   const generateTopicsChoice = async () => {
@@ -29,6 +47,12 @@ const Writing = () => {
     const randomArticles = await getRandomArticlesFromWiki(language.code);
     setWikiArticles(randomArticles);
     setIsTopicChosen(false);
+    setIsStepDisabled({ ...isStepDisabled, settings: true });
+  };
+
+  const deleteTopicsOptions = () => {
+    setIsTopicChosen(false);
+    setWikiArticles([]);
   };
 
   //будет использоваться для записи данных, запрошенных в бд
@@ -59,6 +83,8 @@ const Writing = () => {
     setValue("timingInMinutes", writingSettings["timingInMinutes"]);
     setValue("language", language._id);
     setValue("test", test._id);
+
+    setMinutes(writingSettings["timingInMinutes"]);
   }, []);
 
   return (
@@ -68,7 +94,7 @@ const Writing = () => {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <fieldset
             className="row justify-content-center"
-            disabled={isFieldsetDisabled}
+            disabled={isStepDisabled.settings}
           >
             <legend>{t("writing.form.settings.title")}</legend>
             <Form.Group className="col-6 mb-3">
@@ -83,7 +109,12 @@ const Writing = () => {
                 })}
               />
             </Form.Group>
-            <Form.Group className="col-6 mb-3">
+            <Form.Group
+              className="col-6 mb-3"
+              onChange={() => {
+                setMinutes(getValues("timingInMinutes"));
+              }}
+            >
               <Form.Label>
                 {t("writing.form.settings.timingInMinutes")}
               </Form.Label>
@@ -97,14 +128,14 @@ const Writing = () => {
                 })}
               />
             </Form.Group>
-            <Form.Group className="col-6 mb-3">
+            <Form.Group
+              className="col-6 mb-3"
+              onChange={() => {
+                setWikiArticles([]);
+              }}
+            >
               <Form.Label>{t("writing.form.settings.language")}</Form.Label>
-              <Form.Select
-                {...register("language")}
-                onChange={() => {
-                  setWikiArticles([]);
-                }}
-              >
+              <Form.Select {...register("language")}>
                 {languages.map((language) => (
                   <option key={language._id} value={language._id}>
                     {t(`languages.${language._id}`)}
@@ -130,7 +161,7 @@ const Writing = () => {
               />
             </Form.Group>
           </fieldset>
-          <fieldset className="mb-3" disabled={isFieldsetDisabled}>
+          <fieldset className="mb-3" disabled={isStepDisabled.topicChoice}>
             <div className="mb-3">
               <Button onClick={generateTopicsChoice}>
                 {t("writing.form.articles.generate")}
@@ -169,12 +200,14 @@ const Writing = () => {
           {isTopicChosen && (
             <div className="mb-3">
               <Timer
-                timeInMinutes={getValues("timing-in-minutes")}
-                disableForm={toggleChoiceDisabled}
+                minutes={minutes}
+                disableSettings={disableSettingsSteps}
+                enableSettings={enableSettingsSteps}
+                deleteTopics={deleteTopicsOptions}
               />
             </div>
           )}
-          <fieldset className="mb-3" disabled={!isFieldsetDisabled}>
+          <fieldset className="mb-3" disabled={isStepDisabled.writing}>
             <Form.Group>
               <Form.Label>{t("writing.form.essay.title")}</Form.Label>
               <Form.Control
