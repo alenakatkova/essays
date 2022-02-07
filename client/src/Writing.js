@@ -17,6 +17,7 @@ const Writing = () => {
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
   const [isFieldsetDisabled, setIsFieldsetDisabled] = React.useState(false);
+  const [isTopicChosen, setIsTopicChosen] = React.useState(false);
 
   const toggleChoiceDisabled = (isDisabled) => {
     setIsFieldsetDisabled(isDisabled);
@@ -27,6 +28,7 @@ const Writing = () => {
     const language = languages.find((lang) => lang._id === currentLanguage);
     const randomArticles = await getRandomArticlesFromWiki(language.code);
     setWikiArticles(randomArticles);
+    setIsTopicChosen(false);
   };
 
   //будет использоваться для записи данных, запрошенных в бд
@@ -134,36 +136,44 @@ const Writing = () => {
                 {t("writing.form.articles.generate")}
               </Button>
             </div>
-            {wikiArticles.map((article) => (
-              <Form.Check
-                key={article.id}
-                type="radio"
-                id={article.id}
-                label={
-                  <span>
-                    {article.title}{" "}
-                    <Badge bg="light" text="dark">
-                      <a
-                        href={article.url}
-                        target="_blank"
-                        title={t("writing.form.articles.link")}
-                      >
-                        <BsLink45Deg />
-                      </a>
-                    </Badge>
-                  </span>
-                }
-                value={article.title}
-                {...register("article", { required: true })}
-              />
-            ))}
+            <Form.Group
+              onChange={() => {
+                setIsTopicChosen(true);
+              }}
+            >
+              {wikiArticles.map((article) => (
+                <Form.Check
+                  key={article.id}
+                  type="radio"
+                  id={article.id}
+                  label={
+                    <span>
+                      {article.title}{" "}
+                      <Badge bg="light" text="dark">
+                        <a
+                          href={article.url}
+                          target="_blank"
+                          title={t("writing.form.articles.link")}
+                        >
+                          <BsLink45Deg />
+                        </a>
+                      </Badge>
+                    </span>
+                  }
+                  value={article.title}
+                  {...register("article", { required: true })}
+                />
+              ))}
+            </Form.Group>
           </fieldset>
-          <div className="mb-3">
-            <Timer
-              timeInMinutes={getValues("timing-in-minutes")}
-              disableForm={toggleChoiceDisabled}
-            />
-          </div>
+          {isTopicChosen && (
+            <div className="mb-3">
+              <Timer
+                timeInMinutes={getValues("timing-in-minutes")}
+                disableForm={toggleChoiceDisabled}
+              />
+            </div>
+          )}
           <fieldset className="mb-3" disabled={!isFieldsetDisabled}>
             <Form.Group>
               <Form.Label>{t("writing.form.essay.title")}</Form.Label>
