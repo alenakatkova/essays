@@ -6,7 +6,7 @@ const addZeroIfLessThanTen = (number) => {
   return number < 10 ? "0" + number : number;
 };
 
-const Timer = ({ disableSettings, enableSettings, deleteTopics, minutes }) => {
+const Timer = ({ startWriting, minutes }) => {
   const { t } = useTranslation();
 
   const [isOn, setIsOn] = React.useState(false);
@@ -14,14 +14,7 @@ const Timer = ({ disableSettings, enableSettings, deleteTopics, minutes }) => {
 
   const startTimer = () => {
     setIsOn(true);
-    disableSettings();
-  };
-
-  const reset = () => {
-    setSecondsLeft(minutes * 60);
-    setIsOn(false);
-    enableSettings();
-    deleteTopics();
+    startWriting();
   };
 
   React.useEffect(() => {
@@ -42,9 +35,6 @@ const Timer = ({ disableSettings, enableSettings, deleteTopics, minutes }) => {
       {addZeroIfLessThanTen(secondsLeft % 60)}
       <Button onClick={startTimer} disabled={isOn}>
         {t("timer.start")}
-      </Button>
-      <Button onClick={reset}>
-        <span className="d-block">{t("timer.reset")}</span>
       </Button>
     </div>
   );

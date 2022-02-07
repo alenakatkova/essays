@@ -16,29 +16,34 @@ const Writing = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
-  const [isFieldsetDisabled, setIsFieldsetDisabled] = React.useState(false);
+  const [isTopicChosen, setIsTopicChosen] = React.useState(false);
+  const [minutes, setMinutes] = React.useState(0);
   const [isStepDisabled, setIsStepDisabled] = React.useState({
     settings: false,
     topicChoice: false,
     writing: true,
   });
-  const [isTopicChosen, setIsTopicChosen] = React.useState(false);
-  const [minutes, setMinutes] = React.useState(0);
 
-  const toggleChoiceDisabled = (isDisabled) => {
-    setIsFieldsetDisabled(isDisabled);
+  const startWriting = () => {
+    setIsStepDisabled({
+      ...isStepDisabled,
+      settings: true,
+      topicChoice: true,
+      writing: false,
+    });
   };
 
-  const disableSettingsSteps = () => {
-    setIsStepDisabled({ ...isStepDisabled, settings: true, topicChoice: true });
-  };
-
-  const enableSettingsSteps = () => {
+  const reset = () => {
     setIsStepDisabled({
       ...isStepDisabled,
       settings: false,
       topicChoice: false,
+      writing: true,
     });
+    setIsTopicChosen(false);
+    setWikiArticles([]);
+    setValue("essayTitle", "");
+    setValue("essayBody", "");
   };
 
   const generateTopicsChoice = async () => {
@@ -48,11 +53,6 @@ const Writing = () => {
     setWikiArticles(randomArticles);
     setIsTopicChosen(false);
     setIsStepDisabled({ ...isStepDisabled, settings: true });
-  };
-
-  const deleteTopicsOptions = () => {
-    setIsTopicChosen(false);
-    setWikiArticles([]);
   };
 
   //будет использоваться для записи данных, запрошенных в бд
@@ -92,11 +92,18 @@ const Writing = () => {
       <div className="container">
         <h1>{t("writing.title")}</h1>
         <Form onSubmit={handleSubmit(onSubmit)}>
+          <div className="row justify-content-between">
+            <legend className="col-4">
+              {t("writing.form.settings.title")}
+            </legend>
+            <div className="col-8 d-flex flex-row-reverse">
+              <Button onClick={reset}>{t("writing.form.reset")}</Button>
+            </div>
+          </div>
           <fieldset
             className="row justify-content-center"
             disabled={isStepDisabled.settings}
           >
-            <legend>{t("writing.form.settings.title")}</legend>
             <Form.Group className="col-6 mb-3">
               <Form.Label>{t("writing.form.settings.wordsCount")}</Form.Label>
               <Form.Control
@@ -199,12 +206,7 @@ const Writing = () => {
           </fieldset>
           {isTopicChosen && (
             <div className="mb-3">
-              <Timer
-                minutes={minutes}
-                disableSettings={disableSettingsSteps}
-                enableSettings={enableSettingsSteps}
-                deleteTopics={deleteTopicsOptions}
-              />
+              <Timer minutes={minutes} startWriting={startWriting} />
             </div>
           )}
           <fieldset className="mb-3" disabled={isStepDisabled.writing}>
@@ -213,15 +215,15 @@ const Writing = () => {
               <Form.Control
                 as="textarea"
                 rows={1}
-                {...register("essay-title")}
+                {...register("essayTitle")}
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>{t("writing.form.essay.text")}</Form.Label>
+              <Form.Label>{t("writing.form.essay.body")}</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={10}
-                {...register("essay-text")}
+                {...register("essayBody")}
               />
             </Form.Group>
           </fieldset>
