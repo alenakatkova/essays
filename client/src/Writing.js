@@ -44,6 +44,8 @@ const Writing = () => {
     setWikiArticles([]);
     setValue("essayTitle", "");
     setValue("essayBody", "");
+
+    // TODO вернуться к сохраненным настройкам (если кнопка Сохранить текущие настройки не нажата)
   };
 
   const generateTopicsChoice = async () => {
@@ -71,9 +73,13 @@ const Writing = () => {
 
   React.useEffect(() => {
     const writingSettings = randomUser["writingSettings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
-    const language = languages.find(
-      (lang) => lang._id === writingSettings["language_id"]
-    );
+    console.log(languages);
+    console.log(writingSettings["language_id"]);
+    const language = languages.find((lang) => {
+      console.log(lang);
+      return lang._id === writingSettings["language_id"];
+    });
+    console.log(language);
     const test = tests.find((test) => test._id === writingSettings["test_id"]);
 
     //---------------------------------------------------------------------------
