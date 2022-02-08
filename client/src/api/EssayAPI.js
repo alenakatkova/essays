@@ -18,3 +18,7 @@ export const postEssay = async (data) => {
     console.error(e.response.data.errors);
   }
 };
+
+// export const getFilteredEssays = async () => {
+//
+// }

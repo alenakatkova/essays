@@ -5,7 +5,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import Essay from "./components/Essay";
 import Header from "./components/Header";
 import SignUp from "./components/SignUp";
-import Writing from "./components/Writing";
+import WritingPage from "./components/WritingPage";
+import FeedPage from "./components/Feed";
 
 /**
  * Версия 1. Незалогиненный пользователь может написать эссе без сохранения, но с таймером и на рандомную тему из вики
@@ -101,8 +102,8 @@ function App() {
         <Route path="/my-essay" element={<Essay />} />
         <Route path="/writing-settings" element={<Essay />} />
         <Route path="/profile" element={<Essay />} />
-        <Route path="/feed" element={<Essay />} />
-        <Route path="/writing" element={<Writing />} />
+        <Route path="/feed" element={<FeedPage />} />
+        <Route path="/writing" element={<WritingPage />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Essay />} />
       </Routes>
