@@ -3,9 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Badge, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 // import axios from "axios";
-// import styled from "styled-components";
 import { languages, randomUser, tests } from "./data";
-import { BsLink45Deg } from "react-icons/bs";
+import { BsLink45Deg as LinkIcon } from "react-icons/bs";
 import Timer from "./Timer";
 import { getRandomArticlesFromWiki } from "./api/RandomArticlesAPI";
 import WordCounter from "./api/WordCounter";
@@ -134,12 +133,7 @@ const Writing = () => {
                 })}
               />
             </Form.Group>
-            <Form.Group
-              className="col-6 mb-3"
-              onChange={() => {
-                setWikiArticles([]);
-              }}
-            >
+            <Form.Group className="col-6 mb-3">
               <Form.Label>{t("writing.form.settings.language")}</Form.Label>
               <Form.Select {...register("language")}>
                 {languages.map((language) => (
@@ -193,7 +187,7 @@ const Writing = () => {
                           rel="noreferrer"
                           title={t("writing.form.articles.link")}
                         >
-                          <BsLink45Deg />
+                          <LinkIcon />
                         </a>
                       </Badge>
                     </span>
