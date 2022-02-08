@@ -15,7 +15,6 @@ export const postEssay = async (data) => {
       topic: data.article,
     });
   } catch (e) {
-    console.log("error");
     console.error(e.response.data.errors);
   }
 };

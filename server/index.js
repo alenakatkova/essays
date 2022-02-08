@@ -63,7 +63,6 @@ app.get("/", (req, res) => {
   res.send("<h2>Hello there</h2>");
 });
 
-//app.use("/api/v1/posts", postRouter);
 app.use("/posts", postRouter);
 app.use("/essays", essayRouter);
 app.use("/users", userRouter);
