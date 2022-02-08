@@ -49,5 +49,8 @@
   },
   "timer": {
     "start": "Начать"
+  },
+  "wordsCounter": {
+    "title": "Счетчик слов"
   }
 }

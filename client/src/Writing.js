@@ -8,12 +8,13 @@ import { languages, randomUser, tests } from "./data";
 import { BsLink45Deg } from "react-icons/bs";
 import Timer from "./Timer";
 import { getRandomArticlesFromWiki } from "./api/RandomArticlesAPI";
+import WordCounter from "./api/WordCounter";
 
 // const apiUrl = "http://localhost:8080";
 
 const Writing = () => {
   const { t } = useTranslation();
-  const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register, handleSubmit, setValue, getValues, watch } = useForm();
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
   const [isTopicChosen, setIsTopicChosen] = React.useState(false);
@@ -23,6 +24,9 @@ const Writing = () => {
     topicChoice: false,
     writing: true,
   });
+
+  const watchWordsCount = watch("wordsCount");
+  const watchEssayBody = watch("essayBody");
 
   const startWriting = () => {
     setIsStepDisabled({
@@ -72,14 +76,13 @@ const Writing = () => {
   };
 
   React.useEffect(() => {
+    // const subscription = watch((value, { name, type }) =>
+    //   console.log(value, name, type)
+    // );
     const writingSettings = randomUser["writingSettings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
-    console.log(languages);
-    console.log(writingSettings["language_id"]);
     const language = languages.find((lang) => {
-      console.log(lang);
       return lang._id === writingSettings["language_id"];
     });
-    console.log(language);
     const test = tests.find((test) => test._id === writingSettings["test_id"]);
 
     //---------------------------------------------------------------------------
@@ -91,7 +94,8 @@ const Writing = () => {
     setValue("test", test._id);
 
     setMinutes(writingSettings["timingInMinutes"]);
-  }, []);
+    // return () => subscription.unsubscribe();
+  }, [setValue]);
 
   return (
     <div>
@@ -197,6 +201,7 @@ const Writing = () => {
                         <a
                           href={article.url}
                           target="_blank"
+                          rel="noreferrer"
                           title={t("writing.form.articles.link")}
                         >
                           <BsLink45Deg />
@@ -216,7 +221,7 @@ const Writing = () => {
             </div>
           )}
           <fieldset className="mb-3" disabled={isStepDisabled.writing}>
-            <Form.Group>
+            <Form.Group className="mb-3">
               <Form.Label>{t("writing.form.essay.title")}</Form.Label>
               <Form.Control
                 as="textarea"
@@ -225,7 +230,17 @@ const Writing = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>{t("writing.form.essay.body")}</Form.Label>
+              <div className="row justify-content-between">
+                <Form.Label className="col">
+                  {t("writing.form.essay.body")}
+                </Form.Label>
+                <div className="col d-flex flex-row-reverse">
+                  <WordCounter
+                    text={watchEssayBody}
+                    minAmount={watchWordsCount}
+                  />
+                </div>
+              </div>
               <Form.Control
                 as="textarea"
                 rows={10}
