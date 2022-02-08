@@ -2,12 +2,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Badge, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { languages, randomUser, tests } from "./data";
+import { languages, randomUser, tests } from "../data";
 import { BsLink45Deg as LinkIcon } from "react-icons/bs";
 import Timer from "./Timer";
-import { getRandomArticlesFromWiki } from "./api/RandomArticlesAPI";
+import { getRandomArticlesFromWiki } from "../api/RandomArticlesAPI";
 import WordCounter from "./WordCounter";
-import { postEssay } from "./api/EssayAPI";
+import { postEssay } from "../api/EssayAPI";
 
 const Writing = () => {
   const { t } = useTranslation();

@@ -2,10 +2,10 @@ import React from "react";
 import axios from "axios";
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
-import Essay from "./Essay";
-import Header from "./Header";
-import SignUp from "./SignUp";
-import Writing from "./Writing";
+import Essay from "./components/Essay";
+import Header from "./components/Header";
+import SignUp from "./components/SignUp";
+import Writing from "./components/Writing";
 
 /**
  * Версия 1. Незалогиненный пользователь может написать эссе без сохранения, но с таймером и на рандомную тему из вики
