@@ -109,29 +109,13 @@ const Writing = () => {
           >
             <Form.Group className="col-6 mb-3">
               <Form.Label>{t("writing.form.settings.wordsCount")}</Form.Label>
-              <Form.Control
-                type="number"
-                {...register("wordsCount", {
-                  required: t("writing.form.settings.wordsCountRequired"),
-                  valueAsNumber: true,
-                  min: 1,
-                  max: 500,
-                })}
-              />
+              <Form.Control type="number" {...register("wordsCount")} />
             </Form.Group>
             <Form.Group className="col-6 mb-3">
               <Form.Label>
                 {t("writing.form.settings.timingInMinutes")}
               </Form.Label>
-              <Form.Control
-                type="number"
-                {...register("timingInMinutes", {
-                  required: t("writing.form.settings.timingInMinutes"),
-                  valueAsNumber: true,
-                  min: 1,
-                  max: 60,
-                })}
-              />
+              <Form.Control type="number" {...register("timingInMinutes")} />
             </Form.Group>
             <Form.Group className="col-6 mb-3">
               <Form.Label>{t("writing.form.settings.language")}</Form.Label>
@@ -193,7 +177,7 @@ const Writing = () => {
                     </span>
                   }
                   value={article.title}
-                  {...register("article", { required: true })}
+                  {...register("article")}
                 />
               ))}
             </Form.Group>
