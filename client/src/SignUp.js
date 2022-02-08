@@ -13,7 +13,7 @@ const SignUp = () => {
   const signUp = (e) => {
     e.preventDefault();
     axios
-      .post(apiUrl + "/users" + "/signup", {
+      .post(apiUrl + "/users/signup", {
         username,
         password,
       })
