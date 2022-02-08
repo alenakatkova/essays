@@ -18,7 +18,6 @@ const Writing = () => {
 
   const [wikiArticles, setWikiArticles] = React.useState([]);
   const [isTopicChosen, setIsTopicChosen] = React.useState(false);
-  const [minutes, setMinutes] = React.useState(0);
   const [isStepDisabled, setIsStepDisabled] = React.useState({
     settings: false,
     topicChoice: false,
@@ -27,6 +26,7 @@ const Writing = () => {
 
   const watchWordsCount = watch("wordsCount");
   const watchEssayBody = watch("essayBody");
+  const watchTimingInMinutes = watch("timingInMinutes");
 
   const startWriting = () => {
     setIsStepDisabled({
@@ -76,9 +76,6 @@ const Writing = () => {
   };
 
   React.useEffect(() => {
-    // const subscription = watch((value, { name, type }) =>
-    //   console.log(value, name, type)
-    // );
     const writingSettings = randomUser["writingSettings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
     const language = languages.find((lang) => {
       return lang._id === writingSettings["language_id"];
@@ -92,9 +89,6 @@ const Writing = () => {
     setValue("timingInMinutes", writingSettings["timingInMinutes"]);
     setValue("language", language._id);
     setValue("test", test._id);
-
-    setMinutes(writingSettings["timingInMinutes"]);
-    // return () => subscription.unsubscribe();
   }, [setValue]);
 
   return (
@@ -126,12 +120,7 @@ const Writing = () => {
                 })}
               />
             </Form.Group>
-            <Form.Group
-              className="col-6 mb-3"
-              onChange={() => {
-                setMinutes(getValues("timingInMinutes"));
-              }}
-            >
+            <Form.Group className="col-6 mb-3">
               <Form.Label>
                 {t("writing.form.settings.timingInMinutes")}
               </Form.Label>
@@ -217,7 +206,10 @@ const Writing = () => {
           </fieldset>
           {isTopicChosen && (
             <div className="mb-3">
-              <Timer minutes={minutes} startWriting={startWriting} />
+              <Timer
+                minutes={watchTimingInMinutes}
+                startWriting={startWriting}
+              />
             </div>
           )}
           <fieldset className="mb-3" disabled={isStepDisabled.writing}>
