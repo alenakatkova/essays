@@ -2,14 +2,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Badge, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-// import axios from "axios";
 import { languages, randomUser, tests } from "./data";
 import { BsLink45Deg as LinkIcon } from "react-icons/bs";
 import Timer from "./Timer";
 import { getRandomArticlesFromWiki } from "./api/RandomArticlesAPI";
-import WordCounter from "./api/WordCounter";
-
-// const apiUrl = "http://localhost:8080";
+import WordCounter from "./WordCounter";
+import { postEssay } from "./api/EssayAPI";
 
 const Writing = () => {
   const { t } = useTranslation();
@@ -70,8 +68,9 @@ const Writing = () => {
     if (data["saveSettings"]) {
       // запись настроек в документ пользователя в бд
     }
-    // логика сохранения или несохранения эссе
+    postEssay(data);
     console.log(data);
+    reset();
   };
 
   React.useEffect(() => {

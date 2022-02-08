@@ -20,6 +20,7 @@ let redisClient = redis.createClient({
 
 const postRouter = require("./routes/post");
 const userRouter = require("./routes/user");
+const essayRouter = require("./routes/essay");
 
 const app = express();
 
@@ -64,6 +65,7 @@ app.get("/", (req, res) => {
 
 //app.use("/api/v1/posts", postRouter);
 app.use("/posts", postRouter);
+app.use("/essays", essayRouter);
 app.use("/users", userRouter);
 const port = process.env.PORT || 8080;
 
