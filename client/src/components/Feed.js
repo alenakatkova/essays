@@ -26,9 +26,12 @@ const FeedPage = () => {
       <div className="row">
         <div className="col-2">{t("feed.filters.title")}</div>
         <div className="col-10">
-          <h2>лента </h2>
           <div>
-            <EssayCard />
+            {essays.map((essay) => (
+              <div key={essay._id} className="mb-5">
+                <EssayCard essay={essay} />
+              </div>
+            ))}
           </div>
         </div>
       </div>

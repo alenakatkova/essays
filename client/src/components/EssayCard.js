@@ -1,6 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  BsBookmark,
+  BsBookmarkFill,
+  BsHeart,
+  BsHeartFill,
+} from "react-icons/bs";
 
 // { "_id": "6202c1f437cf3ae3173dc918",
 //     "minAmountOfWords": 10,
@@ -17,17 +23,51 @@ import { Card, Button } from "react-bootstrap";
 // }
 
 const EssayCard = ({ essay }) => {
+  const { t } = useTranslation();
+  const { title, test, user_id, body, createdAt } = essay;
+
   return (
-    <Card className="text-center">
-      <Card.Header>Featured</Card.Header>
+    <Card>
+      <Card.Header>
+        <div className="row justify-content-between">
+          <div className="col d-flex align-items-center">{user_id}</div>
+          <div className="col d-flex flex-row-reverse align-items-center">
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip>{t("saveButton.toEssayBookmarks.tooltip")}</Tooltip>
+              }
+            >
+              <Button style={{ border: "none" }} variant="outline-secondary">
+                <BsBookmark />
+              </Button>
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip>{t("saveButton.toEssayLikes.tooltip")}</Tooltip>
+              }
+            >
+              <Button
+                style={{ marginRight: 5, border: "none" }}
+                variant="outline-secondary"
+              >
+                <BsHeart />
+              </Button>
+            </OverlayTrigger>
+          </div>
+        </div>
+      </Card.Header>
       <Card.Body>
-        <Card.Title>Special title treatment</Card.Title>
-        <Card.Text>
-          With supporting text below as a natural lead-in to additional content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Card.Title>{title}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">
+          {t("essayCard.test")}: {test}
+        </Card.Subtitle>
+        <Card.Text style={{ whiteSpace: "pre-line" }}>{body}</Card.Text>
       </Card.Body>
-      <Card.Footer className="text-muted">2 days ago</Card.Footer>
+      <Card.Footer className="text-muted">
+        {createdAt}, {t("essayCard.comment")}
+      </Card.Footer>
     </Card>
   );
 };
