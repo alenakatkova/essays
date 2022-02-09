@@ -21,6 +21,8 @@ let redisClient = redis.createClient({
 const postRouter = require("./routes/post");
 const userRouter = require("./routes/user");
 const essayRouter = require("./routes/essay");
+const languageRouter = require("./routes/language");
+const testRouter = require("./routes/test");
 
 const app = express();
 
@@ -34,10 +36,10 @@ const connectWithRetry = () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => console.log("successfully connected to db"))
+    .then(() => console.log("successfully connected to mongo-seed"))
     .catch((e) => {
       console.log(e);
-      setTimeout(connectWithRetry, 5000); // try to reconnect to db if fail
+      setTimeout(connectWithRetry, 5000); // try to reconnect to mongo-seed if fail
     });
 };
 
@@ -66,6 +68,9 @@ app.get("/", (req, res) => {
 app.use("/posts", postRouter);
 app.use("/essays", essayRouter);
 app.use("/users", userRouter);
+app.use("/languages", languageRouter);
+app.use("/tests", testRouter);
+
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => console.log(`listening on port ${port}`));

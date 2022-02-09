@@ -27,11 +27,14 @@ services:
 
   mongodb:
     image: mongo
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=alenakatkova
       - MONGO_INITDB_ROOT_PASSWORD=mypassword
+      - MONGO_INITDB_DATABASE=test
     volumes:
-      - db:/data/db
+      - ./mongo-seed:/docker-entrypoint-initdb.d
+      - db:/data/mongo-seed
 
   redis:
     image: redis

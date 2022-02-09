@@ -22,11 +22,19 @@ const apiUrl = "http://localhost:8080";
 function App() {
   const [posts, setPosts] = React.useState([]);
   const [users, setUsers] = React.useState([]);
+  const [tests, setTests] = React.useState([]);
 
   React.useEffect(() => {
     loadPosts();
+    loadTests();
     loadUsers();
   }, []);
+
+  const loadTests = async () => {
+    const res = await axios.get(apiUrl + "/tests");
+    console.log(res.data.data.tests);
+    setTests(res.data.data.tests);
+  };
 
   const loadPosts = async () => {
     const res = await axios.get(apiUrl + "/posts");
@@ -92,7 +100,15 @@ function App() {
 
       <ul>
         {users.map((user) => (
-          <li key={user._id}>username: {user.username}</li>
+          <li key={user._id}>name: {user.username}</li>
+        ))}
+      </ul>
+
+      <ul>
+        {tests.map((test) => (
+          <li key={test._id}>
+            name: {test.name} {test._id}
+          </li>
         ))}
       </ul>
 
