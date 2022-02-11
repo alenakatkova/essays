@@ -26,7 +26,7 @@ const testRouter = require("./routes/test");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 
 const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
 
@@ -53,7 +53,7 @@ app.use(
     resave: false,
     cookie: {
       secure: false,
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 60000,
     },
   })

@@ -6,13 +6,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(essayController.getAllEssays)
+  .get(requireAuth, essayController.getAllEssays)
   .post(essayController.createEssay);
 router
   .route("/:id")
-  .get(essayController.getOneEssay)
-  .patch(essayController.updateEssay)
-  .delete(essayController.deleteEssay);
+  .get(requireAuth, essayController.getOneEssay)
+  .patch(requireAuth, essayController.updateEssay)
+  .delete(requireAuth, essayController.deleteEssay);
 
 // router
 //   .route("/")

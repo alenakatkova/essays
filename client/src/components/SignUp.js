@@ -13,12 +13,16 @@ const SignUp = () => {
   const signUp = (e) => {
     e.preventDefault();
     axios
-      .post(apiUrl + "/users/signup", {
-        username,
-        password,
-      })
+      .post(
+        apiUrl + "/users/signup",
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then(function (response) {
-        console.log(response);
+        console.log(response.headers);
       })
       .catch(function (error) {
         console.error(error);

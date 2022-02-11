@@ -21,7 +21,7 @@ export const postEssay = async (data) => {
 
 export const getFilteredEssays = async (language, level, test) => {
   try {
-    const res = await axios.get(apiUrl + "/essays");
+    const res = await axios.get(apiUrl + "/essays", { withCredentials: true });
     return res.data.data.essays;
   } catch (e) {
     console.error(e);
