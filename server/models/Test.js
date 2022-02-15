@@ -5,6 +5,9 @@ const testSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "Test must have id"],
   },
+  abbreviation: {
+    type: String,
+  },
   name: {
     type: String,
     required: [true, "Test must have name"],

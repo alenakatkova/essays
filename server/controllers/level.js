@@ -1,13 +1,13 @@
-const Test = require("../models/Test");
+const Level = require("../models/Level");
 
-exports.getTests = async (req, res) => {
+exports.getLevels = async (req, res) => {
   try {
-    const tests = await Test.find();
+    const levels = await Level.find();
     res.status(200).json({
       status: "success",
-      results: tests.length,
+      results: levels.length,
       data: {
-        tests,
+        levels,
       },
     });
   } catch (e) {
@@ -17,13 +17,13 @@ exports.getTests = async (req, res) => {
   }
 };
 
-exports.getOneTest = async (req, res) => {
+exports.getOneLevel = async (req, res) => {
   try {
-    const test = await Test.findById(req.params.id);
+    const level = await Level.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {
-        test,
+        level,
       },
     });
   } catch (e) {

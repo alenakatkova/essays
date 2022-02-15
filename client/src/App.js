@@ -20,12 +20,10 @@ import FeedPage from "./components/Feed";
 const apiUrl = "http://localhost:8080";
 
 function App() {
-  const [posts, setPosts] = React.useState([]);
   const [users, setUsers] = React.useState([]);
   const [tests, setTests] = React.useState([]);
 
   React.useEffect(() => {
-    loadPosts();
     loadTests();
     loadUsers();
   }, []);
@@ -36,28 +34,22 @@ function App() {
     setTests(res.data.data.tests);
   };
 
-  const loadPosts = async () => {
-    const res = await axios.get(apiUrl + "/posts");
-    //console.log(res.data.data.posts);
-    setPosts(res.data.data.posts);
-  };
-
   const loadUsers = async () => {
     const res = await axios.get(apiUrl + "/users");
     //console.log(res.data.data.users);
     setUsers(res.data.data.users);
   };
 
-  const deletePost = async (id) => {
-    axios
-      .delete(apiUrl + "/posts/" + id)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  // const deletePost = async (id) => {
+  //   axios
+  //     .delete(apiUrl + "/posts/" + id)
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <div>
@@ -90,12 +82,12 @@ function App() {
         </ul>
       </nav>
       <ul>
-        {posts.map((post) => (
-          <li key={post._id}>
-            body: {post.body}
-            <button onClick={() => deletePost(post._id)}>X</button>
-          </li>
-        ))}
+        {/*{posts.map((post) => (*/}
+        {/*  <li key={post._id}>*/}
+        {/*    body: {post.body}*/}
+        {/*    <button onClick={() => deletePost(post._id)}>X</button>*/}
+        {/*  </li>*/}
+        {/*))}*/}
       </ul>
 
       <ul>

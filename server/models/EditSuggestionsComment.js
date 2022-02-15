@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const commentSchema = new mongoose.Schema(
+const editSuggestionsCommentSchema = new mongoose.Schema(
   {
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,5 +18,8 @@ const commentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Comment = mongoose.model("Comment", commentSchema);
-module.exports = Comment;
+const EditSuggestionsComment = mongoose.model(
+  "EditSuggestionsComment",
+  editSuggestionsCommentSchema
+);
+module.exports = EditSuggestionsComment;
