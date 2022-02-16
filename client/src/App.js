@@ -7,15 +7,7 @@ import Header from "./components/Header";
 import SignUp from "./components/SignUp";
 import WritingPage from "./components/WritingPage";
 import FeedPage from "./components/Feed";
-
-/**
- * Версия 1. Незалогиненный пользователь может написать эссе без сохранения, но с таймером и на рандомную тему из вики
- * Версия 2. Незалогиненный пользователь может сохранить эссе в бд.
- * Версия 2.1. Можно посмотреть все сохраненные в бд эссе и отфильтровать их по языку или экзамену
- * Версия 3. Система пускает пользователей только по логину. Залогиненный может писать и сохранять эссе, смотреть все эссе
- * Версия 4. В ЛК пользователя отображаются его эссе. Можно лайкать чужие эссе и смотреть список пролайканного
- * Версия 5. Можно комментировать любые эссе
- */
+import { instance } from "./api/APIUtils";
 
 const apiUrl = "http://localhost:8080";
 
@@ -24,8 +16,8 @@ function App() {
   const [tests, setTests] = React.useState([]);
 
   React.useEffect(() => {
-    loadTests();
-    loadUsers();
+    // loadTests();
+    // loadUsers();
   }, []);
 
   const loadTests = async () => {

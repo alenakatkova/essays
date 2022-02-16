@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { instance } from "../api/APIUtils";
 
 const apiUrl = "http://localhost:8080";
 
@@ -12,9 +13,9 @@ const SignUp = () => {
 
   const signUp = (e) => {
     e.preventDefault();
-    axios
+    instance
       .post(
-        apiUrl + "/users/signup",
+        "/users/signup",
         {
           username,
           password,

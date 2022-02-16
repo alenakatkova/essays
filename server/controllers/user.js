@@ -24,7 +24,7 @@ exports.signUp = async (req, res) => {
 
   try {
     const newUser = await User.create({ username, password: hashPassword });
-    req.session.user = newUser;
+    req.session.user_id = newUser._id;
     res.status(201).json({
       status: "success",
       data: {

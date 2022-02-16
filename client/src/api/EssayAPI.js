@@ -20,6 +20,7 @@ export const postEssay = async (data) => {
 export const getFilteredEssays = async (language, level, test) => {
   try {
     const res = await instance.get("/essays");
+    console.log(res);
     return res.data.data.essays;
   } catch (e) {
     console.error(e);

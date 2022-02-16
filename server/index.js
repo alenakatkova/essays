@@ -23,6 +23,7 @@ const essayRouter = require("./routes/essay");
 const languageRouter = require("./routes/language");
 const testRouter = require("./routes/test");
 const levelRouter = require("./routes/level");
+const currentSessionRouter = require("./routes/currentSession");
 
 const app = express();
 
@@ -54,7 +55,7 @@ app.use(
     cookie: {
       secure: false,
       httpOnly: false,
-      maxAge: 60000,
+      maxAge: 180000,
     },
   })
 );
@@ -70,6 +71,7 @@ app.use("/api/users", userRouter);
 app.use("/api/languages", languageRouter);
 app.use("/api/tests", testRouter);
 app.use("/api/levels", levelRouter);
+app.use("/api/currentSession", currentSessionRouter);
 
 const port = process.env.PORT || 8080;
 

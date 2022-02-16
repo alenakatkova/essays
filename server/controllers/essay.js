@@ -3,6 +3,7 @@ const Essay = require("../models/Essay");
 exports.getAllEssays = async (req, res, next) => {
   try {
     const essays = await Essay.find();
+    console.log(req);
     res.status(200).json({
       status: "success",
       results: essays.length,
