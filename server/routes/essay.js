@@ -6,7 +6,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(essayController.getAllEssays)
+  .get(requireAuth, essayController.getAllEssays)
   .post(essayController.createEssay);
 router
   .route("/:id")

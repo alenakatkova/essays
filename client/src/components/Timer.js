@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "react-bootstrap";
 
-// TODO добавить в таймер часы
+//TODO добавить в таймер часы
 const addZeroIfLessThanTen = (number) => {
   return number < 10 ? "0" + number : number;
 };
@@ -13,7 +13,6 @@ const addZeroIfLessThanTen = (number) => {
 
 const Timer = ({ startWriting, minutes }) => {
   const { t } = useTranslation();
-
   const [isOn, setIsOn] = React.useState(false);
   const [secondsLeft, setSecondsLeft] = React.useState(minutes * 60);
 

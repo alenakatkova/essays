@@ -71,7 +71,7 @@ app.use("/api/users", userRouter);
 app.use("/api/languages", languageRouter);
 app.use("/api/tests", testRouter);
 app.use("/api/levels", levelRouter);
-app.use("/api/currentSession", currentSessionRouter);
+app.use("/api/current_session", currentSessionRouter);
 
 const port = process.env.PORT || 8080;
 

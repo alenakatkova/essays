@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Card, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   BsBookmark,
-  BsBookmarkFill,
+  // BsBookmarkFill,
   BsHeart,
-  BsHeartFill,
+  // BsHeartFill,
 } from "react-icons/bs";
 
 // { "_id": "6202c1f437cf3ae3173dc918",

@@ -1,39 +1,23 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
-import { instance } from "../api/APIUtils";
-
-const apiUrl = "http://localhost:8080";
+import { useAuth } from "../contexts/authProvider";
 
 const SignUp = () => {
   const { t } = useTranslation();
+  const { loading, signUp } = useAuth();
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const signUp = (e) => {
+  const onSignUpButtonClick = (e) => {
     e.preventDefault();
-    instance
-      .post(
-        "/users/signup",
-        {
-          username,
-          password,
-        },
-        { withCredentials: true }
-      )
-      .then(function (response) {
-        console.log(response.headers);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    signUp(username, password);
   };
 
   return (
     <div>
       <p>{t("sign-up.title")}</p>
-      <form action="" method="post" onSubmit={signUp}>
+      <form action="" method="post" onSubmit={onSignUpButtonClick}>
         <label htmlFor="username">{t("sign-up.form.username")}</label>
         <input
           name="username"
@@ -48,7 +32,7 @@ const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" value="send" />
+        <input type="submit" value="send" disabled={loading} />
       </form>
     </div>
   );
