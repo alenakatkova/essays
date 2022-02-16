@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const apiUrl = "http://localhost:8080";
+import { instance } from "./APIUtils";
 
 export const postEssay = async (data) => {
   try {
-    return await axios.post(apiUrl + "/essays", {
+    return await instance.post("/essays", {
       minAmountOfWords: data.wordsCount,
       language: data.language,
       test: data.test,
@@ -21,7 +19,7 @@ export const postEssay = async (data) => {
 
 export const getFilteredEssays = async (language, level, test) => {
   try {
-    const res = await axios.get(apiUrl + "/essays", { withCredentials: true });
+    const res = await instance.get("/essays");
     return res.data.data.essays;
   } catch (e) {
     console.error(e);
