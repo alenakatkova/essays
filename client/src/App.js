@@ -1,35 +1,14 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Essay from "./components/Essay";
 import Header from "./components/Header";
 import SignUp from "./components/SignUp";
 import WritingPage from "./components/WritingPage";
 import FeedPage from "./components/Feed";
-import { AuthProvider, useAuth } from "./contexts/authProvider";
-import RequireAuth from "./components/RequireAuth";
+import { AuthProvider } from "./contexts/authProvider";
 
 function App() {
-  // const [users, setUsers] = React.useState([]);
-  // const [tests, setTests] = React.useState([]);
-
-  React.useEffect(() => {
-    // loadTests();
-    // loadUsers();
-  }, []);
-
-  // const loadTests = async () => {
-  //   const res = await axios.get(apiUrl + "/tests");
-  //   console.log(res.data.data.tests);
-  //   setTests(res.data.data.tests);
-  // };
-  //
-  // const loadUsers = async () => {
-  //   const res = await axios.get(apiUrl + "/users");
-  //   //console.log(res.data.data.users);
-  //   setUsers(res.data.data.users);
-  // };
-
   // const deletePost = async (id) => {
   //   axios
   //     .delete(apiUrl + "/posts/" + id)
@@ -74,20 +53,6 @@ function App() {
           {/*  </li>*/}
           {/*))}*/}
         </ul>
-
-        {/*<ul>*/}
-        {/*  {users.map((user) => (*/}
-        {/*    <li key={user._id}>name: {user.username}</li>*/}
-        {/*  ))}*/}
-        {/*</ul>*/}
-
-        {/*<ul>*/}
-        {/*  {tests.map((test) => (*/}
-        {/*    <li key={test._id}>*/}
-        {/*      name: {test.name} {test._id}*/}
-        {/*    </li>*/}
-        {/*  ))}*/}
-        {/*</ul>*/}
 
         <Header />
         <Routes>
