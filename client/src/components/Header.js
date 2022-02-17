@@ -1,30 +1,34 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-
-const lngs = {
-  en: { nativeName: "English" },
-  ru: { nativeName: "Русский" },
-};
+import { uiLanguages } from "../utils/ui";
+import { Form } from "react-bootstrap";
 
 const Header = () => {
+  const [lang, setLang] = React.useState("en");
   const { i18n } = useTranslation();
+  console.log(uiLanguages);
+  const change = (e) => {
+    setLang(e.target.value);
+    i18n.changeLanguage(e.target.value);
+  };
 
   return (
     <header>
-      <div>
-        {Object.keys(lngs).map((lng) => (
-          <button
-            key={lng}
-            style={{
-              fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
-            }}
-            type="submit"
-            onClick={() => i18n.changeLanguage(lng)}
+      <Form>
+        <Form.Group controlId="form-language">
+          <Form.Control
+            as="select"
+            onChange={change}
+            value={i18n.resolvedLanguage}
           >
-            {lngs[lng].nativeName}
-          </button>
-        ))}
-      </div>
+            {Object.keys(uiLanguages).map((language) => (
+              <option key={language} value={language}>
+                {uiLanguages[language]}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+      </Form>
     </header>
   );
 };
