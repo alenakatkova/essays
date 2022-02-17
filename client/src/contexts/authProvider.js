@@ -7,6 +7,7 @@ const AuthContext = React.createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = React.useState(null);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [loadingInitial, setLoadingInitial] = React.useState(true);
@@ -22,6 +23,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const fetchedData = await instance.get("/current_session"); // TODO перенести в API
       setUser(fetchedData.data.data.userInfo);
+      setIsAuthenticated(fetchedData.data.data.userInfo !== null);
     } catch (err) {
       throw new Error("fail");
     } finally {
@@ -31,22 +33,29 @@ export const AuthProvider = ({ children }) => {
 
   React.useEffect(() => {
     getCurrentSession();
-  }, [getCurrentSession]);
+  }, [location.pathname]);
 
   const signUp = (username, password) => {
     setLoading(true);
     createUser(username, password)
-      .then((user) => setUser(user))
+      .then((user) => {
+        setUser(user);
+        setIsAuthenticated(true);
+      })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
   };
 
-  const memoedValue = {
-    user,
-    loading,
-    error,
-    signUp,
-  };
+  const memoedValue = React.useMemo(
+    () => ({
+      user,
+      loading,
+      error,
+      signUp,
+      isAuthenticated,
+    }),
+    [user, isAuthenticated, loading, error]
+  );
 
   return (
     <AuthContext.Provider value={memoedValue}>

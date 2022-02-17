@@ -23,46 +23,42 @@ function App() {
   return (
     <div>
       <AuthProvider>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/profile">Personal account</Link>
-            </li>
-            <li>
-              <Link to="/feed">Feed</Link>
-            </li>
-            <li>
-              <Link to="/essay">Essay</Link>
-            </li>
-            <li>
-              <Link to="/writing">Writing</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign up</Link>
-            </li>
-          </ul>
-        </nav>
-        <ul>
-          {/*{posts.map((post) => (*/}
-          {/*  <li key={post._id}>*/}
-          {/*    body: {post.body}*/}
-          {/*    <button onClick={() => deletePost(post._id)}>X</button>*/}
-          {/*  </li>*/}
-          {/*))}*/}
-        </ul>
+        {/*<nav>*/}
+        {/*  <ul>*/}
+        {/*    <li>*/}
+        {/*      <Link to="/profile">Personal account</Link>*/}
+        {/*    </li>*/}
+        {/*    <li>*/}
+        {/*      <Link to="/feed">Feed</Link>*/}
+        {/*    </li>*/}
+        {/*    <li>*/}
+        {/*      <Link to="/essay">Essay</Link>*/}
+        {/*    </li>*/}
+        {/*    <li>*/}
+        {/*      <Link to="/writing">Writing</Link>*/}
+        {/*    </li>*/}
+        {/*  </ul>*/}
+        {/*</nav>*/}
+
+        {/*{posts.map((post) => (*/}
+        {/*  <li key={post._id}>*/}
+        {/*    body: {post.body}*/}
+        {/*    <button onClick={() => deletePost(post._id)}>X</button>*/}
+        {/*  </li>*/}
+        {/*))}*/}
 
         <Header />
-        <Routes>
-          <Route path="/essay" element={<Essay />} />
-          <Route path="/profile" element={<Essay />} />
-          <Route path="/feed" element={<FeedPage />} />
-          <Route path="/writing" element={<WritingPage />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<Essay />} />
-        </Routes>
+        <div className="py-4">
+          <Routes>
+            <Route path="/essay" element={<Essay />} />
+            <Route path="/profile" element={<Essay />} />
+            <Route path="/feed" element={<FeedPage />} />
+            <Route path="/writing" element={<WritingPage />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/" element={<Essay />} />
+          </Routes>
+        </div>
+
         {/*<Footer/>*/}
       </AuthProvider>
     </div>
