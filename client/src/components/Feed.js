@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 // import { useForm } from "react-hook-form";
 import { getFilteredEssays } from "../api/EssayAPI";
 import EssayCard from "./EssayCard";
+import RequireAuth from "./RequireAuth";
 
 const FeedPage = () => {
   const { t } = useTranslation();
@@ -22,21 +23,23 @@ const FeedPage = () => {
   }, [getAllEssays]);
 
   return (
-    <div className="container">
-      <h1>{t("feed.title")}</h1>
-      <div className="row">
-        <div className="col-2">{t("feed.filters.title")}</div>
-        <div className="col-10">
-          <div>
-            {essays.map((essay) => (
-              <div key={essay._id} className="mb-5">
-                <EssayCard essay={essay} />
-              </div>
-            ))}
+    <RequireAuth>
+      <div className="container">
+        <h1>{t("feed.title")}</h1>
+        <div className="row">
+          <div className="col-2">{t("feed.filters.title")}</div>
+          <div className="col-10">
+            <div>
+              {essays.map((essay) => (
+                <div key={essay._id} className="mb-5">
+                  <EssayCard essay={essay} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </RequireAuth>
   );
 };
 

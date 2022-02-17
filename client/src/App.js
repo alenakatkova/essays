@@ -7,21 +7,7 @@ import SignUp from "./components/SignUp";
 import WritingPage from "./components/WritingPage";
 import FeedPage from "./components/Feed";
 import { AuthProvider, useAuth } from "./contexts/authProvider";
-
-function RequireAuth({ children }) {
-  let auth = useAuth();
-  //  let location = useLocation();
-
-  if (!auth.user) {
-    // Redirect them to the /login page, but save the current location they were
-    // trying to go to when they were redirected. This allows us to send them
-    // along to that page after they login, which is a nicer user experience
-    // than dropping them off on the home page.
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-}
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   // const [users, setUsers] = React.useState([]);
@@ -73,16 +59,10 @@ function App() {
               <Link to="/essay">Essay</Link>
             </li>
             <li>
-              <Link to="/my-essay">My essay</Link>
-            </li>
-            <li>
-              <Link to="/writing-settings">Writing settings</Link>
-            </li>
-            <li>
               <Link to="/writing">Writing</Link>
             </li>
             <li>
-              <Link to="/sign-up">Sign up</Link>
+              <Link to="/signup">Sign up</Link>
             </li>
           </ul>
         </nav>
@@ -112,19 +92,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/essay" element={<Essay />} />
-          <Route path="/my-essay" element={<Essay />} />
-          <Route path="/writing-settings" element={<Essay />} />
           <Route path="/profile" element={<Essay />} />
-          <Route
-            path="/feed"
-            element={
-              <RequireAuth>
-                <FeedPage />
-              </RequireAuth>
-            }
-          />
+          <Route path="/feed" element={<FeedPage />} />
           <Route path="/writing" element={<WritingPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Essay />} />
         </Routes>
         {/*<Footer/>*/}
