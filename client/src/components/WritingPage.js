@@ -21,8 +21,8 @@ const WritingPage = () => {
     writing: true,
   });
 
-  const watchWordsCount = watch("wordsCount");
   const watchEssayBody = watch("essayBody");
+  const watchWordsCount = watch("wordsCount");
   const watchTimingInMinutes = watch("timingInMinutes");
 
   const startWriting = () => {

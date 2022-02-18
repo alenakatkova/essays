@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { instance } from "../api/APIUtils";
-import { createUser } from "../api/UserAPI";
+import { createUser, logUserOut } from "../api/UserAPI";
 
 const AuthContext = React.createContext(null);
 
@@ -46,6 +46,17 @@ export const AuthProvider = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
+  const logOut = () => {
+    setLoading(true);
+    logUserOut()
+      .then(() => {
+        setUser(null);
+        setIsAuthenticated(false);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
+  };
+
   const memoedValue = React.useMemo(
     () => ({
       user,
@@ -53,6 +64,7 @@ export const AuthProvider = ({ children }) => {
       error,
       signUp,
       isAuthenticated,
+      logOut,
     }),
     [user, isAuthenticated, loading, error]
   );

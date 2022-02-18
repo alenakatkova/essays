@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/authProvider";
-
+// TODO редирект если юзер залогинен
 const SignUp = () => {
   const { t } = useTranslation();
   const { loading, signUp } = useAuth();

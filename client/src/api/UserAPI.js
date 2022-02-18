@@ -10,3 +10,11 @@ export const createUser = async (username, password) => {
     console.error(e);
   }
 };
+
+export const logUserOut = async () => {
+  try {
+    return await instance.delete("/users/logout");
+  } catch (e) {
+    console.error(e);
+  }
+};

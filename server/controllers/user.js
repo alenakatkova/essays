@@ -25,6 +25,7 @@ exports.signUp = async (req, res) => {
   try {
     const newUser = await User.create({ username, password: hashPassword });
     req.session.user_id = newUser._id;
+    console.log(req);
     res.status(201).json({
       status: "success",
       data: {
@@ -38,7 +39,7 @@ exports.signUp = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.logIn = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -70,5 +71,20 @@ exports.login = async (req, res) => {
     res.status(400).json({
       status: "fail",
     });
+  }
+};
+
+exports.logOut = async (req, res) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(400).send("Unable to log out");
+      } else {
+        console.log(req);
+        res.send("Logout successful");
+      }
+    });
+  } else {
+    res.end();
   }
 };

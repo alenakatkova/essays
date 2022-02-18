@@ -4,8 +4,7 @@ import { uiLanguages } from "../utils/ui";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/authProvider";
-
-// TODO залогиненным показывать Лог аут, Фид, Райтинг и Профиль
+import LogOut from "./LogOut";
 
 const Header = () => {
   const { i18n } = useTranslation();
@@ -31,7 +30,20 @@ const Header = () => {
               <div className="col-auto">Log in</div>
             </div>
           ) : (
-            <div className="col-auto">Log out</div>
+            <div className="row align-items-center">
+              <div className="col-auto">
+                <Link to="/feed">Feed</Link>
+              </div>
+              <div className="col-auto">
+                <Link to="/writing">Writing</Link>
+              </div>
+              <div className="col-auto">
+                <Link to="/profile">Profile</Link>
+              </div>
+              <div className="col-auto">
+                <LogOut />
+              </div>
+            </div>
           )}
         </div>
         <div className="col-auto">
