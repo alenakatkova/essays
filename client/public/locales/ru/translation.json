@@ -28,7 +28,10 @@
     "link": "Авторизация",
     "form": {
       "username": "Имя пользователя",
-      "password": "Пароль"
+      "password": "Пароль",
+      "enterUsername": "Введите имя пользователя",
+      "enterPassword": "Введите пароль",
+      "submit": "Авторизоваться"
     }
   },
   "profile": {

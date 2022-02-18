@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { instance } from "../api/APIUtils";
-import { createUser, logUserOut } from "../api/UserAPI";
+import { createUser, logUserIn, logUserOut } from "../api/UserAPI";
 
 const AuthContext = React.createContext(null);
 
@@ -22,8 +22,8 @@ export const AuthProvider = ({ children }) => {
   const getCurrentSession = React.useCallback(async () => {
     try {
       const fetchedData = await instance.get("/current_session"); // TODO перенести в API
-      setUser(fetchedData.data.data.userInfo);
-      setIsAuthenticated(fetchedData.data.data.userInfo !== null);
+      setUser(fetchedData.data.data.user);
+      setIsAuthenticated(fetchedData.data.data.user !== undefined);
     } catch (err) {
       throw new Error("fail");
     } finally {
@@ -33,13 +33,26 @@ export const AuthProvider = ({ children }) => {
 
   React.useEffect(() => {
     getCurrentSession();
-  }, [location.pathname]);
+  }, [location.pathname, getCurrentSession]);
 
   const signUp = (username, password) => {
     setLoading(true);
     createUser(username, password)
-      .then((user) => {
-        setUser(user);
+      .then((res) => {
+        setUser(res.data.data.user);
+        setIsAuthenticated(true);
+      })
+      .catch((error) => setError(error))
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const logIn = (username, password) => {
+    setLoading(true);
+    logUserIn(username, password)
+      .then((res) => {
+        setUser(res.data.data.user);
         setIsAuthenticated(true);
       })
       .catch((error) => setError(error))
@@ -63,6 +76,7 @@ export const AuthProvider = ({ children }) => {
       loading,
       error,
       signUp,
+      logIn,
       isAuthenticated,
       logOut,
     }),

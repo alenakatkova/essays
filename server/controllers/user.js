@@ -25,11 +25,10 @@ exports.signUp = async (req, res) => {
   try {
     const newUser = await User.create({ username, password: hashPassword });
     req.session.user_id = newUser._id;
-    console.log(req);
     res.status(201).json({
       status: "success",
       data: {
-        user: newUser,
+        user: newUser._id,
       },
     });
   } catch (e) {
@@ -44,7 +43,6 @@ exports.logIn = async (req, res) => {
 
   try {
     const user = await User.findOne({ username });
-
     if (!user) {
       res.status(400).json({
         status: "fail",
@@ -57,9 +55,12 @@ exports.logIn = async (req, res) => {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (isPasswordCorrect) {
-      req.session.user = user;
+      req.session.user_id = user._id;
       res.status(201).json({
         status: "success",
+        data: {
+          user: user._id,
+        },
       });
     } else {
       res.status(400).json({
@@ -80,7 +81,6 @@ exports.logOut = async (req, res) => {
       if (err) {
         res.status(400).send("Unable to log out");
       } else {
-        console.log(req);
         res.send("Logout successful");
       }
     });
