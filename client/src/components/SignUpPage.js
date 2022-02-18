@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/authProvider";
 // TODO редирект если юзер залогинен
-const SignUp = () => {
+const SignUpPage = () => {
   const { t } = useTranslation();
   const { loading, signUp } = useAuth();
 
@@ -16,16 +16,16 @@ const SignUp = () => {
 
   return (
     <div>
-      <p>{t("sign-up.title")}</p>
+      <p>{t("signUp.title")}</p>
       <form action="" method="post" onSubmit={onSignUpButtonClick}>
-        <label htmlFor="username">{t("sign-up.form.username")}</label>
+        <label htmlFor="username">{t("signUp.form.username")}</label>
         <input
           name="username"
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor="password">{t("sign-up.form.password")}</label>
+        <label htmlFor="password">{t("signUp.form.password")}</label>
         <input
           name="password"
           id="password"
@@ -38,4 +38,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

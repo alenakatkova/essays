@@ -28,29 +28,31 @@ const Header = () => {
           {!isAuthenticated ? (
             <div className="row align-items-center">
               <div className="col-auto">
-                <Link to="/signup" style={{ textDecoration: "none" }}>
-                  <span className="nav-link">{t("signUp.link")}</span>
+                <Link to="/registration" style={{ textDecoration: "none" }}>
+                  <span className="nav-link p-0">{t("signUp.link")}</span>
                 </Link>
               </div>
               <div className="col-auto">
-                <span className="nav-link">{t("logIn.link")}</span>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                  <span className="nav-link p-0">{t("logIn.link")}</span>
+                </Link>
               </div>
             </div>
           ) : (
             <div className="row align-items-center">
               <div className="col-auto">
                 <Link to="/feed">
-                  <span className="nav-link">{t("feed.link")}</span>
+                  <span className="nav-link p-0">{t("feed.link")}</span>
                 </Link>
               </div>
               <div className="col-auto">
                 <Link to="/writing">
-                  <span className="nav-link">{t("writing.link")}</span>
+                  <span className="nav-link p-0">{t("writing.link")}</span>
                 </Link>
               </div>
               <div className="col-auto">
                 <Link to="/profile">
-                  <span className="nav-link">{t("profile.link")}</span>
+                  <span className="nav-link p-0">{t("profile.link")}</span>
                 </Link>
               </div>
               <div className="col-auto">

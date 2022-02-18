@@ -1,65 +1,30 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Essay from "./components/Essay";
 import Header from "./components/Header";
-import SignUp from "./components/SignUp";
+import SignUpPage from "./components/SignUpPage";
 import WritingPage from "./components/WritingPage";
-import FeedPage from "./components/Feed";
+import FeedPage from "./components/FeedPage";
 import { AuthProvider } from "./contexts/authProvider";
+import Profile from "./components/ProfilePage";
 
 function App() {
-  // const deletePost = async (id) => {
-  //   axios
-  //     .delete(apiUrl + "/posts/" + id)
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
-
   return (
     <div>
       <AuthProvider>
-        {/*<nav>*/}
-        {/*  <ul>*/}
-        {/*    <li>*/}
-        {/*      <Link to="/profile">Personal account</Link>*/}
-        {/*    </li>*/}
-        {/*    <li>*/}
-        {/*      <Link to="/feed">Feed</Link>*/}
-        {/*    </li>*/}
-        {/*    <li>*/}
-        {/*      <Link to="/essay">Essay</Link>*/}
-        {/*    </li>*/}
-        {/*    <li>*/}
-        {/*      <Link to="/writing">Writing</Link>*/}
-        {/*    </li>*/}
-        {/*  </ul>*/}
-        {/*</nav>*/}
-
-        {/*{posts.map((post) => (*/}
-        {/*  <li key={post._id}>*/}
-        {/*    body: {post.body}*/}
-        {/*    <button onClick={() => deletePost(post._id)}>X</button>*/}
-        {/*  </li>*/}
-        {/*))}*/}
-
         <Header />
         <div className="py-4">
           <Routes>
             <Route path="/essay" element={<Essay />} />
-            <Route path="/profile" element={<Essay />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/feed" element={<FeedPage />} />
             <Route path="/writing" element={<WritingPage />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/registration" element={<SignUpPage />} />
+            <Route path="/login" element={<SignUpPage />} />
             <Route path="/" element={<Essay />} />
           </Routes>
         </div>
-
-        {/*<Footer/>*/}
       </AuthProvider>
     </div>
   );

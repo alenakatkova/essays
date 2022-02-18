@@ -9,7 +9,8 @@
     "logOutBtn": "Выйти"
   },
   "home": {
-    "title": "Главная"
+    "title": "Главная",
+    "link": "Главная"
   },
   "essay": {
     "title": "Просмотр эссе"
@@ -22,14 +23,25 @@
       "password": "Пароль"
     }
   },
+  "logIn": {
+    "title": "Авторизация",
+    "link": "Авторизация",
+    "form": {
+      "username": "Имя пользователя",
+      "password": "Пароль"
+    }
+  },
   "profile": {
-    "title": "Профиль"
+    "title": "Профиль",
+    "link": "Профиль"
   },
   "feed": {
-    "title": "Лента"
+    "title": "Лента",
+    "link": "Лента"
   },
   "writing": {
     "title": "Тренажер",
+    "link": "Тренажер",
     "form": {
       "settings": {
         "title": "Настройки",
