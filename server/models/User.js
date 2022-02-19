@@ -28,18 +28,6 @@ const userSchema = new mongoose.Schema({
     },
   ],
   bookmarks: [bookmarkSchema],
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
-  editSuggestionsComments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "EditSuggestionsComment",
-    },
-  ],
 });
 
 const User = mongoose.model("User", userSchema);
