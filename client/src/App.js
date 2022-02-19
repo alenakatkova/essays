@@ -8,7 +8,7 @@ import LogInPage from "./components/LogInPage";
 import WritingPage from "./components/WritingPage";
 import FeedPage from "./components/FeedPage";
 import { AuthProvider } from "./contexts/authProvider";
-import Profile from "./components/ProfilePage";
+import ProfilePage from "./components/ProfilePage/index";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <div className="py-4">
           <Routes>
             <Route path="/essay" element={<Essay />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/feed" element={<FeedPage />} />
             <Route path="/writing" element={<WritingPage />} />
             <Route path="/registration" element={<SignUpPage />} />
