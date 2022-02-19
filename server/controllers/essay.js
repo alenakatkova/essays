@@ -20,7 +20,7 @@ exports.getAllEssays = async (req, res, next) => {
 
 exports.getOneEssay = async (req, res, next) => {
   try {
-    const post = await Essay.findById(req.params.id);
+    const essay = await Essay.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {

@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { instance } from "../api/APIUtils";
-import { createUser, logUserIn, logUserOut } from "../api/UserAPI";
+import { createUser } from "../api/UserAPI";
+import { logUserIn, logUserOut } from "../api/AuthAPI";
 
 const AuthContext = React.createContext(null);
 

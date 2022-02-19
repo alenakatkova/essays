@@ -18,6 +18,22 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+exports.getOneUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};
+
 exports.signUp = async (req, res) => {
   const { username, password } = req.body;
   const hashPassword = await bcrypt.hash(password, 12);
