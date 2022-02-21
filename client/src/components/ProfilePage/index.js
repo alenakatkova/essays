@@ -2,7 +2,7 @@ import React from "react";
 import { getUserInfo } from "../../api/UserAPI";
 import { useAuth } from "../../contexts/authProvider";
 import { useTranslation } from "react-i18next";
-import { Tab, Row, Col, Nav, Container } from "react-bootstrap";
+import { Tab, Row, Col, Nav, Container, Card } from "react-bootstrap";
 import MyEssays from "./MyEssays";
 import Drafts from "./Drafts";
 import EssaysOfFavouriteAuthors from "./EssaysOfFavouriteAuthors";
@@ -24,9 +24,9 @@ const ProfilePage = () => {
 
   return (
     <Container>
-      <div className="mb-4">
+      <Card body className="mb-4">
         {t("profile.youAreLoggedInAs")}: {user.username}
-      </div>
+      </Card>
       <Tab.Container id="left-tabs-example" defaultActiveKey="myEssays">
         <Row>
           <Col sm={3}>

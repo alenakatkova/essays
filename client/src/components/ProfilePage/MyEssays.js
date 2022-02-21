@@ -1,4 +1,5 @@
 import React from "react";
+import Feed from "../common/Feed";
 
 const MyEssays = ({ ids }) => {
   const [essays, setEssays] = React.useState([]);
@@ -7,7 +8,11 @@ const MyEssays = ({ ids }) => {
     // TODO получить эссе из бд
   }, [ids]);
 
-  return <div>{ids}</div>;
+  return (
+    <div>
+      <Feed feedType="oneAuthorEssays" ids={ids} />
+    </div>
+  );
 };
 
 export default MyEssays;
