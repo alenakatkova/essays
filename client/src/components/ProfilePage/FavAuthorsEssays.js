@@ -7,7 +7,6 @@ const FavAuthorsEssays = ({ userId }) => {
 
   const getEssays = React.useCallback(async () => {
     const essaysFromServer = await getFavAuthorsEssays(userId);
-    console.log(essaysFromServer);
     setEssays(essaysFromServer);
   }, [userId]);
 
@@ -18,7 +17,6 @@ const FavAuthorsEssays = ({ userId }) => {
   return (
     <>
       <Feed postsToRender={essays} />
-      {userId}
     </>
   );
 };
