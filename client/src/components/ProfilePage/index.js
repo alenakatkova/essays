@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Tab, Row, Col, Nav, Container, Card } from "react-bootstrap";
 import MyEssays from "./MyEssays";
 import Drafts from "./Drafts";
-import EssaysOfFavouriteAuthors from "./EssaysOfFavouriteAuthors";
+import FavAuthorsEssays from "./FavAuthorsEssays";
 import Bookmarks from "./Bookmarks";
 
 const ProfilePage = () => {
@@ -56,16 +56,16 @@ const ProfilePage = () => {
           <Col sm={9}>
             <Tab.Content>
               <Tab.Pane eventKey="myEssays">
-                <MyEssays ids={user.essays} />
+                <MyEssays userId={user._id} />
               </Tab.Pane>
               <Tab.Pane eventKey="drafts">
-                <Drafts ids={user.drafts} />
+                <Drafts drafts={user.drafts} />
               </Tab.Pane>
               <Tab.Pane eventKey="essaysOfFavouriteAuthors">
-                <EssaysOfFavouriteAuthors ids={user.favouriteAuthors} />
+                <FavAuthorsEssays userId={user._id} />
               </Tab.Pane>
               <Tab.Pane eventKey="bookmarks">
-                <Bookmarks ids={user.bookmarks} />
+                {/*<Bookmarks ids={user.bookmarks} />*/}
               </Tab.Pane>
             </Tab.Content>
           </Col>

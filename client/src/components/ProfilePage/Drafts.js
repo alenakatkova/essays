@@ -1,13 +1,8 @@
 import React from "react";
+import Feed from "../common/Feed";
 
-const Drafts = ({ ids }) => {
-  const [essays, setEssays] = React.useState([]);
-
-  React.useEffect(() => {
-    // TODO получить эссе из бд
-  }, [ids]);
-
-  return <div>drafts</div>;
+const Drafts = ({ drafts = [] }) => {
+  return <Feed postsToRender={drafts} />;
 };
 
 export default Drafts;

@@ -9,5 +9,7 @@ router.post("/signup", userController.signUp);
 router.post("/login", userController.logIn);
 router.delete("/logout", userController.logOut);
 router.get("/:id", userController.getOneUser);
+router.get("/:id/essays", userController.getUserEssays);
+router.get("/:id/fav-authors-essays", userController.getFavAuthorsEssays);
 
 module.exports = router;

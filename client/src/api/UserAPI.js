@@ -19,3 +19,21 @@ export const getUserInfo = async (userId) => {
     console.error(e);
   }
 };
+
+export const getUserEssays = async (userId) => {
+  try {
+    const res = await instance.get(`/users/${userId}/essays`);
+    return res.data.data.essays;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getFavAuthorsEssays = async (userId) => {
+  try {
+    const res = await instance.get(`/users/${userId}/fav-authors-essays`);
+    return res.data.data.essays;
+  } catch (e) {
+    console.error(e);
+  }
+};

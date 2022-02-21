@@ -1,4 +1,5 @@
 const Essay = require("../models/Essay");
+const User = require("../models/User");
 
 exports.getAllEssays = async (req, res, next) => {
   try {

@@ -1,17 +1,23 @@
 import React from "react";
 import Feed from "../common/Feed";
+import { getUserEssays } from "../../api/UserAPI";
 
-const MyEssays = ({ ids }) => {
+const MyEssays = ({ userId }) => {
   const [essays, setEssays] = React.useState([]);
 
+  const callback = React.useCallback(async () => {
+    const essaysFromServer = await getUserEssays(userId);
+    setEssays(essaysFromServer);
+  }, [userId]);
+
   React.useEffect(() => {
-    // TODO получить эссе из бд
-  }, [ids]);
+    userId && callback();
+  }, [userId]);
 
   return (
-    <div>
-      <Feed feedType="oneAuthorEssays" ids={ids} />
-    </div>
+    <>
+      <Feed postsToRender={essays} />
+    </>
   );
 };
 
