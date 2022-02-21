@@ -422,6 +422,7 @@ const essaysIds = {
   essay07: ObjectId(),
   essay08: ObjectId(),
   essay09: ObjectId(),
+  essay10: ObjectId(),
 };
 
 const writingSettings = {
@@ -525,7 +526,7 @@ db.users.insertMany([
     password: "$2a$12$wwOEh67zsFe3YOuS3l.mhe55hRz2nHBUEh/ugf8QKjr7COTnYdAt.",
     writingSettings: writingSettings.settings01,
     drafts: [],
-    essays: [essaysIds.essay06],
+    essays: [essaysIds.essay10],
     favouriteAuthors: [usersIds.user01],
     bookmarks: [],
   },
@@ -544,7 +545,7 @@ db.users.insertMany([
         updatedAt: "2022-02-19T20:25:59.949Z",
       },
     ],
-    essays: [essaysIds.essay07, essaysIds.essay08],
+    essays: [essaysIds.essay07, essaysIds.essay08, essaysIds.essay06],
     favouriteAuthors: [usersIds.user05],
     bookmarks: [],
   },
@@ -655,7 +656,7 @@ db.essays.insertMany([
   {
     _id: essaysIds.essay06,
     topic: "Perruche ondulée",
-    user_id: usersIds.user03,
+    user_id: usersIds.user04,
     title: "Développement du perruchon",
     body:
       "Le perruchon porte sur le milieu du bec mou une sorte de dent acérée : le « diamant ». Il utilise cet instrument dans l'œuf, où il tourne sur lui-même, pour percer une série de trous en cercle préparant l'éclosion. Mais quand l'enveloppe interne est trop rêche, il n'arrive pas à se libérer tout seul. Ses cris et son agitation déclenchent alors chez la mère une vocation « d'accoucheuse ». \n" +
@@ -665,7 +666,7 @@ db.essays.insertMany([
       "Les piaillements et les gesticulations des rejetons dictent aux parents le rythme et l'abondance des becquées. Dès qu'ils ont avalé leur soûl de graines ; ils ordonnent à grands cris la fin du repas, se convulsent en gigotant des pattes, comme désespérés. À ces signaux, le père et la mère obéissent sans broncher. Les premiers jours, les petits sont nus, incapables de réguler seuls leur température corporelle.",
     comments: [],
     editSuggestionsComments: [],
-    writingSettings: writingSettings.settings01,
+    writingSettings: writingSettings.settings02,
     createdAt: "2022-02-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
   },
@@ -731,5 +732,22 @@ db.essays.insertMany([
     writingSettings: writingSettings.settings02,
     createdAt: "2022-02-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
+  },
+  {
+    _id: essaysIds.essay10,
+    topic: "Logology (science)",
+    user_id: usersIds.user03,
+    title: "Truth",
+    body:
+      "Harvard University historian of science Naomi Oreskes points out that the truth of scientific findings can never be assumed to be finally, absolutely settled.The history of science offers many examples of matters that scientists once thought to be settled and which have proven not to be, such as the concepts of Earth being the center of the universe, the absolute nature of time and space, the stability of continents, and the cause of infectious disease.\n" +
+      "\n" +
+      "Science, writes Oreskes, is not a fixed, immutable set of discoveries but 'a process of learning and discovery'. Science can also be understood as an institution (or better, a set of institutions) that facilitates this work.\n" +
+      "\n" +
+      "It is often asserted that scientific findings are true because scientists use 'the scientific method'. But, writes Oreskes, 'we can never actually agree on what that method is. Some will say it is empiricism: observation and description of the world. Others will say it is the experimental method: the use of experience and experiment to test hypotheses. (This is cast sometimes as the hypothetico-deductive method, in which the experiment must be framed as a deduction from theory, and sometimes as falsification, where the point of observation and experiment is to refute theories, not to confirm them.) Recently a prominent scientist claimed the scientific method was to avoid fooling oneself into thinking something is true that is not, and vice versa.'",
+    comments: [],
+    editSuggestionsComments: [],
+    writingSettings: writingSettings.settings01,
+    createdAt: "2022-01-19T20:25:50.949Z",
+    updatedAt: "2022-01-19T20:25:50.949Z",
   },
 ]);
