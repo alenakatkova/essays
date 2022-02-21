@@ -1,12 +1,12 @@
 import React from "react";
 import Feed from "../common/Feed";
-import { getUserBookmarkedEssays } from "../../api/UserAPI";
+import { getBookmarkedEssays } from "../../api/UserAPI";
 
 const Bookmarks = ({ userId }) => {
   const [essays, setEssays] = React.useState([]);
 
   const getEssays = React.useCallback(async () => {
-    const essaysFromServer = await getUserBookmarkedEssays(userId);
+    const essaysFromServer = await getBookmarkedEssays(userId);
     setEssays(essaysFromServer);
   }, [userId]);
 

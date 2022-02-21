@@ -38,7 +38,7 @@ export const getFavAuthorsEssays = async (userId) => {
   }
 };
 
-export const getUserBookmarkedEssays = async (userId) => {
+export const getBookmarkedEssays = async (userId) => {
   try {
     //const res = await instance.get(`/users/${userId}/bookmarked-essays`);
     //return res.data.data.essays;

@@ -57,6 +57,10 @@ exports.getFavAuthorsEssays = async (req, res, next) => {
   }
 };
 
+exports.getBookmarkedEssays = async (req, res, next) => {
+  // TODO сделать айдишкой эссе айдишку бумарки, добавить коммент в каждое эссе
+};
+
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
