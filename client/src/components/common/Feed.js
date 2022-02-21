@@ -1,10 +1,10 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 // import { Badge, Button, Form } from "react-bootstrap";
 import EssayCard from "../EssayCard";
 
 const Feed = ({ postsToRender = [] }) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   return (
     <div>

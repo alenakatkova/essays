@@ -5,14 +5,14 @@ import { getUserEssays } from "../../api/UserAPI";
 const MyEssays = ({ userId }) => {
   const [essays, setEssays] = React.useState([]);
 
-  const callback = React.useCallback(async () => {
+  const getEssays = React.useCallback(async () => {
     const essaysFromServer = await getUserEssays(userId);
     setEssays(essaysFromServer);
   }, [userId]);
 
   React.useEffect(() => {
-    userId && callback();
-  }, [userId]);
+    userId && getEssays();
+  }, [userId, getEssays]);
 
   return (
     <>

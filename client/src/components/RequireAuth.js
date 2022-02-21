@@ -4,7 +4,6 @@ import React from "react";
 
 const RequireAuth = ({ children }) => {
   let auth = useAuth();
-  console.log(auth.user);
   //  let location = useLocation();
   if (!auth.user) {
     // Redirect them to the /login page, but save the current location they were

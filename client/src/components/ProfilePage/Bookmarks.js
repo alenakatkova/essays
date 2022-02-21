@@ -12,7 +12,7 @@ const Bookmarks = ({ userId }) => {
 
   React.useEffect(() => {
     userId && getEssays();
-  }, [userId]);
+  }, [userId, getEssays]);
 
   return (
     <>

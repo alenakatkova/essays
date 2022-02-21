@@ -19,7 +19,7 @@ const FeedPage = () => {
 
   React.useEffect(() => {
     getEssays();
-  }, []);
+  }, [getEssays]);
 
   return (
     <RequireAuth>
