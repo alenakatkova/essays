@@ -1,12 +1,7 @@
 import React from "react";
+import Feed from "../common/Feed";
 
 const EssaysOfFavouriteAuthors = ({ ids }) => {
-  const [essays, setEssays] = React.useState([]);
-
-  React.useEffect(() => {
-    // TODO получить эссе из бд
-  }, [ids]);
-
   return <div>{ids}</div>;
 };
 
