@@ -1,13 +1,24 @@
 import React from "react";
+import Feed from "../common/Feed";
+import { getUserBookmarkedEssays } from "../../api/UserAPI";
 
-const Bookmarks = ({ ids }) => {
+const Bookmarks = ({ userId }) => {
   const [essays, setEssays] = React.useState([]);
 
-  React.useEffect(() => {
-    // TODO получить эссе из бд
-  }, [ids]);
+  const getEssays = React.useCallback(async () => {
+    const essaysFromServer = await getUserBookmarkedEssays(userId);
+    setEssays(essaysFromServer);
+  }, [userId]);
 
-  return <div>bookmarks</div>;
+  React.useEffect(() => {
+    userId && getEssays();
+  }, [userId]);
+
+  return (
+    <>
+      <Feed postsToRender={essays} />
+    </>
+  );
 };
 
 export default Bookmarks;

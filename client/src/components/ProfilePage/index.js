@@ -65,7 +65,7 @@ const ProfilePage = () => {
                 <FavAuthorsEssays userId={user._id} />
               </Tab.Pane>
               <Tab.Pane eventKey="bookmarks">
-                {/*<Bookmarks ids={user.bookmarks} />*/}
+                <Bookmarks userId={user._id} />
               </Tab.Pane>
             </Tab.Content>
           </Col>
