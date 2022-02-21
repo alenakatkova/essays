@@ -7,6 +7,7 @@ import MyEssays from "./MyEssays";
 import Drafts from "./Drafts";
 import FavAuthorsEssays from "./FavAuthorsEssays";
 import Bookmarks from "./Bookmarks";
+import RequireAuth from "../RequireAuth";
 
 const ProfilePage = () => {
   const [user, setUser] = React.useState({});
@@ -23,55 +24,57 @@ const ProfilePage = () => {
   }, [getUserData]);
 
   return (
-    <Container>
-      <Card body className="mb-4">
-        {t("profile.youAreLoggedInAs")}: {user.username}
-      </Card>
-      <Tab.Container id="left-tabs-example" defaultActiveKey="myEssays">
-        <Row>
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
-              <Nav.Item>
-                <Nav.Link eventKey="myEssays">
-                  {t("profile.tabs.myEssays")}
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="drafts">
-                  {t("profile.tabs.drafts")}
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="essaysOfFavouriteAuthors">
-                  {t("profile.tabs.essaysOfFavouriteAuthors")}
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="bookmarks">
-                  {t("profile.tabs.bookmarks")}
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Col>
-          <Col sm={9}>
-            <Tab.Content>
-              <Tab.Pane eventKey="myEssays">
-                <MyEssays userId={user._id} />
-              </Tab.Pane>
-              <Tab.Pane eventKey="drafts">
-                <Drafts drafts={user.drafts} />
-              </Tab.Pane>
-              <Tab.Pane eventKey="essaysOfFavouriteAuthors">
-                <FavAuthorsEssays userId={user._id} />
-              </Tab.Pane>
-              <Tab.Pane eventKey="bookmarks">
-                <Bookmarks userId={user._id} />
-              </Tab.Pane>
-            </Tab.Content>
-          </Col>
-        </Row>
-      </Tab.Container>
-    </Container>
+    <RequireAuth>
+      <Container>
+        <Card body className="mb-4">
+          {t("profile.youAreLoggedInAs")}: {user.username}
+        </Card>
+        <Tab.Container id="left-tabs-example" defaultActiveKey="myEssays">
+          <Row>
+            <Col sm={3}>
+              <Nav variant="pills" className="flex-column">
+                <Nav.Item>
+                  <Nav.Link eventKey="myEssays">
+                    {t("profile.tabs.myEssays")}
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="drafts">
+                    {t("profile.tabs.drafts")}
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="essaysOfFavouriteAuthors">
+                    {t("profile.tabs.essaysOfFavouriteAuthors")}
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="bookmarks">
+                    {t("profile.tabs.bookmarks")}
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+            <Col sm={9}>
+              <Tab.Content>
+                <Tab.Pane eventKey="myEssays">
+                  <MyEssays userId={user._id} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="drafts">
+                  <Drafts drafts={user.drafts} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="essaysOfFavouriteAuthors">
+                  <FavAuthorsEssays userId={user._id} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="bookmarks">
+                  <Bookmarks userId={user._id} />
+                </Tab.Pane>
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
+      </Container>
+    </RequireAuth>
   );
 };
 
