@@ -1,5 +1,5 @@
 import React from "react";
-import Feed from "../common/Feed";
+import Essays from "../common/Essays";
 import { getFavAuthorsEssays } from "../../api/UserAPI";
 
 const FavAuthorsEssays = ({ userId }) => {
@@ -16,7 +16,7 @@ const FavAuthorsEssays = ({ userId }) => {
 
   return (
     <>
-      <Feed postsToRender={essays} />
+      <Essays toRender={essays} />
     </>
   );
 };

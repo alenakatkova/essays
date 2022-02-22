@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import SignUpPage from "./components/SignUpPage";
 import LogInPage from "./components/LogInPage";
 import WritingPage from "./components/WritingPage";
-import FeedPage from "./components/FeedPage";
+import FeedPage from "./components/FeedPage/index";
 import { AuthProvider } from "./contexts/authProvider";
 import ProfilePage from "./components/ProfilePage/index";
 

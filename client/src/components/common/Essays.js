@@ -3,12 +3,12 @@ import React from "react";
 // import { Badge, Button, Form } from "react-bootstrap";
 import EssayCard from "../EssayCard";
 
-const Feed = ({ postsToRender = [] }) => {
+const Essays = ({ toRender = [] }) => {
   // const { t } = useTranslation();
 
   return (
     <div>
-      {postsToRender.map((post) => (
+      {toRender.map((post) => (
         <div key={post._id} className="mb-5">
           <EssayCard essay={post} />
         </div>
@@ -17,4 +17,4 @@ const Feed = ({ postsToRender = [] }) => {
   );
 };
 
-export default Feed;
+export default Essays;

@@ -1,8 +1,8 @@
 import React from "react";
-import Feed from "../common/Feed";
+import Essays from "../common/Essays";
 
 const Drafts = ({ drafts = [] }) => {
-  return <Feed postsToRender={drafts} />;
+  return <Essays toRender={drafts} />;
 };
 
 export default Drafts;

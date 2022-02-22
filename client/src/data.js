@@ -1,5 +1,57 @@
-// TODO заменить все на camelCase кроме smth_id и smth_date
-// TODO сделать название языка, теста айдишником https://en.wikipedia.org/wiki/List_of_language_proficiency_tests https://en.wikipedia.org/wiki/List_of_Wikipedias
+import React from "react";
+//
+// const [languages, setLanguages] = React.useState([
+//   {
+//     _id: "languagesIds.english",
+//     i18n: "english",
+//     code: "en",
+//     tests: ["testsIds.ielts", "testsIds.telc"],
+//   },
+//   {
+//     _id: "languagesIds.french",
+//     i18n: "french",
+//     code: "fr",
+//     tests: ["testsIds.delf", "testsIds.dalf"],
+//   },
+// ]);
+// const [tests, setTests] = React.useState([
+//   {
+//     _id: "testsIds.ielts",
+//     abbreviation: "IELTS",
+//     name: "International English Language Testing System",
+//     languages: ["languagesIds.english"],
+//     url: "https://www.ielts.org/",
+//   },
+//   {
+//     _id: "testsIds.toefl",
+//     abbreviation: "TOEFL",
+//     name: "Test of English as a Foreign Language",
+//     languages: ["languagesIds.english"],
+//     url: "https://www.ets.org/toefl/",
+//   },
+//   {
+//     _id: "testsIds.delf",
+//     abbreviation: "DELF",
+//     name: "Diplôme d'études en langue française",
+//     languages: ["languagesIds.french"],
+//     url: "http://www.delfdalf.fr/index-en.html",
+//   },
+//   {
+//     _id: "testsIds.dalf",
+//     abbreviation: "DALF",
+//     name: "Diplôme approfondi de langue française",
+//     languages: ["languagesIds.french"],
+//     url: "http://www.delfdalf.fr/index-en.html",
+//   },
+// ]);
+// const [levels, setLevels] = React.useState([
+//   { _id: levelsIds.a1, name: "A1" },
+//   { _id: "levelsIds.a2", name: "A2" },
+//   { _id: "levelsIds.b1", name: "B1" },
+//   { _id: "levelsIds.b2", name: "B2" },
+//   { _id: "levelsIds.c1", name: "C1" },
+//   { _id: "levelsIds.c2", name: "C2" },
+// ]);
 
 export const languages = [
   { _id: "arabic", code: "ar", tests: ["alpt", "telc"] },

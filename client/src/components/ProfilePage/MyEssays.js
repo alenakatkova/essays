@@ -1,5 +1,5 @@
 import React from "react";
-import Feed from "../common/Feed";
+import Essays from "../common/Essays";
 import { getUserEssays } from "../../api/UserAPI";
 
 const MyEssays = ({ userId }) => {
@@ -16,7 +16,7 @@ const MyEssays = ({ userId }) => {
 
   return (
     <>
-      <Feed postsToRender={essays} />
+      <Essays toRender={essays} />
     </>
   );
 };
