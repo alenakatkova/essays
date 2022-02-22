@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Badge, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
-const Filters = () => {
+const Filters = ({ updateFilters }) => {
   const { t } = useTranslation();
   const { register, handleSubmit, setValue, getValues, watch } = useForm();
 
@@ -62,6 +62,13 @@ const Filters = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    updateFilters(data);
+  };
+
+  const reset = () => {
+    setValue("language", null);
+    setValue("test", null);
+    setValue("level", null);
   };
 
   return (
@@ -132,6 +139,7 @@ const Filters = () => {
           </Row>
         </Form.Group>
         <Button type="submit">{t("filters.submit")}</Button>
+        <Button onClick={reset}>{t("filters.reset")}</Button>
       </Form>
     </>
   );
