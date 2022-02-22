@@ -4,7 +4,7 @@ const User = require("../models/User");
 exports.getAllEssays = async (req, res, next) => {
   try {
     const essays = await Essay.find();
-    console.log(req);
+    console.log(req.originalUrl);
     res.status(200).json({
       status: "success",
       results: essays.length,

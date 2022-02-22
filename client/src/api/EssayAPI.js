@@ -17,9 +17,17 @@ export const postEssay = async (data) => {
   }
 };
 
-export const getAllEssays = async () => {
+export const getAllEssays = async (language, test, level) => {
+  const langFilter = language ? `language=${language}&` : "";
+  const testFilter = test ? `test=${test}&` : "";
+  const levelFilter = level ? `level=${level}` : "";
+  const search = langFilter + testFilter + levelFilter;
+  const endpoint =
+    search.length > 0
+      ? "/essays?" + langFilter + testFilter + levelFilter
+      : "/essays";
   try {
-    const res = await instance.get("/essays");
+    const res = await instance.get(endpoint);
     return res.data.data.essays;
   } catch (e) {
     console.error(e);

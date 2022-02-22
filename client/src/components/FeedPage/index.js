@@ -6,21 +6,18 @@ import RequireAuth from "../RequireAuth";
 import Feed from "./Feed";
 import Filters from "./Filters";
 
+const initialFiltersState = {
+  level: null,
+  language: null,
+  test: null,
+};
+
 const FeedPage = () => {
   const { t } = useTranslation();
+  const [filters, setFilters] = React.useState(initialFiltersState);
 
-  const [filters, setFilters] = React.useState({
-    level: null,
-    language: null,
-    test: null,
-  });
-  // const { register, handleSubmit, setValue, getValues, watch } = useForm();
-
-  const updateFilters = (chosenFilters) => {
+  const updateFilters = (chosenFilters = initialFiltersState) => {
     setFilters({ ...filters, ...chosenFilters });
-    // console.log(level);
-    // console.log(language);
-    // console.log(test);
   };
 
   return (
@@ -31,7 +28,7 @@ const FeedPage = () => {
             <Filters updateFilters={updateFilters} />
           </Col>
           <Col xs={9}>
-            <Feed />
+            <Feed filters={filters} />
           </Col>
         </Row>
       </Container>

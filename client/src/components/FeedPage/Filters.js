@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col, Badge, Button } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { getAllLanguages } from "../../api/LanguagesAPI";
 import { getAllLevels } from "../../api/LevelsAPI";
@@ -29,7 +29,6 @@ const Filters = ({ updateFilters }) => {
   }, [getFiltersFromServer]);
 
   const onSubmit = (data) => {
-    console.log(data);
     updateFilters(data);
   };
 
@@ -37,6 +36,7 @@ const Filters = ({ updateFilters }) => {
     setValue("language", null);
     setValue("test", null);
     setValue("level", null);
+    updateFilters();
   };
 
   return (
