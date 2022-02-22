@@ -17,7 +17,7 @@ export const postEssay = async (data) => {
   }
 };
 
-export const getAllEssays = async (language, test, level) => {
+export const getEssays = async (language, test, level) => {
   const langFilter = language ? `language=${language}&` : "";
   const testFilter = test ? `test=${test}&` : "";
   const levelFilter = level ? `level=${level}` : "";

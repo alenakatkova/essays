@@ -1,10 +1,19 @@
 const Essay = require("../models/Essay");
-const User = require("../models/User");
+const mongoose = require("mongoose");
 
-exports.getAllEssays = async (req, res, next) => {
+exports.getEssays = async (req, res, next) => {
   try {
-    const essays = await Essay.find();
-    console.log(req.originalUrl);
+    const filters = req.query;
+    const keys = Object.keys(filters);
+    let query = {};
+    keys.forEach((key, index) => {
+      query["writingSettings." + key + "_id"] = mongoose.Types.ObjectId(
+        filters[key]
+      );
+    });
+
+    const essays = await Essay.find(query);
+
     res.status(200).json({
       status: "success",
       results: essays.length,

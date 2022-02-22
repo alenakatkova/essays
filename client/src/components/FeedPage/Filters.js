@@ -28,8 +28,8 @@ const Filters = ({ updateFilters }) => {
     getFiltersFromServer();
   }, [getFiltersFromServer]);
 
-  const onSubmit = (data) => {
-    updateFilters(data);
+  const onSubmit = (filtersValues) => {
+    updateFilters(filtersValues);
   };
 
   const reset = () => {
