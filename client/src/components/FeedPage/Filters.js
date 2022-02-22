@@ -2,63 +2,31 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Badge, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { getAllLanguages } from "../../api/LanguagesAPI";
+import { getAllLevels } from "../../api/LevelsAPI";
+import { getAllTests } from "../../api/TestsAPI";
 
 const Filters = ({ updateFilters }) => {
   const { t } = useTranslation();
   const { register, handleSubmit, setValue, getValues, watch } = useForm();
 
-  const [languages, setLanguages] = React.useState([
-    {
-      _id: "languagesIds.english",
-      i18n: "english",
-      code: "en",
-      tests: ["testsIds.ielts", "testsIds.telc"],
-    },
-    {
-      _id: "languagesIds.french",
-      i18n: "french",
-      code: "fr",
-      tests: ["testsIds.delf", "testsIds.dalf"],
-    },
-  ]);
-  const [tests, setTests] = React.useState([
-    {
-      _id: "testsIds.ielts",
-      abbreviation: "IELTS",
-      name: "International English Language Testing System",
-      languages: ["languagesIds.english"],
-      url: "https://www.ielts.org/",
-    },
-    {
-      _id: "testsIds.toefl",
-      abbreviation: "TOEFL",
-      name: "Test of English as a Foreign Language",
-      languages: ["languagesIds.english"],
-      url: "https://www.ets.org/toefl/",
-    },
-    {
-      _id: "testsIds.delf",
-      abbreviation: "DELF",
-      name: "Diplôme d'études en langue française",
-      languages: ["languagesIds.french"],
-      url: "http://www.delfdalf.fr/index-en.html",
-    },
-    {
-      _id: "testsIds.dalf",
-      abbreviation: "DALF",
-      name: "Diplôme approfondi de langue française",
-      languages: ["languagesIds.french"],
-      url: "http://www.delfdalf.fr/index-en.html",
-    },
-  ]);
-  const [levels, setLevels] = React.useState([
-    { _id: "levelsIds.a1", name: "A1" },
-    { _id: "levelsIds.a2", name: "A2" },
-    { _id: "levelsIds.b1", name: "B1" },
-    { _id: "levelsIds.b2", name: "B2" },
-    { _id: "levelsIds.c1", name: "C1" },
-    { _id: "levelsIds.c2", name: "C2" },
-  ]);
+  const [languages, setLanguages] = React.useState([]);
+  const [tests, setTests] = React.useState([]);
+  const [levels, setLevels] = React.useState([]);
+
+  const getFiltersFromServer = React.useCallback(async () => {
+    const languagesFromServer = await getAllLanguages();
+    const levelsFromServer = await getAllLevels();
+    const testsFromServer = await getAllTests();
+
+    setLanguages(languagesFromServer || []);
+    setLevels(levelsFromServer || []);
+    setTests(testsFromServer || []);
+  }, []);
+
+  React.useEffect(() => {
+    getFiltersFromServer();
+  }, [getFiltersFromServer]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -126,11 +94,15 @@ const Filters = ({ updateFilters }) => {
           <h5>{t("filters.tests.title")}</h5>
           <Row>
             {tests.map((test) => (
-              <Col xs={6} key={test._id}>
+              <Col xs={12} key={test._id}>
                 <Form.Check
                   type="radio"
                   id={test._id}
-                  label={t(`tests.${test.abbreviation}`)}
+                  label={
+                    test.abbreviation.length > 0
+                      ? `${test.abbreviation}`
+                      : `${test.name}`
+                  }
                   value={test._id}
                   {...register("test")}
                 />

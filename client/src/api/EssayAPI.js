@@ -17,10 +17,9 @@ export const postEssay = async (data) => {
   }
 };
 
-export const getAllEssays = async (language, level, test) => {
+export const getAllEssays = async () => {
   try {
     const res = await instance.get("/essays");
-    console.log(res);
     return res.data.data.essays;
   } catch (e) {
     console.error(e);
