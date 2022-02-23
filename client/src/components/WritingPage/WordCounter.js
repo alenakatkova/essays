@@ -1,23 +1,22 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { countWords } from "../../utils/countWords";
 
-const isWord = (str) => {
-  const regexpContainsLetter = /\p{L}/u;
-  return regexpContainsLetter.test(str);
-};
-
-const countWords = (text) => {
-  return text.split(" ").filter((str) => isWord(str)).length;
-};
-
-const WordCounter = ({ minAmount, text }) => {
+const WordCounter = ({ minAmount, text, requiresReset, onResetCompletion }) => {
   const { t } = useTranslation();
 
   const [currentAmount, setCurrentAmount] = React.useState(0);
 
   React.useEffect(() => {
-    if (text && text.length > 0) setCurrentAmount(countWords(text));
+    if (text) setCurrentAmount(countWords(text));
   }, [text]);
+
+  React.useEffect(() => {
+    if (requiresReset) {
+      setCurrentAmount(0);
+    }
+    onResetCompletion();
+  }, [requiresReset]);
 
   return (
     <div>

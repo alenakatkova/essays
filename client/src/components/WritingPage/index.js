@@ -3,22 +3,24 @@ import { useTranslation } from "react-i18next";
 import { Button, Form } from "react-bootstrap";
 import { useForm, FormProvider } from "react-hook-form";
 import Timer from "./Timer";
-import WordCounter from "../WordCounter";
+import WordCounter from "./WordCounter";
 import { postEssay } from "../../api/EssayAPI";
 import { useAuth } from "../../contexts/authProvider";
 import Settings from "./Settings";
 import RandomTopics from "./RandomTopics";
 import { updateUserWritingSettings } from "../../api/UserAPI";
+import { countWords } from "../../utils/countWords";
 
 const WritingPage = () => {
   const auth = useAuth();
   const methods = useForm();
   const { t } = useTranslation();
 
-  const [isResetRequiredFor, setIsResetRequiredFor] = React.useState({
-    settings: false,
-    randomTopics: false,
-  });
+  const [shouldSettingsReset, setShouldSettingsReset] = React.useState(false);
+  const [shouldRandomTopicsReset, setShouldRandomTopicsReset] =
+    React.useState(false);
+  const [shouldWordsCountReset, setShouldWordsCountReset] =
+    React.useState(false);
   const [isTopicChosen, setIsTopicChosen] = React.useState(false);
   const [langCode, setLangCode] = React.useState("");
   const [isStepDisabled, setIsStepDisabled] = React.useState({
@@ -43,11 +45,9 @@ const WritingPage = () => {
   };
 
   const reset = () => {
-    setIsResetRequiredFor({
-      ...isResetRequiredFor,
-      settings: true,
-      randomTopics: true,
-    });
+    setShouldSettingsReset(true);
+    setShouldRandomTopicsReset(true);
+    setShouldWordsCountReset(true);
     setIsStepDisabled({
       ...isStepDisabled,
       settings: false,
@@ -61,11 +61,15 @@ const WritingPage = () => {
   };
 
   const onResetSettingsCompletion = () => {
-    setIsResetRequiredFor({ ...isResetRequiredFor, settings: false });
+    setShouldSettingsReset(false);
   };
 
   const onResetRandomTopicsCompletion = () => {
-    setIsResetRequiredFor({ ...isResetRequiredFor, randomTopics: false });
+    setShouldRandomTopicsReset(false);
+  };
+
+  const onResetWordCounterCompletion = () => {
+    setShouldWordsCountReset(false);
   };
 
   const onTopicsGeneration = () => {
@@ -88,8 +92,14 @@ const WritingPage = () => {
         console.log(res)
       );
     }
-    postEssay({ ...data, userId: auth.user }); // TODO сохранить у юзера айди эссе
-    // TODO запись в эссе либо в драфты
+
+    const totalWords = countWords(data.essayBody);
+    if (totalWords >= watchWordsCount) {
+      postEssay({ ...data, userId: auth.user }); // TODO сохранить у юзера айди эссе
+    } else {
+      console.log("not enough"); // TODO запись в эссе либо в драфты
+    }
+
     console.log(data);
     reset();
   };
@@ -115,7 +125,7 @@ const WritingPage = () => {
               <Settings
                 userId={auth.user}
                 setLangCode={setLangCode}
-                requiresReset={isResetRequiredFor.settings}
+                requiresReset={shouldSettingsReset}
                 onResetCompletion={onResetSettingsCompletion}
               />
             </fieldset>
@@ -124,7 +134,7 @@ const WritingPage = () => {
                 langCode={langCode}
                 setIsTopicChosen={setIsTopicChosen}
                 onTopicListGeneration={onTopicsGeneration}
-                requiresReset={isResetRequiredFor.randomTopics}
+                requiresReset={shouldRandomTopicsReset}
                 onResetCompletion={onResetRandomTopicsCompletion}
               />
             </fieldset>
@@ -154,6 +164,8 @@ const WritingPage = () => {
                     <WordCounter
                       text={watchEssayBody}
                       minAmount={watchWordsCount}
+                      requiresReset={shouldWordsCountReset}
+                      onResetCompletion={onResetWordCounterCompletion}
                     />
                   </div>
                 </div>

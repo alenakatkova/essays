@@ -56,7 +56,9 @@ const Settings = ({
   }, [userDefaultSettings]);
 
   React.useEffect(() => {
-    if (requiresReset && !watchSaveSettings) setInitialValues();
+    if (requiresReset && !watchSaveSettings) {
+      setInitialValues();
+    }
     onResetCompletion();
   }, [requiresReset]);
 
