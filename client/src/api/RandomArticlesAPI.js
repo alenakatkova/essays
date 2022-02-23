@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getRandomArticlesFromWiki = async (languageCode) => {
+export const getRandomArticlesFromWiki = async (languageCode, amount) => {
   let wikiUrl = `https://${languageCode}.wikipedia.org/w/api.php?origin=*`;
 
   const params = {
@@ -8,7 +8,7 @@ export const getRandomArticlesFromWiki = async (languageCode) => {
     rnnamespace: 0,
     format: "json",
     list: "random",
-    rnlimit: "5",
+    rnlimit: amount.toString(),
   };
 
   Object.keys(params).forEach(function (key) {

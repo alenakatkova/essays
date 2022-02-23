@@ -11,22 +11,45 @@ const RandomTopics = ({
   onTopicListGeneration,
 }) => {
   const { t } = useTranslation();
-  const { register, setValue, getValues } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
   const [wikiArticles, setWikiArticles] = React.useState([]);
 
+  const watchHowManyArticles = watch("howManyArticles");
+
   const generateTopicsChoice = async () => {
-    const randomArticles = await getRandomArticlesFromWiki(langCode);
+    const randomArticles = await getRandomArticlesFromWiki(
+      langCode,
+      watchHowManyArticles
+    );
     setWikiArticles(randomArticles);
     onTopicListGeneration();
     setIsTopicChosen(false);
   };
 
+  React.useEffect(() => {
+    setValue("howManyArticles", 5);
+  }, []);
+
   return (
     <>
       <div className="mb-3">
-        <Button onClick={generateTopicsChoice}>
-          {t("writing.form.articles.generate")}
-        </Button>
+        <Form.Group className="mb-3 row align-items-center">
+          <Form.Label className="col-auto">
+            {t("writing.form.articles.howMany")}
+          </Form.Label>
+          <Form.Control
+            style={{ width: "15%" }}
+            type="number"
+            {...register("howManyArticles")}
+          />
+          <Button
+            className="mx-2"
+            style={{ width: "25%" }}
+            onClick={generateTopicsChoice}
+          >
+            {t("writing.form.articles.generate")}
+          </Button>
+        </Form.Group>
       </div>
       <Form.Group
         onChange={() => {
