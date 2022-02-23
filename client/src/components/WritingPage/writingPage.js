@@ -8,8 +8,11 @@ import Timer from "./Timer";
 import { getRandomArticlesFromWiki } from "../../api/RandomArticlesAPI";
 import WordCounter from "../WordCounter";
 import { postEssay } from "../../api/EssayAPI";
+import { useAuth } from "../../contexts/authProvider";
 
-const WritingPage = () => {
+const Index = () => {
+  const auth = useAuth();
+  console.log(auth.auth);
   const { t } = useTranslation();
   const { register, handleSubmit, setValue, getValues, watch } = useForm();
 
@@ -224,4 +227,4 @@ const WritingPage = () => {
   );
 };
 
-export default WritingPage;
+export default Index;
