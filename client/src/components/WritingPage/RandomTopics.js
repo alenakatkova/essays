@@ -9,12 +9,22 @@ const RandomTopics = ({
   langCode,
   setIsTopicChosen,
   onTopicListGeneration,
+  requiresReset,
+  onResetCompletion,
 }) => {
   const { t } = useTranslation();
   const { register, setValue, watch } = useFormContext();
   const [wikiArticles, setWikiArticles] = React.useState([]);
-
   const watchHowManyArticles = watch("howManyArticles");
+
+  React.useEffect(() => {
+    setValue("howManyArticles", 5);
+  }, []);
+
+  React.useEffect(() => {
+    if (requiresReset) setWikiArticles([]);
+    onResetCompletion();
+  }, [requiresReset]);
 
   const generateTopicsChoice = async () => {
     const randomArticles = await getRandomArticlesFromWiki(
@@ -25,10 +35,6 @@ const RandomTopics = ({
     onTopicListGeneration();
     setIsTopicChosen(false);
   };
-
-  React.useEffect(() => {
-    setValue("howManyArticles", 5);
-  }, []);
 
   return (
     <>

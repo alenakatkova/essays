@@ -16,6 +16,7 @@ const WritingPage = () => {
 
   const [isResetRequiredFor, setIsResetRequiredFor] = React.useState({
     settings: false,
+    randomTopics: false,
   });
   const [isTopicChosen, setIsTopicChosen] = React.useState(false);
   const [langCode, setLangCode] = React.useState("");
@@ -41,7 +42,11 @@ const WritingPage = () => {
   };
 
   const reset = () => {
-    setIsResetRequiredFor({ ...isResetRequiredFor, settings: true });
+    setIsResetRequiredFor({
+      ...isResetRequiredFor,
+      settings: true,
+      randomTopics: true,
+    });
     setIsStepDisabled({
       ...isStepDisabled,
       settings: false,
@@ -56,6 +61,10 @@ const WritingPage = () => {
 
   const onResetSettingsCompletion = () => {
     setIsResetRequiredFor({ ...isResetRequiredFor, settings: false });
+  };
+
+  const onResetRandomTopicsCompletion = () => {
+    setIsResetRequiredFor({ ...isResetRequiredFor, randomTopics: false });
   };
 
   const onTopicsGeneration = () => {
@@ -105,6 +114,8 @@ const WritingPage = () => {
                 langCode={langCode}
                 setIsTopicChosen={setIsTopicChosen}
                 onTopicListGeneration={onTopicsGeneration}
+                requiresReset={isResetRequiredFor.randomTopics}
+                onResetCompletion={onResetRandomTopicsCompletion}
               />
             </fieldset>
             {isTopicChosen && (
@@ -115,7 +126,10 @@ const WritingPage = () => {
                 />
               </div>
             )}
-            <fieldset className="mb-3" disabled={isStepDisabled.writing}>
+            <fieldset
+              className="mb-3 border-top py-3"
+              disabled={isStepDisabled.writing}
+            >
               <Form.Group className="mb-3">
                 <Form.Label>{t("writing.form.essay.title")}</Form.Label>
                 <Form.Control
