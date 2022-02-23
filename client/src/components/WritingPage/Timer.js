@@ -35,11 +35,15 @@ const Timer = ({ startWriting, minutes }) => {
 
   return (
     <div>
-      {addZeroIfLessThanTen(Math.floor(secondsLeft / 60))}:
-      {addZeroIfLessThanTen(secondsLeft % 60)}
-      <Button onClick={startTimer} disabled={isOn}>
-        {t("timer.start")}
-      </Button>
+      <div className="display-2 row justify-content-center">
+        {addZeroIfLessThanTen(Math.floor(secondsLeft / 60))}:
+        {addZeroIfLessThanTen(secondsLeft % 60)}
+      </div>
+      <div className="row justify-content-center m-3">
+        <Button onClick={startTimer} disabled={isOn} style={{ width: "15%" }}>
+          {t("timer.start")}
+        </Button>
+      </div>
     </div>
   );
 };

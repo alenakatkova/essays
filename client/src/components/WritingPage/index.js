@@ -126,10 +126,7 @@ const WritingPage = () => {
                 />
               </div>
             )}
-            <fieldset
-              className="mb-3 border-top py-3"
-              disabled={isStepDisabled.writing}
-            >
+            <fieldset className="mb-3" disabled={isStepDisabled.writing}>
               <Form.Group className="mb-3">
                 <Form.Label>{t("writing.form.essay.title")}</Form.Label>
                 <Form.Control
