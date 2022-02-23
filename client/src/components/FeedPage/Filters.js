@@ -8,7 +8,7 @@ import { getAllTests } from "../../api/TestsAPI";
 
 const Filters = ({ updateFilters }) => {
   const { t } = useTranslation();
-  const { register, handleSubmit, setValue, getValues, watch } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const [languages, setLanguages] = React.useState([]);
   const [tests, setTests] = React.useState([]);

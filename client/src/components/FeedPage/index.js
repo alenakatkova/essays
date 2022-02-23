@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+//import { useTranslation } from "react-i18next";
 import { Container, Row, Col } from "react-bootstrap";
 // import { useForm } from "react-hook-form";
 import RequireAuth from "../RequireAuth";
@@ -13,7 +13,7 @@ const initialFiltersState = {
 };
 
 const FeedPage = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [filters, setFilters] = React.useState(initialFiltersState);
 
   const updateFilters = (chosenFilters = initialFiltersState) => {

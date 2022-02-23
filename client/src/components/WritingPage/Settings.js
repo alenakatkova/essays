@@ -1,15 +1,15 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { getAllLanguages } from "../../api/LanguagesAPI";
 import { getAllLevels } from "../../api/LevelsAPI";
 import { getAllTests } from "../../api/TestsAPI";
 import { getUserInfo } from "../../api/UserAPI";
 
-const Settings = ({ userId }) => {
+const Settings = ({ userId, setLangCode }) => {
   const { t } = useTranslation();
-  const { register, setValue } = useForm();
+  const { register, setValue, getValues } = useFormContext();
 
   const [languages, setLanguages] = React.useState([]);
   const [tests, setTests] = React.useState([]);
@@ -37,7 +37,20 @@ const Settings = ({ userId }) => {
     setValue("timingInMinutes", userDefaultSettings.timingInMinutes);
     setValue("language", userDefaultSettings.language_id);
     setValue("test", userDefaultSettings.test_id);
+    setValue("level", userDefaultSettings.level_id);
+
+    const currentLanguage = languages.find(
+      (language) => language._id === userDefaultSettings.language_id
+    );
+    currentLanguage && setLangCode(currentLanguage.code);
   }, [userDefaultSettings]);
+
+  const onLanguageChange = () => {
+    const currentLanguage = languages.find(
+      (language) => language._id === getValues("language")
+    );
+    setLangCode(currentLanguage.code);
+  };
 
   return (
     <>
@@ -49,22 +62,32 @@ const Settings = ({ userId }) => {
         <Form.Label>{t("writing.form.settings.timingInMinutes")}</Form.Label>
         <Form.Control type="number" {...register("timingInMinutes")} />
       </Form.Group>
-      <Form.Group className="col-6 mb-3">
+      <Form.Group className="col-4 mb-3" onChange={onLanguageChange}>
         <Form.Label>{t("writing.form.settings.language")}</Form.Label>
         <Form.Select {...register("language")}>
           {languages.map((language) => (
             <option key={language._id} value={language._id}>
-              {t(`languages.${language._id}`)}
+              {t(`languages.${language.i18n}`)}
             </option>
           ))}
         </Form.Select>
       </Form.Group>
-      <Form.Group className="col-6 mb-3">
+      <Form.Group className="col-4 mb-3">
         <Form.Label>{t("writing.form.settings.test")}</Form.Label>
         <Form.Select {...register("test")}>
           {tests.map((test) => (
             <option key={test._id} value={test._id}>
-              {test.name}
+              {test.abbreviation ? test.abbreviation : test.name}
+            </option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+      <Form.Group className="col-4 mb-3">
+        <Form.Label>{t("writing.form.settings.level")}</Form.Label>
+        <Form.Select {...register("level")}>
+          {levels.map((level) => (
+            <option key={level._id} value={level._id}>
+              {level.name}
             </option>
           ))}
         </Form.Select>
