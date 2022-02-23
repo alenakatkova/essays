@@ -1,26 +1,27 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Badge, Button, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useForm, FormProvider } from "react-hook-form";
-import { BsLink45Deg as LinkIcon } from "react-icons/bs";
 import Timer from "./Timer";
-import { getRandomArticlesFromWiki } from "../../api/RandomArticlesAPI";
 import WordCounter from "../WordCounter";
 import { postEssay } from "../../api/EssayAPI";
 import { useAuth } from "../../contexts/authProvider";
 import Settings from "./Settings";
+import RandomTopics from "./RandomTopics";
 
 const WritingPage = () => {
   const auth = useAuth();
   const methods = useForm();
   const { t } = useTranslation();
 
-  const [wikiArticles, setWikiArticles] = React.useState([]);
+  const [isResetRequiredFor, setIsResetRequiredFor] = React.useState({
+    settings: false,
+  });
   const [isTopicChosen, setIsTopicChosen] = React.useState(false);
   const [langCode, setLangCode] = React.useState("");
   const [isStepDisabled, setIsStepDisabled] = React.useState({
     settings: false,
-    topicChoice: false,
+    randomTopics: false,
     writing: true,
     submit: true,
   });
@@ -33,33 +34,36 @@ const WritingPage = () => {
     setIsStepDisabled({
       ...isStepDisabled,
       settings: true,
-      topicChoice: true,
+      randomTopics: true,
       writing: false,
       submit: false,
     });
   };
 
   const reset = () => {
+    setIsResetRequiredFor({ ...isResetRequiredFor, settings: true });
     setIsStepDisabled({
       ...isStepDisabled,
       settings: false,
-      topicChoice: false,
+      randomTopics: false,
       writing: true,
       submit: true,
     });
     setIsTopicChosen(false);
-    setWikiArticles([]);
     methods.setValue("essayTitle", "");
     methods.setValue("essayBody", "");
-
-    // TODO вернуться к сохраненным настройкам (если кнопка Сохранить текущие настройки не нажата)
   };
 
-  const generateTopicsChoice = async () => {
-    const randomArticles = await getRandomArticlesFromWiki(langCode);
-    setWikiArticles(randomArticles);
-    setIsTopicChosen(false);
-    setIsStepDisabled({ ...isStepDisabled, settings: true });
+  const onResetSettingsCompletion = () => {
+    setIsResetRequiredFor({ ...isResetRequiredFor, settings: false });
+  };
+
+  const onTopicsGeneration = () => {
+    // setIsRandomTopicsGenerated(true);
+    setIsStepDisabled({
+      ...isStepDisabled,
+      settings: true,
+    });
   };
 
   const onSubmit = (data) => {
@@ -89,44 +93,19 @@ const WritingPage = () => {
               className="row justify-content-center"
               disabled={isStepDisabled.settings}
             >
-              <Settings userId={auth.user} setLangCode={setLangCode} />
+              <Settings
+                userId={auth.user}
+                setLangCode={setLangCode}
+                requiresReset={isResetRequiredFor.settings}
+                onResetCompletion={onResetSettingsCompletion}
+              />
             </fieldset>
-            <fieldset className="mb-3" disabled={isStepDisabled.topicChoice}>
-              <div className="mb-3">
-                <Button onClick={generateTopicsChoice}>
-                  {t("writing.form.articles.generate")}
-                </Button>
-              </div>
-              <Form.Group
-                onChange={() => {
-                  setIsTopicChosen(true);
-                }}
-              >
-                {wikiArticles.map((article) => (
-                  <Form.Check
-                    key={article.id}
-                    type="radio"
-                    id={article.id}
-                    label={
-                      <span>
-                        {article.title}{" "}
-                        <Badge bg="light" text="dark">
-                          <a
-                            href={article.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            title={t("writing.form.articles.link")}
-                          >
-                            <LinkIcon />
-                          </a>
-                        </Badge>
-                      </span>
-                    }
-                    value={article.title}
-                    {...methods.register("article")}
-                  />
-                ))}
-              </Form.Group>
+            <fieldset className="mb-3" disabled={isStepDisabled.randomTopics}>
+              <RandomTopics
+                langCode={langCode}
+                setIsTopicChosen={setIsTopicChosen}
+                onTopicListGeneration={onTopicsGeneration}
+              />
             </fieldset>
             {isTopicChosen && (
               <div className="mb-3">

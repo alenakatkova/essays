@@ -10,7 +10,7 @@ export const postEssay = async (data) => {
       user_id: "6202c18f37cf3ae3173dc916", // TODO добавить сюда аутентицированного пользователя
       title: data.essayTitle,
       body: data.essayBody,
-      topic: data.article,
+      topic: data.topic,
     });
   } catch (e) {
     console.error(e.response.data.errors);

@@ -7,9 +7,15 @@ import { getAllLevels } from "../../api/LevelsAPI";
 import { getAllTests } from "../../api/TestsAPI";
 import { getUserInfo } from "../../api/UserAPI";
 
-const Settings = ({ userId, setLangCode }) => {
+const Settings = ({
+  userId,
+  setLangCode,
+  requiresReset,
+  onResetCompletion,
+}) => {
   const { t } = useTranslation();
-  const { register, setValue, getValues } = useFormContext();
+  const { register, setValue, getValues, watch } = useFormContext();
+  const watchSaveSettings = watch("saveSettings");
 
   const [languages, setLanguages] = React.useState([]);
   const [tests, setTests] = React.useState([]);
@@ -32,7 +38,7 @@ const Settings = ({ userId, setLangCode }) => {
     getSettingsFromServer();
   }, [getSettingsFromServer]);
 
-  React.useEffect(() => {
+  const setInitialValues = () => {
     setValue("wordsCount", userDefaultSettings.minAmountOfWords);
     setValue("timingInMinutes", userDefaultSettings.timingInMinutes);
     setValue("language", userDefaultSettings.language_id);
@@ -43,7 +49,16 @@ const Settings = ({ userId, setLangCode }) => {
       (language) => language._id === userDefaultSettings.language_id
     );
     currentLanguage && setLangCode(currentLanguage.code);
+  };
+
+  React.useEffect(() => {
+    setInitialValues();
   }, [userDefaultSettings]);
+
+  React.useEffect(() => {
+    if (requiresReset && !watchSaveSettings) setInitialValues();
+    onResetCompletion();
+  }, [requiresReset]);
 
   const onLanguageChange = () => {
     const currentLanguage = languages.find(
