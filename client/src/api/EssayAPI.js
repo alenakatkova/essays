@@ -7,7 +7,7 @@ export const postEssay = async (data) => {
       language: data.language,
       test: data.test,
       timingInMinutes: data.timingInMinutes,
-      user_id: "6202c18f37cf3ae3173dc916", // TODO добавить сюда аутентицированного пользователя
+      user_id: data.userId, // TODO добавить сюда аутентицированного пользователя
       title: data.essayTitle,
       body: data.essayBody,
       topic: data.topic,

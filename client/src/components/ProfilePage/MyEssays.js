@@ -8,6 +8,7 @@ const MyEssays = ({ userId }) => {
   const getEssays = React.useCallback(async () => {
     const essaysFromServer = await getUserEssays(userId);
     setEssays(essaysFromServer);
+    console.log(essaysFromServer);
   }, [userId]);
 
   React.useEffect(() => {

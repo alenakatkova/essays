@@ -1,4 +1,5 @@
 const Essay = require("../models/Essay");
+const User = require("../models/User");
 const mongoose = require("mongoose");
 
 exports.getEssays = async (req, res, next) => {
@@ -47,6 +48,10 @@ exports.getOneEssay = async (req, res, next) => {
 exports.createEssay = async (req, res, next) => {
   try {
     const essay = await Essay.create(req.body);
+    const user = await User.findById(req.body.user_id);
+    user.essays.push(essay);
+    user.save();
+
     res.status(200).json({
       status: "success",
       data: {

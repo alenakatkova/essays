@@ -59,7 +59,6 @@ const WritingPage = () => {
   };
 
   const onTopicsGeneration = () => {
-    // setIsRandomTopicsGenerated(true);
     setIsStepDisabled({
       ...isStepDisabled,
       settings: true,
@@ -70,7 +69,8 @@ const WritingPage = () => {
     if (data["saveSettings"]) {
       // запись настроек в документ пользователя в бд
     }
-    postEssay(data);
+    postEssay({ ...data, userId: auth.user }); // TODO сохранить у юзера айди эссе
+    // TODO запись в эссе либо в драфты
     console.log(data);
     reset();
   };

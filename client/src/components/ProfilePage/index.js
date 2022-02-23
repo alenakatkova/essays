@@ -16,6 +16,7 @@ const ProfilePage = () => {
 
   const getUserData = React.useCallback(async () => {
     const data = await getUserInfo(auth.user);
+    console.log(data);
     setUser(data);
   }, [auth.user]);
 
