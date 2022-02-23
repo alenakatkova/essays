@@ -182,3 +182,26 @@ exports.logOut = async (req, res) => {
     res.end();
   }
 };
+
+exports.updateWritingSettings = async (req, res, next) => {
+  const { writingSettings } = req.body;
+  try {
+    const user = await User.findById(req.params.id);
+    user.writingSettings.timingInMinutes = writingSettings.timingInMinutes;
+    user.writingSettings.language_id = writingSettings.language_id;
+    user.writingSettings.test_id = writingSettings.test_id;
+    user.writingSettings.level_id = writingSettings.level_id;
+    user.writingSettings.minAmountOfWords = writingSettings.minAmountOfWords;
+    user.save();
+    res.status(201).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};

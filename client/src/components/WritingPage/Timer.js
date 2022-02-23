@@ -2,14 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "react-bootstrap";
 
-//TODO добавить в таймер часы
 const addZeroIfLessThanTen = (number) => {
   return number < 10 ? "0" + number : number;
 };
-
-// const formatMinutesMM(minutes)
-//
-// const formatSecondsSS(seconds)
 
 const Timer = ({ startWriting, minutes }) => {
   const { t } = useTranslation();

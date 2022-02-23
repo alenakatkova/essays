@@ -46,3 +46,13 @@ export const getBookmarkedEssays = async (userId) => {
     console.error(e);
   }
 };
+
+export const updateUserWritingSettings = async (writingSettings, userId) => {
+  try {
+    return await instance.post(`/users/${userId}/writing-settings`, {
+      writingSettings,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};

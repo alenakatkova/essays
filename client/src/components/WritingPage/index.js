@@ -8,6 +8,7 @@ import { postEssay } from "../../api/EssayAPI";
 import { useAuth } from "../../contexts/authProvider";
 import Settings from "./Settings";
 import RandomTopics from "./RandomTopics";
+import { updateUserWritingSettings } from "../../api/UserAPI";
 
 const WritingPage = () => {
   const auth = useAuth();
@@ -76,7 +77,16 @@ const WritingPage = () => {
 
   const onSubmit = (data) => {
     if (data["saveSettings"]) {
-      // запись настроек в документ пользователя в бд
+      const newWritingSettings = {
+        timingInMinutes: data.timingInMinutes,
+        language_id: data.language,
+        test_id: data.test,
+        level_id: data.level,
+        minAmountOfWords: data.wordsCount,
+      };
+      updateUserWritingSettings(newWritingSettings, auth.user).then((res) =>
+        console.log(res)
+      );
     }
     postEssay({ ...data, userId: auth.user }); // TODO сохранить у юзера айди эссе
     // TODO запись в эссе либо в драфты
