@@ -22,6 +22,7 @@ const WritingPage = () => {
     settings: false,
     topicChoice: false,
     writing: true,
+    submit: true,
   });
 
   const watchEssayBody = methods.watch("essayBody");
@@ -34,6 +35,7 @@ const WritingPage = () => {
       settings: true,
       topicChoice: true,
       writing: false,
+      submit: false,
     });
   };
 
@@ -43,6 +45,7 @@ const WritingPage = () => {
       settings: false,
       topicChoice: false,
       writing: true,
+      submit: true,
     });
     setIsTopicChosen(false);
     setWikiArticles([]);
@@ -67,22 +70,6 @@ const WritingPage = () => {
     console.log(data);
     reset();
   };
-
-  // React.useEffect(() => {
-  //   const writingSettings = randomUser["writingSettings"]; // TODO запросить в БД настройки для написания эссе для этого юзера
-  //   const language = languages.find((lang) => {
-  //     return lang._id === writingSettings["language_id"];
-  //   });
-  //   const test = tests.find((test) => test._id === writingSettings["test_id"]);
-  //
-  //   //---------------------------------------------------------------------------
-  //   // SETTINGS
-  //   // setLanguages(langs); // TODO запрос в бд на список языков и т.д.
-  //   setValue("wordsCount", writingSettings["wordsCount"]);
-  //   setValue("timingInMinutes", writingSettings["timingInMinutes"]);
-  //   setValue("language", language._id);
-  //   setValue("test", test._id);
-  // }, [setValue]);
 
   return (
     <div>
@@ -177,7 +164,9 @@ const WritingPage = () => {
                 />
               </Form.Group>
             </fieldset>
-            <Button type="submit">{t("writing.form.submit")}</Button>
+            <Button type="submit" disabled={isStepDisabled.submit}>
+              {t("writing.form.submit")}
+            </Button>
           </Form>
         </FormProvider>
       </div>
