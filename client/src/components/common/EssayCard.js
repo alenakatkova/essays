@@ -8,7 +8,7 @@ import {
   // BsHeartFill,
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import RequireAuth from "./RequireAuth";
+import RequireAuth from "../RequireAuth";
 
 // { "_id": "6202c1f437cf3ae3173dc918",
 //     "minAmountOfWords": 10,

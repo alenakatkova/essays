@@ -73,5 +73,21 @@
   },
   "wordsCounter": {
     "title": "Счетчик слов"
+  },
+  "essay": {
+    "commentsTabs": {
+      "commentsList": {
+        "title": "Комментарии"
+      },
+      "editSuggestionsList": {
+        "title": "Предложения по исправлениям"
+      },
+      "toComment": {
+        "title": "Комментировать"
+      },
+      "toSuggestEdits": {
+        "title": "Предложить исправления"
+      }
+    }
   }
 }
