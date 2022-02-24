@@ -1,6 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Tab, Tabs } from "react-bootstrap";
+import LeaveComment from "./LeaveComment";
+import SuggestEdits from "./SuggestEdits";
 
 const CommentsTabs = () => {
   const { t } = useTranslation();
@@ -26,13 +28,13 @@ const CommentsTabs = () => {
         something
       </Tab>
       <Tab eventKey="toComment" title={t("essay.commentsTabs.toComment.title")}>
-        anything
+        <LeaveComment />
       </Tab>
       <Tab
         eventKey="toSuggestEdits"
         title={t("essay.commentsTabs.toSuggestEdits.title")}
       >
-        something
+        <SuggestEdits />
       </Tab>
     </Tabs>
   );
