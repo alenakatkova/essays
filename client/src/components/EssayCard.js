@@ -34,51 +34,49 @@ const EssayCard = ({ essay }) => {
   };
 
   return (
-    <RequireAuth>
-      <Card>
-        <Card.Header>
-          <div className="row justify-content-between">
-            <div className="col d-flex align-items-center">{user_id}</div>
-            <div className="col d-flex flex-row-reverse align-items-center">
-              <OverlayTrigger
-                placement="top"
-                overlay={
-                  <Tooltip>{t("saveButton.toEssayBookmarks.tooltip")}</Tooltip>
-                }
+    <Card>
+      <Card.Header>
+        <div className="row justify-content-between">
+          <div className="col d-flex align-items-center">{user_id}</div>
+          <div className="col d-flex flex-row-reverse align-items-center">
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip>{t("saveButton.toEssayBookmarks.tooltip")}</Tooltip>
+              }
+            >
+              <Button style={{ border: "none" }} variant="outline-secondary">
+                <BsBookmark />
+              </Button>
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip>{t("saveButton.toEssayLikes.tooltip")}</Tooltip>
+              }
+            >
+              <Button
+                style={{ marginRight: 5, border: "none" }}
+                variant="outline-secondary"
               >
-                <Button style={{ border: "none" }} variant="outline-secondary">
-                  <BsBookmark />
-                </Button>
-              </OverlayTrigger>
-              <OverlayTrigger
-                placement="top"
-                overlay={
-                  <Tooltip>{t("saveButton.toEssayLikes.tooltip")}</Tooltip>
-                }
-              >
-                <Button
-                  style={{ marginRight: 5, border: "none" }}
-                  variant="outline-secondary"
-                >
-                  <BsHeart />
-                </Button>
-              </OverlayTrigger>
-            </div>
+                <BsHeart />
+              </Button>
+            </OverlayTrigger>
           </div>
-        </Card.Header>
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            {t("essayCard.test")}: {test}
-          </Card.Subtitle>
-          <Card.Text style={{ whiteSpace: "pre-line" }}>{body}</Card.Text>
-        </Card.Body>
-        <Card.Footer className="text-muted">
-          {createdAt},{" "}
-          <Button onClick={openEssay}>{t("essayCard.comments")}</Button>
-        </Card.Footer>
-      </Card>
-    </RequireAuth>
+        </div>
+      </Card.Header>
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">
+          {t("essayCard.test")}: {test}
+        </Card.Subtitle>
+        <Card.Text style={{ whiteSpace: "pre-line" }}>{body}</Card.Text>
+      </Card.Body>
+      <Card.Footer className="text-muted">
+        {createdAt},{" "}
+        <Button onClick={openEssay}>{t("essayCard.comments")}</Button>
+      </Card.Footer>
+    </Card>
   );
 };
 
