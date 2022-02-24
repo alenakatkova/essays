@@ -56,3 +56,20 @@ export const updateUserWritingSettings = async (writingSettings, userId) => {
     console.error(e);
   }
 };
+
+export const postDraft = async (data, userId) => {
+  try {
+    return await instance.post(`/users/${userId}/draft`, {
+      minAmountOfWords: data.wordsCount,
+      language: data.language,
+      test: data.test,
+      timingInMinutes: data.timingInMinutes,
+      user_id: data.userId,
+      title: data.essayTitle,
+      body: data.essayBody,
+      topic: data.topic,
+    });
+  } catch (e) {
+    console.error(e.response.data.errors);
+  }
+};

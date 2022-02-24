@@ -13,5 +13,6 @@ router.get("/:id/essays", userController.getUserEssays);
 router.get("/:id/fav-authors-essays", userController.getFavAuthorsEssays);
 router.get("/:id/bookmarked-essays", userController.getBookmarkedEssays);
 router.post("/:id/writing-settings", userController.updateWritingSettings);
+router.post("/:id/draft", userController.postDraft);
 
 module.exports = router;

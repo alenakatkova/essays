@@ -10,6 +10,7 @@ import Settings from "./Settings";
 import RandomTopics from "./RandomTopics";
 import { updateUserWritingSettings } from "../../api/UserAPI";
 import { countWords } from "../../utils/countWords";
+import { postDraft } from "../../api/UserAPI";
 
 const WritingPage = () => {
   const auth = useAuth();
@@ -94,10 +95,11 @@ const WritingPage = () => {
     }
 
     const totalWords = countWords(data.essayBody);
+
     if (totalWords >= watchWordsCount) {
-      postEssay({ ...data, userId: auth.user }); // TODO сохранить у юзера айди эссе
+      postEssay({ ...data, userId: auth.user });
     } else {
-      console.log("not enough"); // TODO запись в эссе либо в драфты
+      postDraft(data, auth.user);
     }
 
     reset();

@@ -205,3 +205,22 @@ exports.updateWritingSettings = async (req, res, next) => {
     });
   }
 };
+
+exports.postDraft = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.drafts.push(req.body);
+    user.save();
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};
