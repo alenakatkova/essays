@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const writingSettingsSchema = require("./WritingSettings");
 const draftSchema = require("./Draft");
-const bookmarkSchema = require("./Bookmark");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -27,7 +26,12 @@ const userSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  bookmarks: [bookmarkSchema],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Essay",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

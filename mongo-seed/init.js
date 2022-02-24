@@ -470,19 +470,7 @@ db.users.insertMany([
     ],
     essays: [essaysIds.essay01, essaysIds.essay02, essaysIds.essay03],
     favouriteAuthors: [usersIds.user02, usersIds.user03],
-    bookmarks: [
-      {
-        _id: ObjectId(),
-        essay_id: essaysIds.essay04,
-        comment: "Хорошая структура, надо попытаться повторить в своих эссе",
-      },
-      {
-        _id: ObjectId(),
-        essay_id: essaysIds.essay05,
-        comment:
-          "Эссе на тему, которая мне тоже попадалась. Сравнить с моим эссе",
-      },
-    ],
+    likes: [essaysIds.essay04, essaysIds.essay05],
   },
   {
     _id: usersIds.user02,
@@ -501,24 +489,7 @@ db.users.insertMany([
     ],
     essays: [essaysIds.essay04, essaysIds.essay05],
     favouriteAuthors: [usersIds.user01, usersIds.user03],
-    bookmarks: [
-      {
-        _id: ObjectId(),
-        essay_id: essaysIds.essay01,
-        comment: "Хорошая структура, надо попытаться повторить в своих эссе",
-      },
-      {
-        _id: ObjectId(),
-        essay_id: essaysIds.essay02,
-        comment:
-          "Эссе на тему, которая мне тоже попадалась. Сравнить с моим эссе",
-      },
-      {
-        _id: ObjectId(),
-        essay_id: essaysIds.essay03,
-        comment: "",
-      },
-    ],
+    likes: [essaysIds.essay01, essaysIds.essay02, essaysIds.essay03],
   },
   {
     _id: usersIds.user03,
@@ -528,7 +499,7 @@ db.users.insertMany([
     drafts: [],
     essays: [essaysIds.essay10],
     favouriteAuthors: [usersIds.user01],
-    bookmarks: [],
+    likes: [],
   },
   {
     _id: usersIds.user04,
@@ -547,7 +518,7 @@ db.users.insertMany([
     ],
     essays: [essaysIds.essay07, essaysIds.essay08, essaysIds.essay06],
     favouriteAuthors: [usersIds.user05],
-    bookmarks: [],
+    likes: [],
   },
   {
     _id: usersIds.user05,
@@ -566,14 +537,7 @@ db.users.insertMany([
     ],
     essays: [essaysIds.essay09],
     favouriteAuthors: [usersIds.user04],
-    bookmarks: [
-      {
-        _id: ObjectId(),
-        essay_id: essaysIds.essay08,
-        comment:
-          "Эссе на тему, которая мне тоже попадалась. Сравнить с моим эссе",
-      },
-    ],
+    likes: [essaysIds.essay08],
   },
 ]);
 

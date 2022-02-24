@@ -6,7 +6,7 @@ import { Tab, Row, Col, Nav, Container, Card } from "react-bootstrap";
 import MyEssays from "./MyEssays";
 import Drafts from "./Drafts";
 import FavAuthorsEssays from "./FavAuthorsEssays";
-import Bookmarks from "./Bookmarks";
+import Likes from "./Likes";
 import RequireAuth from "../RequireAuth";
 
 const ProfilePage = () => {
@@ -51,7 +51,7 @@ const ProfilePage = () => {
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="bookmarks">
-                    {t("profile.tabs.bookmarks")}
+                    {t("profile.tabs.likes")}
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -68,7 +68,7 @@ const ProfilePage = () => {
                   <FavAuthorsEssays userId={user._id} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="bookmarks">
-                  <Bookmarks userId={user._id} />
+                  <Likes userId={user._id} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

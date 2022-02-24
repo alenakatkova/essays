@@ -9,6 +9,7 @@ import FeedPage from "./components/FeedPage/index";
 import { AuthProvider } from "./contexts/authProvider";
 import ProfilePage from "./components/ProfilePage/index";
 import WritingPage from "./components/WritingPage/index";
+import EssayPage from "./components/EssayPage";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
       <Header />
       <div className="py-4">
         <Routes>
-          <Route path="/essay" element={<Essay />} />
+          <Route path="/essays/:essayId" element={<EssayPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/writing" element={<WritingPage />} />

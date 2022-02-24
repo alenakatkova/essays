@@ -7,6 +7,8 @@ import {
   BsHeart,
   // BsHeartFill,
 } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import RequireAuth from "./RequireAuth";
 
 // { "_id": "6202c1f437cf3ae3173dc918",
 //     "minAmountOfWords": 10,
@@ -24,51 +26,59 @@ import {
 
 const EssayCard = ({ essay }) => {
   const { t } = useTranslation();
-  const { title, test, user_id, body, createdAt } = essay;
+  const { _id, title, test, user_id, body, createdAt } = essay;
+  const navigate = useNavigate();
+
+  const openEssay = () => {
+    navigate(`/essays/${_id}`);
+  };
 
   return (
-    <Card>
-      <Card.Header>
-        <div className="row justify-content-between">
-          <div className="col d-flex align-items-center">{user_id}</div>
-          <div className="col d-flex flex-row-reverse align-items-center">
-            <OverlayTrigger
-              placement="top"
-              overlay={
-                <Tooltip>{t("saveButton.toEssayBookmarks.tooltip")}</Tooltip>
-              }
-            >
-              <Button style={{ border: "none" }} variant="outline-secondary">
-                <BsBookmark />
-              </Button>
-            </OverlayTrigger>
-            <OverlayTrigger
-              placement="top"
-              overlay={
-                <Tooltip>{t("saveButton.toEssayLikes.tooltip")}</Tooltip>
-              }
-            >
-              <Button
-                style={{ marginRight: 5, border: "none" }}
-                variant="outline-secondary"
+    <RequireAuth>
+      <Card>
+        <Card.Header>
+          <div className="row justify-content-between">
+            <div className="col d-flex align-items-center">{user_id}</div>
+            <div className="col d-flex flex-row-reverse align-items-center">
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip>{t("saveButton.toEssayBookmarks.tooltip")}</Tooltip>
+                }
               >
-                <BsHeart />
-              </Button>
-            </OverlayTrigger>
+                <Button style={{ border: "none" }} variant="outline-secondary">
+                  <BsBookmark />
+                </Button>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip>{t("saveButton.toEssayLikes.tooltip")}</Tooltip>
+                }
+              >
+                <Button
+                  style={{ marginRight: 5, border: "none" }}
+                  variant="outline-secondary"
+                >
+                  <BsHeart />
+                </Button>
+              </OverlayTrigger>
+            </div>
           </div>
-        </div>
-      </Card.Header>
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {t("essayCard.test")}: {test}
-        </Card.Subtitle>
-        <Card.Text style={{ whiteSpace: "pre-line" }}>{body}</Card.Text>
-      </Card.Body>
-      <Card.Footer className="text-muted">
-        {createdAt}, {t("essayCard.comment")}
-      </Card.Footer>
-    </Card>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            {t("essayCard.test")}: {test}
+          </Card.Subtitle>
+          <Card.Text style={{ whiteSpace: "pre-line" }}>{body}</Card.Text>
+        </Card.Body>
+        <Card.Footer className="text-muted">
+          {createdAt},{" "}
+          <Button onClick={openEssay}>{t("essayCard.comments")}</Button>
+        </Card.Footer>
+      </Card>
+    </RequireAuth>
   );
 };
 

@@ -2,12 +2,11 @@ import React from "react";
 import Essays from "../common/Essays";
 import { getLikedEssays } from "../../api/UserAPI";
 
-const Bookmarks = ({ userId }) => {
+const Likes = ({ userId }) => {
   const [essays, setEssays] = React.useState([]);
 
   const getEssays = React.useCallback(async () => {
     const essaysFromServer = await getLikedEssays(userId);
-    console.log(essaysFromServer);
     setEssays(essaysFromServer);
   }, [userId]);
 
@@ -22,4 +21,4 @@ const Bookmarks = ({ userId }) => {
   );
 };
 
-export default Bookmarks;
+export default Likes;

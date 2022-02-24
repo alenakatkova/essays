@@ -57,12 +57,12 @@ exports.getFavAuthorsEssays = async (req, res, next) => {
   }
 };
 
-exports.getBookmarkedEssays = async (req, res, next) => {
+exports.getLikedEssays = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     const essays = await Promise.all(
-      user.bookmarks.map((bookmark) => {
-        return Essay.findById(bookmark.essay_id.toString());
+      user.likes.map((id) => {
+        return Essay.findById(id.toString());
       })
     );
 
