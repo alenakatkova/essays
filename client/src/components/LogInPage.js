@@ -19,7 +19,7 @@ const LogInPage = () => {
     <Row className="justify-content-md-center">
       <Col md={4}>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3">
             <Form.Label>{t("logIn.form.username")}</Form.Label>
             <Form.Control
               type="text"
@@ -28,7 +28,7 @@ const LogInPage = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3">
             <Form.Label>{t("logIn.form.password")}</Form.Label>
             <Form.Control
               type="password"
