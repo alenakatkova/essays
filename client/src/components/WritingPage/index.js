@@ -100,8 +100,11 @@ const WritingPage = () => {
       console.log("not enough"); // TODO запись в эссе либо в драфты
     }
 
-    console.log(data);
     reset();
+  };
+
+  const onTimeEnd = () => {
+    methods.handleSubmit(onSubmit)();
   };
 
   return (
@@ -143,6 +146,7 @@ const WritingPage = () => {
                 <Timer
                   minutes={watchTimingInMinutes}
                   startWriting={startWriting}
+                  onTimeEnd={onTimeEnd}
                 />
               </div>
             )}

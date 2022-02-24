@@ -6,7 +6,7 @@ const addZeroIfLessThanTen = (number) => {
   return number < 10 ? "0" + number : number;
 };
 
-const Timer = ({ startWriting, minutes }) => {
+const Timer = ({ startWriting, minutes, onTimeEnd }) => {
   const { t } = useTranslation();
   const [isOn, setIsOn] = React.useState(false);
   const [secondsLeft, setSecondsLeft] = React.useState(minutes * 60);
@@ -21,6 +21,9 @@ const Timer = ({ startWriting, minutes }) => {
     if (isOn) {
       interval = setInterval(() => {
         setSecondsLeft((secondsLeft) => secondsLeft - 1);
+        if (secondsLeft === 0) {
+          onTimeEnd();
+        }
       }, 1000);
     } else {
       clearInterval(interval);
