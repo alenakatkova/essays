@@ -1,6 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import RequireAuth from "../RequireAuth";
 import EssayCard from "../common/EssayCard/index";
 import { useParams } from "react-router-dom";
@@ -9,14 +8,12 @@ import CommentsTabs from "./CommentsTabs";
 
 const EssayPage = () => {
   let { essayId } = useParams();
-  const { t } = useTranslation();
   const [essay, setEssay] = React.useState(null);
 
   const getEssayFromServer = React.useCallback(async () => {
     const essayFromServer = await getOneEssay(essayId);
-    console.log(essayFromServer);
     if (essayFromServer === undefined) setEssay(null);
-    else setEssay(essayFromServer);
+    else setEssay(essayFromServer[0]);
   }, [essayId]);
 
   React.useEffect(() => {
@@ -26,7 +23,9 @@ const EssayPage = () => {
   return (
     <RequireAuth>
       <Container>
-        <div className="mb-3">{essay && <EssayCard essay={essay} />}</div>
+        <div className="mb-3">
+          {essay && <EssayCard essay={essay} isOpen={true} />}
+        </div>
         <div>
           <CommentsTabs />
         </div>

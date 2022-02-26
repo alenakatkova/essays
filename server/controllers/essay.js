@@ -13,7 +13,32 @@ exports.getEssays = async (req, res, next) => {
       );
     });
 
-    const essays = await Essay.find(query);
+    const essays = await Essay.aggregate()
+      .match(query)
+      .lookup({
+        from: "users",
+        localField: "user_id",
+        foreignField: "_id",
+        as: "author",
+      })
+      .lookup({
+        from: "languages",
+        localField: "writingSettings.language_id",
+        foreignField: "_id",
+        as: "language",
+      })
+      .lookup({
+        from: "levels",
+        localField: "writingSettings.level_id",
+        foreignField: "_id",
+        as: "level",
+      })
+      .lookup({
+        from: "tests",
+        localField: "writingSettings.test_id",
+        foreignField: "_id",
+        as: "test",
+      });
 
     res.status(200).json({
       status: "success",
@@ -31,7 +56,35 @@ exports.getEssays = async (req, res, next) => {
 
 exports.getOneEssay = async (req, res, next) => {
   try {
-    const essay = await Essay.findById(req.params.id);
+    //const essay = await Essay.findById(req.params.id);
+
+    const essay = await Essay.aggregate()
+      .match({ _id: mongoose.Types.ObjectId(req.params.id) })
+      .lookup({
+        from: "users",
+        localField: "user_id",
+        foreignField: "_id",
+        as: "author",
+      })
+      .lookup({
+        from: "languages",
+        localField: "writingSettings.language_id",
+        foreignField: "_id",
+        as: "language",
+      })
+      .lookup({
+        from: "levels",
+        localField: "writingSettings.level_id",
+        foreignField: "_id",
+        as: "level",
+      })
+      .lookup({
+        from: "tests",
+        localField: "writingSettings.test_id",
+        foreignField: "_id",
+        as: "test",
+      });
+
     res.status(200).json({
       status: "success",
       data: {
