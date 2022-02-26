@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import RequireAuth from "../RequireAuth";
-import EssayCard from "../common/EssayCard";
+import EssayCard from "../common/EssayCard/index";
 import { useParams } from "react-router-dom";
 import { getOneEssay } from "../../api/EssayAPI";
 import CommentsTabs from "./CommentsTabs";

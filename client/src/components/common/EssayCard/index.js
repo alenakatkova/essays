@@ -1,6 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Card, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  OverlayTrigger,
+  Tooltip,
+  Col,
+  Row,
+} from "react-bootstrap";
 import {
   BsBookmark,
   // BsBookmarkFill,
@@ -8,7 +15,7 @@ import {
   // BsHeartFill,
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import RequireAuth from "../RequireAuth";
+import EssayRating from "./EssayRating";
 
 // { "_id": "6202c1f437cf3ae3173dc918",
 //     "minAmountOfWords": 10,
@@ -36,34 +43,34 @@ const EssayCard = ({ essay }) => {
   return (
     <Card>
       <Card.Header>
-        <div className="row justify-content-between">
-          <div className="col d-flex align-items-center">{user_id}</div>
-          <div className="col d-flex flex-row-reverse align-items-center">
-            <OverlayTrigger
-              placement="top"
-              overlay={
-                <Tooltip>{t("saveButton.toEssayBookmarks.tooltip")}</Tooltip>
-              }
-            >
-              <Button style={{ border: "none" }} variant="outline-secondary">
-                <BsBookmark />
-              </Button>
-            </OverlayTrigger>
-            <OverlayTrigger
-              placement="top"
-              overlay={
-                <Tooltip>{t("saveButton.toEssayLikes.tooltip")}</Tooltip>
-              }
-            >
-              <Button
-                style={{ marginRight: 5, border: "none" }}
-                variant="outline-secondary"
-              >
-                <BsHeart />
-              </Button>
-            </OverlayTrigger>
-          </div>
-        </div>
+        <Row className="justify-content-between align-items-center">
+          <Col>
+            <div className="d-flex flex-column">
+              <Row className="d-flex align-items-center">
+                <Col xs="auto" className="border">
+                  {user_id}
+                </Col>
+                <Col xs="auto" className="border">
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip>{t("favAuthor.btn.tooltip")}</Tooltip>}
+                  >
+                    <Button
+                      style={{ border: "none" }}
+                      variant="outline-secondary"
+                    >
+                      <BsBookmark />
+                    </Button>
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+              <div className="text-muted border">{createdAt}</div>
+            </div>
+          </Col>
+          <Col xs="auto">
+            <EssayRating />
+          </Col>
+        </Row>
       </Card.Header>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
@@ -72,9 +79,26 @@ const EssayCard = ({ essay }) => {
         </Card.Subtitle>
         <Card.Text style={{ whiteSpace: "pre-line" }}>{body}</Card.Text>
       </Card.Body>
-      <Card.Footer className="text-muted">
-        {createdAt},{" "}
-        <Button onClick={openEssay}>{t("essayCard.comments")}</Button>
+      <Card.Footer>
+        <Row className="justify-content-between">
+          <Col>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>{t("essayLikes.btn.tooltip")}</Tooltip>}
+            >
+              <Button
+                style={{ marginRight: 5, border: "none" }}
+                variant="outline-secondary"
+              >
+                <BsHeart />
+              </Button>
+            </OverlayTrigger>
+          </Col>
+
+          <Col xs="auto">
+            <Button onClick={openEssay}>{t("essayCard.comments")}</Button>
+          </Col>
+        </Row>
       </Card.Footer>
     </Card>
   );

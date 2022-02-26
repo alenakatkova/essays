@@ -22,7 +22,7 @@ const SuggestEdits = () => {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            {t("essay.commentsTabs.suggestEdits.submit")}
+            {t("essay.commentsTabs.toSuggestEdits.submit")}
           </Button>
         </Form>
       </div>
