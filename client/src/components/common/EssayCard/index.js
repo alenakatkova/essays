@@ -8,12 +8,13 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-import { BsBookmark, BsHeart } from "react-icons/bs";
+import { BsBookmark, BsBookmarkFill, BsHeart } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import EssayRating from "./EssayRating";
 
 const EssayCard = ({ essay, isOpen = false }) => {
   const { t } = useTranslation();
+
   const creationDate = new Date(essay.createdAt).toLocaleDateString();
   const navigate = useNavigate();
 
@@ -28,24 +29,27 @@ const EssayCard = ({ essay, isOpen = false }) => {
           <Col>
             <div className="d-flex flex-column">
               <Row className="d-flex align-items-center">
-                <Col xs="auto" className="border">
-                  {essay.author[0].username}
-                </Col>
-                <Col xs="auto" className="border">
+                <Col xs="auto">{essay.author[0].username}</Col>
+                <Col xs="auto" className="p-0">
                   <OverlayTrigger
                     placement="top"
                     overlay={<Tooltip>{t("favAuthor.btn.tooltip")}</Tooltip>}
                   >
                     <Button
-                      style={{ border: "none" }}
-                      variant="outline-secondary"
+                      style={{
+                        border: "none",
+                        margin: "0",
+                        padding: "0",
+                        color: "black",
+                      }}
+                      variant="link"
                     >
                       <BsBookmark />
                     </Button>
                   </OverlayTrigger>
                 </Col>
               </Row>
-              <div className="text-muted border">{creationDate}</div>
+              <div className="text-muted">{creationDate}</div>
             </div>
           </Col>
           <Col xs="auto">

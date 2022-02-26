@@ -108,6 +108,15 @@
     "language": "Язык",
     "comments": {
       "btnInFeed": "Комментарии"
+    },
+    "rating": {
+      "noRating": "Нет оценок",
+      "youRated": "Ваша оценка",
+      "form": {
+        "label": "Ваша оценка",
+        "placeholder": "От 0 до 100",
+        "submit": "Оценить"
+      }
     }
   },
   "filters": {
