@@ -3,7 +3,19 @@
     "english": "Английский",
     "german": "Немецкий",
     "russian": "Русский",
-    "french": "Французский"
+    "french": "Французский",
+    "arabic": "Арабский",
+    "czech": "Чешский",
+    "italian": "Итальянский",
+    "korean": "Корейский",
+    "portuguese": "Португальский",
+    "spanish": "Испанский",
+    "chinese": "Китайский",
+    "dutch": "Голландский",
+    "hebrew": "Иврит",
+    "japanese": "Японский",
+    "polish": "Польский",
+    "swedish": "Шведский"
   },
   "auth": {
     "logOutBtn": "Выйти"
@@ -11,9 +23,6 @@
   "home": {
     "title": "Главная",
     "link": "Главная"
-  },
-  "essay": {
-    "title": "Просмотр эссе"
   },
   "signUp": {
     "title": "Регистрация",
@@ -92,5 +101,27 @@
         "submit": "Опубликовать"
       }
     }
+  },
+  "essayCard": {
+    "test": "Экзамен",
+    "level": "Уровень",
+    "language": "Язык",
+    "comments": {
+      "btnInFeed": "Комментарии"
+    }
+  },
+  "filters": {
+    "title": "Фильтры",
+    "levels": {
+      "title": "Уровни"
+    },
+    "languages": {
+      "title": "Языки"
+    },
+    "tests": {
+      "title": "Экзамены"
+    },
+    "submit": "Применить",
+    "reset": "Сбросить"
   }
 }
