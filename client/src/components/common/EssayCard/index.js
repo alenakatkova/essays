@@ -34,7 +34,7 @@ import EssayRating from "./EssayRating";
 const EssayCard = ({ essay }) => {
   const { t } = useTranslation();
   const { _id, title, user_id, body, createdAt } = essay;
-  const { test_id, level_id, language_id } = essay.writingSettings;
+  // const { test_id, level_id, language_id } = essay.writingSettings;
   const navigate = useNavigate();
 
   const openEssay = () => {
@@ -80,19 +80,19 @@ const EssayCard = ({ essay }) => {
             <Col>
               <div className="d-flex flex-column">
                 <div>{t("essayCard.language")}:</div>
-                <div>{language_id}</div>
+                <div>{essay.writingSettings.language_id}</div>
               </div>
             </Col>
             <Col>
               <div className="d-flex flex-column">
                 <div>{t("essayCard.test")}:</div>
-                <div>{test_id}</div>
+                <div>{essay.writingSettings.test_id}</div>
               </div>
             </Col>
             <Col>
               <div className="d-flex flex-column">
                 <div>{t("essayCard.level")}:</div>
-                <div>{level_id}</div>
+                <div>{essay.writingSettings.level_id}</div>
               </div>
             </Col>
           </Row>

@@ -10,11 +10,12 @@ import CommentsTabs from "./CommentsTabs";
 const EssayPage = () => {
   let { essayId } = useParams();
   const { t } = useTranslation();
-  const [essay, setEssay] = React.useState({});
+  const [essay, setEssay] = React.useState(null);
 
   const getEssayFromServer = React.useCallback(async () => {
     const essayFromServer = await getOneEssay(essayId);
-    if (essayFromServer === undefined) setEssay({});
+    console.log(essayFromServer);
+    if (essayFromServer === undefined) setEssay(null);
     else setEssay(essayFromServer);
   }, [essayId]);
 
@@ -25,9 +26,7 @@ const EssayPage = () => {
   return (
     <RequireAuth>
       <Container>
-        <div className="mb-3">
-          <EssayCard essay={essay} />
-        </div>
+        <div className="mb-3">{essay && <EssayCard essay={essay} />}</div>
         <div>
           <CommentsTabs />
         </div>
