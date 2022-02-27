@@ -86,7 +86,8 @@
   "essay": {
     "commentsTabs": {
       "commentsList": {
-        "title": "Комментарии"
+        "title": "Комментарии",
+        "noComments": "Нет комментариев"
       },
       "editSuggestionsList": {
         "title": "Предложения по исправлениям"

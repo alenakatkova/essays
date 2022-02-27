@@ -450,6 +450,7 @@ db.users.insertMany([
     username: "alenakatkova",
     password: "$2a$12$JhR7jB5fbEaxPry1PkBeneTUmizl4CLZ5mMEkYLUayfHtv/lf8qeO",
     writingSettings: writingSettings.settings01,
+    comments: [],
     drafts: [
       {
         topic: "Target audience",
@@ -477,6 +478,7 @@ db.users.insertMany([
     username: "nickbrahms",
     password: "$2a$12$eyP9BiCJaP9AnBMmX7SnEe78oRa7Ek01qMMGUiNWOTrIO7Os4LBKG",
     writingSettings: writingSettings.settings01,
+    comments: [],
     drafts: [
       {
         topic: "Columbidae",
@@ -496,6 +498,7 @@ db.users.insertMany([
     username: "iihome",
     password: "$2a$12$wwOEh67zsFe3YOuS3l.mhe55hRz2nHBUEh/ugf8QKjr7COTnYdAt.",
     writingSettings: writingSettings.settings01,
+    comments: [],
     drafts: [],
     essays: [essaysIds.essay10],
     favouriteAuthors: [usersIds.user01],
@@ -506,6 +509,7 @@ db.users.insertMany([
     username: "johnsmith",
     password: "$2a$12$dQs7I4GWmuRc2ERnp.Qv4e7496qhOhZzrwvCcd6sLkSY3ISg4EbUG",
     writingSettings: writingSettings.settings02,
+    comments: [],
     drafts: [
       {
         topic: "Corruption",
@@ -525,6 +529,7 @@ db.users.insertMany([
     username: "harry",
     password: "$2a$12$DfoLOAma/BkCIJDZZ1fjVeXeKIj/nURuv1InK3qFgEdNIz8kCmi6i",
     writingSettings: writingSettings.settings02,
+    comments: [],
     drafts: [
       {
         topic: "Echoes (chanson)",
@@ -551,6 +556,7 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings01,
+    ratings: [],
     createdAt: "2022-02-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
   },
@@ -570,8 +576,9 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings01,
-    createdAt: "2022-02-19T20:25:59.949Z",
-    updatedAt: "2022-02-19T20:25:59.949Z",
+    ratings: [],
+    createdAt: "2021-02-19T20:25:59.949Z",
+    updatedAt: "2021-02-19T20:25:59.949Z",
   },
   {
     _id: essaysIds.essay03,
@@ -582,8 +589,9 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings01,
-    createdAt: "2022-02-19T20:25:59.949Z",
-    updatedAt: "2022-02-19T20:25:59.949Z",
+    ratings: [],
+    createdAt: "2022-01-29T20:25:59.949Z",
+    updatedAt: "2022-01-29T20:25:59.949Z",
   },
   {
     _id: essaysIds.essay04,
@@ -597,8 +605,9 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings01,
-    createdAt: "2022-02-19T20:25:59.949Z",
-    updatedAt: "2022-02-19T20:25:59.949Z",
+    ratings: [],
+    createdAt: "2021-05-19T20:25:59.949Z",
+    updatedAt: "2021-05-19T20:25:59.949Z",
   },
   {
     _id: essaysIds.essay05,
@@ -614,6 +623,7 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings01,
+    ratings: [],
     createdAt: "2022-02-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
   },
@@ -631,7 +641,8 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings02,
-    createdAt: "2022-02-19T20:25:59.949Z",
+    ratings: [],
+    createdAt: "2022-01-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
   },
   {
@@ -649,9 +660,10 @@ db.essays.insertMany([
       "Tout ce qui concerne les éléments fondateurs de la civilisation - le développement de l'agriculture, des pratiques culturelles, des premières cités - ne pourra être connu que par l'archéologie.",
     comments: [],
     editSuggestionsComments: [],
+    ratings: [],
     writingSettings: writingSettings.settings02,
-    createdAt: "2022-02-19T20:25:59.949Z",
-    updatedAt: "2022-02-19T20:25:59.949Z",
+    createdAt: "2022-02-20T20:25:59.949Z",
+    updatedAt: "2022-02-20T20:25:59.949Z",
   },
   {
     _id: essaysIds.essay08,
@@ -672,6 +684,7 @@ db.essays.insertMany([
       'En juin 2020, dans le cadre de la pandémie Covid, cent Pepper ont été installés au stade de Baseball à Fukuoka afin de devenir des "supporters" de l\'équipe SB Hawks.',
     comments: [],
     editSuggestionsComments: [],
+    ratings: [],
     writingSettings: writingSettings.settings02,
     createdAt: "2022-02-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
@@ -694,6 +707,7 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings02,
+    ratings: [],
     createdAt: "2022-02-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
   },
@@ -710,6 +724,7 @@ db.essays.insertMany([
       "It is often asserted that scientific findings are true because scientists use 'the scientific method'. But, writes Oreskes, 'we can never actually agree on what that method is. Some will say it is empiricism: observation and description of the world. Others will say it is the experimental method: the use of experience and experiment to test hypotheses. (This is cast sometimes as the hypothetico-deductive method, in which the experiment must be framed as a deduction from theory, and sometimes as falsification, where the point of observation and experiment is to refute theories, not to confirm them.) Recently a prominent scientist claimed the scientific method was to avoid fooling oneself into thinking something is true that is not, and vice versa.'",
     comments: [],
     editSuggestionsComments: [],
+    ratings: [],
     writingSettings: writingSettings.settings01,
     createdAt: "2022-01-19T20:25:50.949Z",
     updatedAt: "2022-01-19T20:25:50.949Z",
