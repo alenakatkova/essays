@@ -42,3 +42,13 @@ export const getOneEssay = async (essayId) => {
     console.error(e);
   }
 };
+
+export const getComments = async (essayId) => {
+  try {
+    //return ["bla"];
+    const res = await instance.get(`essays/${essayId}/comments`);
+    return res.data.data.essay;
+  } catch (e) {
+    console.error(e);
+  }
+};

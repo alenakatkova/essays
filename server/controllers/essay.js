@@ -56,8 +56,6 @@ exports.getEssays = async (req, res, next) => {
 
 exports.getOneEssay = async (req, res, next) => {
   try {
-    //const essay = await Essay.findById(req.params.id);
-
     const essay = await Essay.aggregate()
       .match({ _id: mongoose.Types.ObjectId(req.params.id) })
       .lookup({
@@ -141,6 +139,22 @@ exports.deleteEssay = async (req, res, next) => {
     const essay = await Essay.findByIdAndDelete(req.params.id);
     res.status(200).json({
       status: "success",
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};
+
+exports.getEssayComments = async (req, res, next) => {
+  try {
+    const essay = await Essay.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        essay,
+      },
     });
   } catch (e) {
     res.status(400).json({

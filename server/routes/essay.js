@@ -7,11 +7,15 @@ const router = express.Router();
 router
   .route("/")
   .get(requireAuth, essayController.getEssays)
-  .post(essayController.createEssay);
+  .post(requireAuth, essayController.createEssay);
 router
   .route("/:id")
-  .get(essayController.getOneEssay)
-  .patch(essayController.updateEssay)
-  .delete(essayController.deleteEssay);
+  .get(requireAuth, essayController.getOneEssay)
+  .patch(requireAuth, essayController.updateEssay)
+  .delete(requireAuth, essayController.deleteEssay);
+
+router
+  .route("/:id/comments")
+  .get(requireAuth, essayController.getEssayComments);
 
 module.exports = router;
