@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema({
       ref: "Essay",
     },
   ],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
   favouriteAuthors: [
     {
       type: mongoose.Schema.Types.ObjectId,

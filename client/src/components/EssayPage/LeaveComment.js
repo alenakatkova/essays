@@ -3,14 +3,17 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import { postComment } from "../../api/EssayAPI";
+import { useAuth } from "../../contexts/authProvider";
 
 const LeaveComment = () => {
   const { t } = useTranslation();
   let { essayId } = useParams();
   const { register, handleSubmit } = useForm();
+  const { user } = useAuth();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    await postComment({ ...data, userId: user }, essayId);
   };
 
   return (

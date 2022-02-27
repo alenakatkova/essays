@@ -18,4 +18,6 @@ router
   .route("/:id/comments")
   .get(requireAuth, essayController.getEssayComments);
 
+router.route("/:id/comment").post(requireAuth, essayController.postComment);
+
 module.exports = router;

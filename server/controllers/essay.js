@@ -1,5 +1,6 @@
 const Essay = require("../models/Essay");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 const mongoose = require("mongoose");
 
 exports.getEssays = async (req, res, next) => {
@@ -160,5 +161,30 @@ exports.getEssayComments = async (req, res, next) => {
     res.status(400).json({
       status: "fail",
     });
+  }
+};
+
+exports.postComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.create(req.body);
+    comment.essay_id = req.params.id;
+    const essay = await Essay.findById(req.params.id);
+    const user = await User.findById(req.body.user_id);
+
+    user.comments.push(comment);
+    user.save();
+
+    essay.comments.push(comment);
+    essay.save();
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        comment,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
   }
 };
