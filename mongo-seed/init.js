@@ -451,6 +451,7 @@ db.users.insertMany([
     password: "$2a$12$JhR7jB5fbEaxPry1PkBeneTUmizl4CLZ5mMEkYLUayfHtv/lf8qeO",
     writingSettings: writingSettings.settings01,
     comments: [],
+    editSuggestionsComments: [],
     drafts: [
       {
         topic: "Target audience",
@@ -479,6 +480,7 @@ db.users.insertMany([
     password: "$2a$12$eyP9BiCJaP9AnBMmX7SnEe78oRa7Ek01qMMGUiNWOTrIO7Os4LBKG",
     writingSettings: writingSettings.settings01,
     comments: [],
+    editSuggestionsComments: [],
     drafts: [
       {
         topic: "Columbidae",
@@ -499,6 +501,7 @@ db.users.insertMany([
     password: "$2a$12$wwOEh67zsFe3YOuS3l.mhe55hRz2nHBUEh/ugf8QKjr7COTnYdAt.",
     writingSettings: writingSettings.settings01,
     comments: [],
+    editSuggestionsComments: [],
     drafts: [],
     essays: [essaysIds.essay10],
     favouriteAuthors: [usersIds.user01],
@@ -510,6 +513,7 @@ db.users.insertMany([
     password: "$2a$12$dQs7I4GWmuRc2ERnp.Qv4e7496qhOhZzrwvCcd6sLkSY3ISg4EbUG",
     writingSettings: writingSettings.settings02,
     comments: [],
+    editSuggestionsComments: [],
     drafts: [
       {
         topic: "Corruption",
@@ -530,6 +534,7 @@ db.users.insertMany([
     password: "$2a$12$DfoLOAma/BkCIJDZZ1fjVeXeKIj/nURuv1InK3qFgEdNIz8kCmi6i",
     writingSettings: writingSettings.settings02,
     comments: [],
+    editSuggestionsComments: [],
     drafts: [
       {
         topic: "Echoes (chanson)",

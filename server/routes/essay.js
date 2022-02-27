@@ -20,4 +20,8 @@ router
 
 router.route("/:id/comment").post(requireAuth, essayController.postComment);
 
+router
+  .route("/:id/edit-suggestions-comment")
+  .post(requireAuth, essayController.postEditSuggestionsComment);
+
 module.exports = router;

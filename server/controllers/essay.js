@@ -2,6 +2,7 @@ const Essay = require("../models/Essay");
 const User = require("../models/User");
 const Comment = require("../models/Comment");
 const mongoose = require("mongoose");
+const EditSuggestionsComment = require("../models/EditSuggestionsComment");
 
 exports.getEssays = async (req, res, next) => {
   try {
@@ -163,7 +164,6 @@ exports.getEssayComments = async (req, res, next) => {
       })
     );
 
-    console.log(comments);
     res.status(200).json({
       status: "success",
       data: {
@@ -188,6 +188,31 @@ exports.postComment = async (req, res, next) => {
     user.save();
 
     essay.comments.push(comment);
+    essay.save();
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        comment,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+};
+
+exports.postEditSuggestionsComment = async (req, res, next) => {
+  try {
+    const comment = await EditSuggestionsComment.create(req.body);
+    comment.essay_id = req.params.id;
+    const essay = await Essay.findById(req.params.id);
+    const user = await User.findById(req.body.user_id);
+
+    user.editSuggestionsComments.push(comment);
+    user.save();
+
+    essay.editSuggestionsComments.push(comment);
     essay.save();
 
     res.status(200).json({

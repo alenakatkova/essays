@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ],
+  editSuggestionsComments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "EditSuggestionsComments",
+    },
+  ],
   favouriteAuthors: [
     {
       type: mongoose.Schema.Types.ObjectId,
