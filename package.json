@@ -1,8 +1,5 @@
 {
   "devDependencies": {
     "prettier": "^2.5.1"
-  },
-  "dependencies": {
-    "diff-match-patch": "^1.0.5"
   }
 }
