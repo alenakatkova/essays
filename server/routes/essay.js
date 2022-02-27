@@ -24,4 +24,8 @@ router
   .route("/:id/edit-suggestions-comment")
   .post(requireAuth, essayController.postEditSuggestionsComment);
 
+router
+  .route("/:id/edit-suggestions-comments")
+  .get(requireAuth, essayController.getEditSuggestionsComments);
+
 module.exports = router;

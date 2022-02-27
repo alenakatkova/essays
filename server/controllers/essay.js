@@ -226,3 +226,31 @@ exports.postEditSuggestionsComment = async (req, res, next) => {
     res.status(400).json(e);
   }
 };
+
+exports.getEditSuggestionsComments = async (req, res, next) => {
+  try {
+    const essay = await Essay.findById(req.params.id);
+
+    const comments = await Promise.all(
+      essay.editSuggestionsComments.map((id) => {
+        return EditSuggestionsComment.aggregate().match({ _id: id }).lookup({
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "author",
+        });
+      })
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        comments,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};

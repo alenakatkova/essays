@@ -52,6 +52,17 @@ export const getComments = async (essayId) => {
   }
 };
 
+export const getEditSuggestionsComments = async (essayId) => {
+  try {
+    const res = await instance.get(
+      `essays/${essayId}/edit-suggestions-comments`
+    );
+    return res.data.data.comments;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const postComment = async (data, essayId) => {
   try {
     console.log(data);

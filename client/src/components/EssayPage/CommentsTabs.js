@@ -3,21 +3,30 @@ import { useTranslation } from "react-i18next";
 import { Tab, Tabs } from "react-bootstrap";
 import LeaveComment from "./LeaveComment";
 import SuggestEdits from "./SuggestEdits";
-import { getComments } from "../../api/EssayAPI";
-import Comments from "./Comments";
+import { getComments, getEditSuggestionsComments } from "../../api/EssayAPI";
+import Comments from "../common/Comments";
 
 const CommentsTabs = ({ essayId, essayText }) => {
   const { t } = useTranslation();
   const [key, setKey] = React.useState("comments");
   const [comments, setComments] = React.useState([]);
+  const [editSuggestionsComments, setEditSuggestionsComment] = React.useState(
+    []
+  );
 
   const getEssayComments = React.useCallback(async () => {
     const commentsFromServer = await getComments(essayId);
     commentsFromServer && setComments(commentsFromServer);
   }, [essayId]);
 
+  const getEssayEditSuggestionsComments = React.useCallback(async () => {
+    const commentsFromServer = await getEditSuggestionsComments(essayId);
+    commentsFromServer && setEditSuggestionsComment(commentsFromServer);
+  }, [essayId]);
+
   React.useEffect(() => {
     getEssayComments();
+    getEssayEditSuggestionsComments();
   }, [getEssayComments]);
 
   const onCommentAdd = () => {
@@ -49,7 +58,15 @@ const CommentsTabs = ({ essayId, essayText }) => {
         eventKey="editSuggestions"
         title={t("essay.commentsTabs.editSuggestionsList.title")}
       >
-        something
+        {comments.length === 0 ? (
+          t("essay.commentsTabs.commentsList.noComments")
+        ) : (
+          <Comments
+            toRender={editSuggestionsComments}
+            isTextComparisonRequired={true}
+            essayText={essayText}
+          />
+        )}
       </Tab>
       <Tab eventKey="toComment" title={t("essay.commentsTabs.toComment.title")}>
         <LeaveComment refreshCommentsFeed={onCommentAdd} />

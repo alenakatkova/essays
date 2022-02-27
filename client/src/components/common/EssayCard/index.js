@@ -8,7 +8,7 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-import { BsBookmark, BsBookmarkFill, BsHeart } from "react-icons/bs";
+import { BsBookmark, BsStar, BsBookmarkFill, BsHeart } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import EssayRating from "./EssayRating";
 
@@ -28,7 +28,7 @@ const EssayCard = ({ essay, isOpen = false }) => {
         <Row className="justify-content-between align-items-center">
           <Col>
             <div className="d-flex flex-column">
-              <Row className="d-flex align-items-center">
+              <Row className="d-flex align-items-end">
                 <Col xs="auto">{essay.author[0].username}</Col>
                 <Col xs="auto" className="p-0">
                   <OverlayTrigger
@@ -39,12 +39,13 @@ const EssayCard = ({ essay, isOpen = false }) => {
                       style={{
                         border: "none",
                         margin: "0",
+                        marginTop: "-7px",
                         padding: "0",
-                        color: "black",
+                        color: "#212529",
                       }}
                       variant="link"
                     >
-                      <BsBookmark />
+                      <BsStar />
                     </Button>
                   </OverlayTrigger>
                 </Col>

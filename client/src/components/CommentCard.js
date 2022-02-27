@@ -1,10 +1,18 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { Card, Row, Col } from "react-bootstrap";
+import "diff-match-patch";
 
-const CommentCard = ({ comment, isTextComparisonRequired = false }) => {
-  const { t } = useTranslation();
+const compareStrings = (str1, str2) => {
+  console.log(str1);
+  console.log(str2);
+  return "";
+};
 
+const CommentCard = ({
+  comment,
+  essayText,
+  isTextComparisonRequired = false,
+}) => {
   const creationDate = new Date(comment.createdAt).toLocaleDateString();
 
   return (
@@ -22,7 +30,11 @@ const CommentCard = ({ comment, isTextComparisonRequired = false }) => {
           </div>
         </Col>
         <Col>
-          <Card.Body>{comment.body}</Card.Body>
+          <Card.Body style={{ whiteSpace: "pre-line" }}>
+            {isTextComparisonRequired
+              ? compareStrings(essayText, comment.body)
+              : comment.body}
+          </Card.Body>
         </Col>
       </Row>
     </Card>
