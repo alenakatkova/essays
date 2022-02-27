@@ -1,11 +1,12 @@
 import React from "react";
-import CommentCard from "../CommentCard";
+import CommentCard from "./CommentCard";
 
 const Comments = ({
   toRender = [],
   essayText,
   isTextComparisonRequired = false,
 }) => {
+  console.log(toRender);
   return (
     <div>
       {toRender.map((comment) => {

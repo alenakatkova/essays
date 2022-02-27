@@ -23,6 +23,7 @@ const SuggestEdits = ({ essayText, refreshEditSuggestionsFeed }) => {
   }, [reset, essayText]);
 
   const onSubmit = async (data) => {
+    debugger;
     await postEditSuggestions({ ...data, userId: user }, essayId);
     refreshEditSuggestionsFeed();
     reset({

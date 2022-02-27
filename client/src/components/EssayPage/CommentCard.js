@@ -1,11 +1,9 @@
 import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import "diff-match-patch";
+import { StringDiff } from "react-string-diff";
 
 const compareStrings = (str1, str2) => {
-  console.log(str1);
-  console.log(str2);
-  return "";
+  return <StringDiff oldValue={str1} newValue={str2} />;
 };
 
 const CommentCard = ({

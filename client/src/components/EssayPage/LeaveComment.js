@@ -26,7 +26,7 @@ const LeaveComment = ({ refreshCommentsFeed }) => {
             as="textarea"
             rows={5}
             placeholder={t("essay.commentsTabs.toComment.placeholder")}
-            {...register("body")}
+            {...register("commentBody")}
           />
         </Form.Group>
 

@@ -65,10 +65,9 @@ export const getEditSuggestionsComments = async (essayId) => {
 
 export const postComment = async (data, essayId) => {
   try {
-    console.log(data);
     return await instance.post(`essays/${essayId}/comment`, {
       user_id: data.userId,
-      body: data.body,
+      body: data.commentBody,
     });
   } catch (e) {
     console.error(e.response.data.errors);
