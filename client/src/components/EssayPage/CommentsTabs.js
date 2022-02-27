@@ -4,6 +4,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import LeaveComment from "./LeaveComment";
 import SuggestEdits from "./SuggestEdits";
 import { getComments } from "../../api/EssayAPI";
+import Comments from "../common/Comments";
 
 const CommentsTabs = ({ essayId }) => {
   const { t } = useTranslation();
@@ -13,12 +14,15 @@ const CommentsTabs = ({ essayId }) => {
   const getEssayComments = React.useCallback(async () => {
     const commentsFromServer = await getComments(essayId);
     commentsFromServer && setComments(commentsFromServer);
-    console.log(commentsFromServer);
   }, [essayId]);
 
   React.useEffect(() => {
     getEssayComments();
   }, [getEssayComments]);
+
+  const onCommentAdd = () => {
+    getEssayComments();
+  };
 
   return (
     <Tabs
@@ -31,7 +35,11 @@ const CommentsTabs = ({ essayId }) => {
         eventKey="comments"
         title={t("essay.commentsTabs.commentsList.title")}
       >
-        anything
+        {comments.length === 0 ? (
+          t("essay.commentsTabs.commentsList.noComments")
+        ) : (
+          <Comments toRender={comments} />
+        )}
       </Tab>
       <Tab
         eventKey="editSuggestions"
@@ -40,7 +48,7 @@ const CommentsTabs = ({ essayId }) => {
         something
       </Tab>
       <Tab eventKey="toComment" title={t("essay.commentsTabs.toComment.title")}>
-        <LeaveComment />
+        <LeaveComment refreshCommentsFeed={onCommentAdd} />
       </Tab>
       <Tab
         eventKey="toSuggestEdits"

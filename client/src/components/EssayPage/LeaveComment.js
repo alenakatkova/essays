@@ -2,11 +2,11 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { postComment } from "../../api/EssayAPI";
 import { useAuth } from "../../contexts/authProvider";
 
-const LeaveComment = () => {
+const LeaveComment = ({ refreshCommentsFeed }) => {
   const { t } = useTranslation();
   let { essayId } = useParams();
   const { register, handleSubmit } = useForm();
@@ -14,6 +14,8 @@ const LeaveComment = () => {
 
   const onSubmit = async (data) => {
     await postComment({ ...data, userId: user }, essayId);
+    refreshCommentsFeed();
+    // TODO reset
   };
 
   return (

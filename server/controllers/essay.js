@@ -151,10 +151,23 @@ exports.deleteEssay = async (req, res, next) => {
 exports.getEssayComments = async (req, res, next) => {
   try {
     const essay = await Essay.findById(req.params.id);
+
+    const comments = await Promise.all(
+      essay.comments.map((id) => {
+        return Comment.aggregate().match({ _id: id }).lookup({
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "author",
+        });
+      })
+    );
+
+    console.log(comments);
     res.status(200).json({
       status: "success",
       data: {
-        essay,
+        comments,
       },
     });
   } catch (e) {

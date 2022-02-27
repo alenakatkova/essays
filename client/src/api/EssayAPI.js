@@ -45,9 +45,8 @@ export const getOneEssay = async (essayId) => {
 
 export const getComments = async (essayId) => {
   try {
-    //return ["bla"];
     const res = await instance.get(`essays/${essayId}/comments`);
-    return res.data.data.essay;
+    return res.data.data.comments;
   } catch (e) {
     console.error(e);
   }

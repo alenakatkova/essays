@@ -1,11 +1,7 @@
 import React from "react";
-// import { useTranslation } from "react-i18next";
-// import { Badge, Button, Form } from "react-bootstrap";
 import EssayCard from "./EssayCard/index";
 
 const Essays = ({ toRender = [] }) => {
-  // const { t } = useTranslation();
-
   return (
     <div>
       {toRender.map((post) => (

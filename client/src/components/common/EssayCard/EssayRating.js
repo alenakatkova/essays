@@ -12,6 +12,7 @@ const EssayRating = ({ ratings, currentUserId }) => {
   const onSubmit = (data) => {
     console.log(data);
   };
+
   return (
     <div className="d-flex flex-column">
       <div className="mb-1" style={{ textAlign: "end" }}>
