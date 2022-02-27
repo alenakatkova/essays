@@ -63,3 +63,16 @@ export const postComment = async (data, essayId) => {
     console.error(e.response.data.errors);
   }
 };
+
+export const postEditSuggestions = async (data, essayId) => {
+  try {
+    console.log(data);
+    console.log(essayId);
+    // return await instance.post(`essays/${essayId}/comment`, {
+    //   user_id: data.userId,
+    //   body: data.body,
+    // });
+  } catch (e) {
+    console.error(e.response.data.errors);
+  }
+};

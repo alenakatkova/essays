@@ -2,9 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Card, Row, Col } from "react-bootstrap";
 
-const CommentCard = ({ comment }) => {
+const CommentCard = ({ comment, isTextComparisonRequired = false }) => {
   const { t } = useTranslation();
-  console.log(comment);
+
   const creationDate = new Date(comment.createdAt).toLocaleDateString();
 
   return (
@@ -15,7 +15,9 @@ const CommentCard = ({ comment }) => {
             className="d-flex flex-column align-items-stretch p-4 bg-light border-end"
             style={{ height: "100%" }}
           >
-            <div class="align-self-center">{comment.author[0].username}</div>
+            <div className="align-self-center">
+              {comment.author[0].username}
+            </div>
             <div className="align-self-center text-muted">{creationDate}</div>
           </div>
         </Col>

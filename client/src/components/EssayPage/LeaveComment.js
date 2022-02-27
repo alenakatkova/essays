@@ -9,13 +9,13 @@ import { useAuth } from "../../contexts/authProvider";
 const LeaveComment = ({ refreshCommentsFeed }) => {
   const { t } = useTranslation();
   let { essayId } = useParams();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { user } = useAuth();
 
   const onSubmit = async (data) => {
     await postComment({ ...data, userId: user }, essayId);
     refreshCommentsFeed();
-    // TODO reset
+    reset();
   };
 
   return (

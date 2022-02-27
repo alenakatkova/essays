@@ -27,7 +27,7 @@ const EssayPage = () => {
           {essay && <EssayCard essay={essay} isOpen={true} />}
         </div>
         <div>
-          <CommentsTabs essayId={essayId} />
+          <CommentsTabs essayId={essayId} essayText={essay && essay.body} />
         </div>
       </Container>
     </RequireAuth>
