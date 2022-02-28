@@ -8,10 +8,11 @@ import { getAllTests } from "../../api/TestsAPI";
 
 const Filters = ({ updateFilters }) => {
   const { t } = useTranslation();
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, getValues } = useForm();
 
   const [languages, setLanguages] = React.useState([]);
   const [tests, setTests] = React.useState([]);
+  const [currLangTests, setCurrLangTests] = React.useState([]);
   const [levels, setLevels] = React.useState([]);
 
   const getFiltersFromServer = React.useCallback(async () => {
@@ -37,18 +38,23 @@ const Filters = ({ updateFilters }) => {
     setValue("test", null);
     setValue("level", null);
     updateFilters();
+    setCurrLangTests([]);
+  };
+
+  const onLanguageChange = () => {
+    setValue("test", null);
+    const currentLanguageId = getValues("language");
+    const filteredTests = tests.filter((test) =>
+      test.languages.includes(currentLanguageId)
+    );
+    setCurrLangTests(filteredTests);
   };
 
   return (
     <>
       <h2 className="display-6">{t("filters.title")}</h2>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group
-          className="mb-3"
-          // onChange={() => {
-          //   setIsTopicChosen(true);
-          // }}
-        >
+        <Form.Group className="mb-3">
           <h5>{t("filters.levels.title")}</h5>
           <Row>
             {levels.map((level) => (
@@ -66,9 +72,9 @@ const Filters = ({ updateFilters }) => {
         </Form.Group>
         <Form.Group
           className="mb-3"
-          // onChange={() => {
-          //   setIsTopicChosen(true);
-          // }}
+          onChange={() => {
+            onLanguageChange();
+          }}
         >
           <h5>{t("filters.languages.title")}</h5>
           <Row>
@@ -85,33 +91,36 @@ const Filters = ({ updateFilters }) => {
             ))}
           </Row>
         </Form.Group>
-        <Form.Group
-          className="mb-3"
-          // onChange={() => {
-          //   setIsTopicChosen(true);
-          // }}
-        >
-          <h5>{t("filters.tests.title")}</h5>
-          <Row>
-            {tests.map((test) => (
-              <Col xs={12} key={test._id}>
-                <Form.Check
-                  type="radio"
-                  id={test._id}
-                  label={
-                    test.abbreviation.length > 0
-                      ? `${test.abbreviation}`
-                      : `${test.name}`
-                  }
-                  value={test._id}
-                  {...register("test")}
-                />
-              </Col>
-            ))}
-          </Row>
-        </Form.Group>
-        <Button type="submit">{t("filters.submit")}</Button>
-        <Button onClick={reset}>{t("filters.reset")}</Button>
+        {currLangTests.length > 0 && (
+          <Form.Group className="mb-3">
+            <h5>{t("filters.tests.title")}</h5>
+            <Row>
+              {currLangTests.map((test) => (
+                <Col xs={12} key={test._id}>
+                  <Form.Check
+                    type="radio"
+                    id={test._id}
+                    label={
+                      test.abbreviation.length > 0
+                        ? `${test.abbreviation}`
+                        : `${test.name}`
+                    }
+                    value={test._id}
+                    {...register("test")}
+                  />
+                </Col>
+              ))}
+            </Row>
+          </Form.Group>
+        )}
+        <Row className="justify-content-between">
+          <Col>
+            <Button type="submit">{t("filters.submit")}</Button>
+          </Col>
+          <Col>
+            <Button onClick={reset}>{t("filters.reset")}</Button>
+          </Col>
+        </Row>
       </Form>
     </>
   );

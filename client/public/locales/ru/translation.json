@@ -45,7 +45,14 @@
   },
   "profile": {
     "title": "Профиль",
-    "link": "Профиль"
+    "link": "Профиль",
+    "youAreLoggedInAs": "Вы вошли как",
+    "tabs": {
+      "myEssays": "Мои эссе",
+      "drafts": "Мои незаконченные эссе",
+      "essaysOfFavouriteAuthors": "Эссе избранных авторов",
+      "likes": "Понравившиеся эссе"
+    }
   },
   "feed": {
     "title": "Лента",
