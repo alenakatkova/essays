@@ -1,23 +1,20 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Card,
-  Button,
-  OverlayTrigger,
-  Tooltip,
-  Col,
-  Row,
-} from "react-bootstrap";
-import { BsStar, BsHeart } from "react-icons/bs";
+import { Card, Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import EssayRating from "./EssayRating";
 import Like from "./Like";
+import AddAuthorToFavourites from "./AddAuthorToFavourites";
 
 const isEssayLiked = (essayId, likes) => {
   return likes.includes(essayId);
 };
 
-const isUserEssay = (essayId, myEssays) => {
+const isAuthorAddedToFavourites = (authorId, favourites) => {
+  return favourites.includes(authorId);
+};
+
+const isUsersEssay = (essayId, myEssays) => {
   return myEssays.includes(essayId);
 };
 
@@ -27,15 +24,21 @@ const EssayCard = ({
   isDraft = false,
   likes,
   userEssays,
+  favouritesAuthors,
 }) => {
   const { t } = useTranslation();
   const [isLiked, setIsLiked] = React.useState(false);
   const [isMyEssay, setIsMyEssay] = React.useState(false);
+  const [isAuthorSaved, setIsAuthorSaved] = React.useState(false);
 
   React.useEffect(() => {
     likes && setIsLiked(isEssayLiked(essay._id, likes));
-    userEssays && setIsMyEssay(isUserEssay(essay._id, userEssays));
-  }, [likes]);
+    userEssays && setIsMyEssay(isUsersEssay(essay._id, userEssays));
+    favouritesAuthors &&
+      setIsAuthorSaved(
+        isAuthorAddedToFavourites(essay.user_id, favouritesAuthors)
+      );
+  }, [likes, userEssays, favouritesAuthors]);
 
   const creationDate = new Date(essay.createdAt).toLocaleDateString();
   const navigate = useNavigate();
@@ -55,25 +58,10 @@ const EssayCard = ({
                   <Col xs="auto">{essay.author[0].username}</Col>
                   {!isMyEssay && (
                     <Col xs="auto" className="p-0">
-                      <OverlayTrigger
-                        placement="top"
-                        overlay={
-                          <Tooltip>{t("favAuthor.btn.tooltip")}</Tooltip>
-                        }
-                      >
-                        <Button
-                          style={{
-                            border: "none",
-                            margin: "0",
-                            marginTop: "-7px",
-                            padding: "0",
-                            color: "#212529",
-                          }}
-                          variant="link"
-                        >
-                          <BsStar />
-                        </Button>
-                      </OverlayTrigger>
+                      <AddAuthorToFavourites
+                        isAddedByCurrentUser={isAuthorSaved}
+                        authorId={essay.user_id}
+                      />
                     </Col>
                   )}
                 </Row>
@@ -121,11 +109,7 @@ const EssayCard = ({
           <Row className="justify-content-between">
             <Col>
               {!isMyEssay && (
-                <Like
-                  essayId={essay._id}
-                  isLikedByCurrentUser={isLiked}
-                  essayId={essay._id}
-                />
+                <Like essayId={essay._id} isLikedByCurrentUser={isLiked} />
               )}
             </Col>
 

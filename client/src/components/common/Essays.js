@@ -30,6 +30,7 @@ const Essays = ({ toRender = [], isDraft = false }) => {
             likes={likes}
             favAuthors={favAuthors}
             userEssays={userEssays}
+            favouritesAuthors={favAuthors}
           />
         </div>
       ))}
