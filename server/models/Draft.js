@@ -9,13 +9,12 @@ const draftSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: [true, "Essay must have title"],
+      required: [true, "Draft must have title"],
     },
     body: {
       type: String,
-      required: [true, "Essay must have body"],
+      required: [true, "Draft must have body"],
     },
-    writingSettings: writingSettingsSchema,
   },
   { timestamps: true }
 );

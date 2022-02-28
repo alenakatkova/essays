@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const Essay = require("../models/Essay");
+const Language = require("../models/Language");
+const Draft = require("../models/Draft");
 const bcrypt = require("bcryptjs");
 
 exports.getUserEssays = async (req, res, next) => {
@@ -8,8 +10,6 @@ exports.getUserEssays = async (req, res, next) => {
 
     const essays = await Promise.all(
       user.essays.map((id) => {
-        //return Essay.findById(id.toString());
-
         return Essay.aggregate()
           .match({ _id: id })
           .lookup({
@@ -69,8 +69,6 @@ exports.getFavAuthorsEssays = async (req, res, next) => {
 
     const essays = await Promise.all(
       favAuthorsEssaysIds.map((id) => {
-        //return Essay.findById(id.toString());
-
         return Essay.aggregate()
           .match({ _id: id })
           .lookup({
@@ -100,10 +98,12 @@ exports.getFavAuthorsEssays = async (req, res, next) => {
       })
     );
 
+    const result = await essays.map((essayArray) => essayArray[0]);
+
     res.status(200).json({
       status: "success",
       data: {
-        essays,
+        essays: result,
       },
     });
   } catch (e) {
@@ -118,8 +118,6 @@ exports.getLikedEssays = async (req, res, next) => {
     const user = await User.findById(req.params.id);
     const essays = await Promise.all(
       user.likes.map((id) => {
-        //return Essay.findById(id.toString());
-
         return Essay.aggregate()
           .match({ _id: id })
           .lookup({
@@ -148,11 +146,11 @@ exports.getLikedEssays = async (req, res, next) => {
           });
       })
     );
-
+    const result = await essays.map((essayArray) => essayArray[0]);
     res.status(200).json({
       status: "success",
       data: {
-        essays,
+        essays: result,
       },
     });
   } catch (e) {
@@ -292,9 +290,9 @@ exports.updateWritingSettings = async (req, res, next) => {
 exports.postDraft = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    user.drafts.push(req.body);
+    const newDraft = user.drafts.create(req.body);
+    user.drafts.push(newDraft);
     user.save();
-
     res.status(201).json({
       status: "success",
       data: {

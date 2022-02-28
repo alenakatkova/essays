@@ -100,7 +100,6 @@ exports.getOneEssay = async (req, res, next) => {
 
 exports.createEssay = async (req, res, next) => {
   try {
-    console.log(req.body); // TODO тут все сломалось
     const essay = await Essay.create({
       title: req.body.title,
       body: req.body.body,

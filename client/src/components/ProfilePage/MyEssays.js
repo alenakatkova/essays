@@ -6,9 +6,7 @@ const MyEssays = ({ userId }) => {
   const [essays, setEssays] = React.useState([]);
 
   const getEssays = React.useCallback(async () => {
-    console.log("bla");
     const essaysFromServer = await getUserEssays(userId);
-    console.log(essaysFromServer);
     if (essaysFromServer === undefined) setEssays([]);
     else setEssays(essaysFromServer);
   }, [userId]);
@@ -19,7 +17,7 @@ const MyEssays = ({ userId }) => {
 
   return (
     <>
-      <Essays toRender={essays} />
+      <Essays toRender={essays} isMyEssay={true} />
     </>
   );
 };

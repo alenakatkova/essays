@@ -68,8 +68,18 @@ export const postDraft = async (data, userId) => {
       title: data.essayTitle,
       body: data.essayBody,
       topic: data.topic,
+      level: data.level,
     });
   } catch (e) {
     console.error(e.response.data.errors);
+  }
+};
+
+export const getUserDrafts = async (userId) => {
+  try {
+    const res = await instance.get(`/users/${userId}/drafts`);
+    return res.data.data.drafts;
+  } catch (e) {
+    console.error(e);
   }
 };
