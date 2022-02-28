@@ -7,6 +7,11 @@ import { getAllLevels } from "../../api/LevelsAPI";
 import { getAllTests } from "../../api/TestsAPI";
 import { getUserInfo } from "../../api/UserAPI";
 
+const getTestsSpecificToLanguage = (languageId, tests) => {
+  const currentLanguageId = languageId;
+  return tests.filter((test) => test.languages.includes(currentLanguageId));
+};
+
 const Settings = ({
   userId,
   setLangCode,
@@ -19,6 +24,7 @@ const Settings = ({
 
   const [languages, setLanguages] = React.useState([]);
   const [tests, setTests] = React.useState([]);
+  const [currLangTests, setCurrLangTests] = React.useState([]);
   const [levels, setLevels] = React.useState([]);
   const [userDefaultSettings, setUserDefaultSettings] = React.useState({});
 
@@ -28,10 +34,16 @@ const Settings = ({
     const testsFromServer = await getAllTests();
     const userInfo = await getUserInfo(userId);
 
+    const testsSpecificToLanguage = getTestsSpecificToLanguage(
+      userInfo.writingSettings.language_id,
+      testsFromServer
+    );
+
     setLanguages(languagesFromServer || []);
     setLevels(levelsFromServer || []);
     setTests(testsFromServer || []);
     setUserDefaultSettings(userInfo.writingSettings);
+    setCurrLangTests(testsSpecificToLanguage);
   }, [userId]);
 
   React.useEffect(() => {
@@ -42,7 +54,7 @@ const Settings = ({
     setValue("wordsCount", userDefaultSettings.minAmountOfWords);
     setValue("timingInMinutes", userDefaultSettings.timingInMinutes);
     setValue("language", userDefaultSettings.language_id);
-    setValue("test", userDefaultSettings.test_id);
+    // setValue("test", userDefaultSettings.test_id);
     setValue("level", userDefaultSettings.level_id);
 
     const currentLanguage = languages.find(
@@ -56,6 +68,13 @@ const Settings = ({
   }, [userDefaultSettings]);
 
   React.useEffect(() => {
+    const currLang = getValues("language");
+    if (currLang === userDefaultSettings.language_id) {
+      setValue("test", userDefaultSettings.test_id);
+    }
+  }, [currLangTests]);
+
+  React.useEffect(() => {
     if (requiresReset && !watchSaveSettings) {
       setInitialValues();
     }
@@ -66,6 +85,11 @@ const Settings = ({
     const currentLanguage = languages.find(
       (language) => language._id === getValues("language")
     );
+    const testsSpecificToLanguage = getTestsSpecificToLanguage(
+      currentLanguage._id,
+      tests
+    );
+    setCurrLangTests(testsSpecificToLanguage);
     setLangCode(currentLanguage.code);
   };
 
@@ -92,7 +116,7 @@ const Settings = ({
       <Form.Group className="col-4 mb-3">
         <Form.Label>{t("writing.form.settings.test")}</Form.Label>
         <Form.Select {...register("test")}>
-          {tests.map((test) => (
+          {currLangTests.map((test) => (
             <option key={test._id} value={test._id}>
               {test.abbreviation ? test.abbreviation : test.name}
             </option>
