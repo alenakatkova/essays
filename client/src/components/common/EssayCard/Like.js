@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { useAuth } from "../../../contexts/authProvider";
-import { likeEssay } from "../../../api/UserAPI";
+import { likeEssay, dislikeEssay } from "../../../api/UserAPI";
 
 const Like = ({ isLikedByCurrentUser, essayId }) => {
   const [isLiked, setIsLiked] = React.useState(false);
@@ -14,7 +14,12 @@ const Like = ({ isLikedByCurrentUser, essayId }) => {
   }, [isLikedByCurrentUser]);
 
   const onClick = async () => {
-    await likeEssay(essayId, user);
+    if (isLiked) {
+      await dislikeEssay(essayId, user);
+    } else {
+      await likeEssay(essayId, user);
+    }
+
     setIsLiked(!isLiked);
   };
 

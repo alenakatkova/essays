@@ -79,6 +79,19 @@ export const likeEssay = async (essayId, userId) => {
   try {
     //const res = await instance.get(`/users/${userId}/like`);
     //return res.data.data.user;
+    console.log("liked");
+    console.log(userId, essayId);
+    return { likes: ["essayId"] }; // userObj
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const dislikeEssay = async (essayId, userId) => {
+  try {
+    //const res = await instance.get(`/users/${userId}/dislike`);
+    //return res.data.data.user;
+    console.log("disliked");
     console.log(userId, essayId);
     return { likes: ["essayId"] }; // userObj
   } catch (e) {
