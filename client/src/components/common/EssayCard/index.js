@@ -25,7 +25,6 @@ const EssayCard = ({
   essay,
   isOpen = false,
   isDraft = false,
-
   likes,
   userEssays,
 }) => {

@@ -11,6 +11,8 @@ router.get("/:id", userController.getOneUser);
 router.get("/:id/essays", userController.getUserEssays);
 router.get("/:id/fav-authors-essays", userController.getFavAuthorsEssays);
 router.get("/:id/liked-essays", userController.getLikedEssays);
+router.post("/:id/like", userController.likeEssay);
+router.post("/:id/dislike", userController.dislikeEssay);
 router.post("/:id/writing-settings", userController.updateWritingSettings);
 router.post("/:id/draft", userController.postDraft);
 

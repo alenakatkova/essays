@@ -77,11 +77,10 @@ export const postDraft = async (data, userId) => {
 
 export const likeEssay = async (essayId, userId) => {
   try {
-    //const res = await instance.get(`/users/${userId}/like`);
-    //return res.data.data.user;
-    console.log("liked");
-    console.log(userId, essayId);
-    return { likes: ["essayId"] }; // userObj
+    const res = await instance.post(`/users/${userId}/like`, {
+      essayId: essayId,
+    });
+    return res.data.data.user;
   } catch (e) {
     console.error(e);
   }
@@ -89,11 +88,10 @@ export const likeEssay = async (essayId, userId) => {
 
 export const dislikeEssay = async (essayId, userId) => {
   try {
-    //const res = await instance.get(`/users/${userId}/dislike`);
-    //return res.data.data.user;
-    console.log("disliked");
-    console.log(userId, essayId);
-    return { likes: ["essayId"] }; // userObj
+    const res = await instance.post(`/users/${userId}/dislike`, {
+      essayId: essayId,
+    });
+    return res.data.data.user;
   } catch (e) {
     console.error(e);
   }

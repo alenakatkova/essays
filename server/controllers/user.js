@@ -305,3 +305,42 @@ exports.postDraft = async (req, res, next) => {
     });
   }
 };
+
+exports.likeEssay = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.likes.push(req.body.essayId);
+    user.save();
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};
+
+exports.dislikeEssay = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const index = user.likes.indexOf(req.body.essayId);
+    if (index > -1) {
+      user.likes.splice(index, 1);
+    }
+    user.save();
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};
