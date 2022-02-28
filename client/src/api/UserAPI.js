@@ -75,10 +75,12 @@ export const postDraft = async (data, userId) => {
   }
 };
 
-export const getUserDrafts = async (userId) => {
+export const likeEssay = async (essayId, userId) => {
   try {
-    const res = await instance.get(`/users/${userId}/drafts`);
-    return res.data.data.drafts;
+    //const res = await instance.get(`/users/${userId}/like`);
+    //return res.data.data.user;
+    console.log(userId, essayId);
+    return { likes: ["essayId"] }; // userObj
   } catch (e) {
     console.error(e);
   }

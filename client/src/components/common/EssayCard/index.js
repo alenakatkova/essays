@@ -11,14 +11,25 @@ import {
 import { BsStar, BsHeart } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import EssayRating from "./EssayRating";
+import Like from "./Like";
+
+const isEssayLiked = (essayId, likes) => {
+  return likes.includes(essayId);
+};
 
 const EssayCard = ({
   essay,
   isOpen = false,
   isDraft = false,
   isMyEssay = false,
+  likes,
 }) => {
   const { t } = useTranslation();
+  const [isLiked, setIsLiked] = React.useState(true);
+
+  React.useEffect(() => {
+    likes && setIsLiked(isEssayLiked(essay._id, likes));
+  }, [likes]);
 
   const creationDate = new Date(essay.createdAt).toLocaleDateString();
   const navigate = useNavigate();
@@ -104,17 +115,11 @@ const EssayCard = ({
           <Row className="justify-content-between">
             <Col>
               {!isMyEssay && (
-                <OverlayTrigger
-                  placement="top"
-                  overlay={<Tooltip>{t("essayLikes.btn.tooltip")}</Tooltip>}
-                >
-                  <Button
-                    style={{ marginRight: 5, border: "none" }}
-                    variant="outline-secondary"
-                  >
-                    <BsHeart />
-                  </Button>
-                </OverlayTrigger>
+                <Like
+                  essayId={essay._id}
+                  isLikedByCurrentUser={isLiked}
+                  essayId={essay._id}
+                />
               )}
             </Col>
 
