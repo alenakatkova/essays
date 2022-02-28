@@ -362,3 +362,24 @@ exports.addAuthorToFavourite = async (req, res, next) => {
     });
   }
 };
+
+exports.deleteAuthorFromFavourites = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const index = user.favouriteAuthors.indexOf(req.body.authorId);
+    if (index > -1) {
+      user.favouriteAuthors.splice(index, 1);
+    }
+    user.save();
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};

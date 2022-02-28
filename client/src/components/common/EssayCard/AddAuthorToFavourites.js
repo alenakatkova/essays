@@ -5,7 +5,7 @@ import { BsStar, BsStarFill } from "react-icons/bs";
 import { useAuth } from "../../../contexts/authProvider";
 import {
   addAuthorToFavourites,
-  //deleteAuthorFromFavourites
+  deleteAuthorFromFavourites,
 } from "../../../api/UserAPI";
 
 const AddAuthorToFavourites = ({ isAddedByCurrentUser, authorId }) => {
@@ -21,10 +21,8 @@ const AddAuthorToFavourites = ({ isAddedByCurrentUser, authorId }) => {
 
   const onClick = async () => {
     if (isAdded) {
-      console.log("deleting");
-      //await deleteAuthorFromFavourites(authorId, user);
+      await deleteAuthorFromFavourites(authorId, user);
     } else {
-      console.log("adding");
       await addAuthorToFavourites(authorId, user);
     }
 

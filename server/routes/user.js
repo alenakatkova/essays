@@ -14,6 +14,10 @@ router.get("/:id/liked-essays", userController.getLikedEssays);
 router.post("/:id/like", userController.likeEssay);
 router.post("/:id/dislike", userController.dislikeEssay);
 router.post("/:id/fav-author", userController.addAuthorToFavourite);
+router.post(
+  "/:id/fav-author-delete",
+  userController.deleteAuthorFromFavourites
+);
 router.post("/:id/writing-settings", userController.updateWritingSettings);
 router.post("/:id/draft", userController.postDraft);
 

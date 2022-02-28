@@ -108,3 +108,14 @@ export const addAuthorToFavourites = async (authorId, userId) => {
     console.error(e);
   }
 };
+
+export const deleteAuthorFromFavourites = async (authorId, userId) => {
+  try {
+    const res = await instance.post(`/users/${userId}/fav-author-delete`, {
+      authorId: authorId,
+    });
+    return res.data.data.user;
+  } catch (e) {
+    console.error(e);
+  }
+};
