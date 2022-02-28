@@ -26,7 +26,13 @@ const Like = ({ isLikedByCurrentUser, essayId }) => {
   return (
     <OverlayTrigger
       placement="top"
-      overlay={<Tooltip>{t("essayLikes.btn.tooltip")}</Tooltip>}
+      overlay={
+        isLiked ? (
+          <Tooltip>{t("essayLikes.btnDelete.tooltip")}</Tooltip>
+        ) : (
+          <Tooltip>{t("essayLikes.btnToLike.tooltip")}</Tooltip>
+        )
+      }
     >
       <Button
         onClick={onClick}

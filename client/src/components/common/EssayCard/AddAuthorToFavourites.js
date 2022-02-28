@@ -32,7 +32,13 @@ const AddAuthorToFavourites = ({ isAddedByCurrentUser, authorId }) => {
   return (
     <OverlayTrigger
       placement="top"
-      overlay={<Tooltip>{t("favAuthor.btn.tooltip")}</Tooltip>}
+      overlay={
+        isAdded ? (
+          <Tooltip>{t("favAuthor.btnDelete.tooltip")}</Tooltip>
+        ) : (
+          <Tooltip>{t("favAuthor.btnToAdd.tooltip")}</Tooltip>
+        )
+      }
     >
       <Button
         style={{
