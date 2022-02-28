@@ -11,6 +11,7 @@ import RandomTopics from "./RandomTopics";
 import { updateUserWritingSettings } from "../../api/UserAPI";
 import { countWords } from "../../utils/countWords";
 import { postDraft } from "../../api/UserAPI";
+import RequireAuth from "../RequireAuth";
 
 const WritingPage = () => {
   const auth = useAuth();
@@ -110,7 +111,7 @@ const WritingPage = () => {
   };
 
   return (
-    <div>
+    <RequireAuth>
       <div className="container">
         <h1>{t("writing.title")}</h1>
         <FormProvider {...methods}>
@@ -188,7 +189,7 @@ const WritingPage = () => {
           </Form>
         </FormProvider>
       </div>
-    </div>
+    </RequireAuth>
   );
 };
 
