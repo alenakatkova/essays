@@ -3,12 +3,16 @@ import { useTranslation } from "react-i18next";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { useAuth } from "../../../contexts/authProvider";
-//import { addAuthorToFavourites, deleteAuthorFromFavourites } from "../../../api/UserAPI";
+import {
+  addAuthorToFavourites,
+  //deleteAuthorFromFavourites
+} from "../../../api/UserAPI";
 
 const AddAuthorToFavourites = ({ isAddedByCurrentUser, authorId }) => {
   const [isAdded, setIsAdded] = React.useState(false);
   const { t } = useTranslation();
   const { user } = useAuth();
+
   React.useEffect(() => {
     if (isAddedByCurrentUser !== undefined) {
       setIsAdded(isAddedByCurrentUser);
@@ -17,11 +21,11 @@ const AddAuthorToFavourites = ({ isAddedByCurrentUser, authorId }) => {
 
   const onClick = async () => {
     if (isAdded) {
-      console.log("adding");
+      console.log("deleting");
       //await deleteAuthorFromFavourites(authorId, user);
     } else {
-      console.log("deleting");
-      // await addAuthorToFavourites(authorId, user);
+      console.log("adding");
+      await addAuthorToFavourites(authorId, user);
     }
 
     setIsAdded(!isAdded);
@@ -41,6 +45,7 @@ const AddAuthorToFavourites = ({ isAddedByCurrentUser, authorId }) => {
           color: "#212529",
         }}
         variant="link"
+        onClick={onClick}
       >
         {isAdded ? <BsStarFill /> : <BsStar />}
       </Button>

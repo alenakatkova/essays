@@ -96,3 +96,15 @@ export const dislikeEssay = async (essayId, userId) => {
     console.error(e);
   }
 };
+
+export const addAuthorToFavourites = async (authorId, userId) => {
+  try {
+    console.log("adding in axios");
+    const res = await instance.post(`/users/${userId}/fav-author`, {
+      authorId: authorId,
+    });
+    return res.data.data.user;
+  } catch (e) {
+    console.error(e);
+  }
+};

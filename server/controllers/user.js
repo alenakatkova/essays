@@ -344,3 +344,21 @@ exports.dislikeEssay = async (req, res, next) => {
     });
   }
 };
+
+exports.addAuthorToFavourite = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.favouriteAuthors.push(req.body.authorId);
+    user.save();
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail",
+    });
+  }
+};
