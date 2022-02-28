@@ -7,6 +7,7 @@ export const postEssay = async (data) => {
       language: data.language,
       test: data.test,
       timingInMinutes: data.timingInMinutes,
+      level: data.level,
       user_id: data.userId,
       title: data.essayTitle,
       body: data.essayBody,

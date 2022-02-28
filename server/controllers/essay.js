@@ -100,7 +100,22 @@ exports.getOneEssay = async (req, res, next) => {
 
 exports.createEssay = async (req, res, next) => {
   try {
-    const essay = await Essay.create(req.body);
+    console.log(req.body); // TODO тут все сломалось
+    const essay = await Essay.create({
+      title: req.body.title,
+      body: req.body.body,
+      user_id: req.body.user_id,
+      topic: req.body.topic,
+    });
+    essay.writingSettings = {
+      _id: new mongoose.Types.ObjectId(),
+      timingInMinutes: req.body.timingInMinutes,
+      language_id: req.body.language,
+      test_id: req.body.test,
+      level_id: req.body.level,
+      minAmountOfWords: req.body.minAmountOfWords,
+    };
+    essay.save();
     const user = await User.findById(req.body.user_id);
     user.essays.push(essay);
     user.save();
