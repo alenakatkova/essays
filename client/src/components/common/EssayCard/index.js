@@ -12,7 +12,7 @@ import { BsBookmark, BsStar, BsBookmarkFill, BsHeart } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import EssayRating from "./EssayRating";
 
-const EssayCard = ({ essay, isOpen = false }) => {
+const EssayCard = ({ essay, isOpen = false, isDraft = false }) => {
   const { t } = useTranslation();
 
   const creationDate = new Date(essay.createdAt).toLocaleDateString();
@@ -29,7 +29,7 @@ const EssayCard = ({ essay, isOpen = false }) => {
           <Col>
             <div className="d-flex flex-column">
               <Row className="d-flex align-items-end">
-                <Col xs="auto">{essay.author[0].username}</Col>
+                {!isDraft && <Col xs="auto">{essay.author[0].username}</Col>}
                 <Col xs="auto" className="p-0">
                   <OverlayTrigger
                     placement="top"
@@ -53,9 +53,11 @@ const EssayCard = ({ essay, isOpen = false }) => {
               <div className="text-muted">{creationDate}</div>
             </div>
           </Col>
-          <Col xs="auto">
-            <EssayRating />
-          </Col>
+          {!isDraft && (
+            <Col xs="auto">
+              <EssayRating />
+            </Col>
+          )}
         </Row>
       </Card.Header>
       <Card.Body>

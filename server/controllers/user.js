@@ -8,14 +8,43 @@ exports.getUserEssays = async (req, res, next) => {
 
     const essays = await Promise.all(
       user.essays.map((id) => {
-        return Essay.findById(id.toString());
+        //return Essay.findById(id.toString());
+
+        return Essay.aggregate()
+          .match({ _id: id })
+          .lookup({
+            from: "users",
+            localField: "user_id",
+            foreignField: "_id",
+            as: "author",
+          })
+          .lookup({
+            from: "languages",
+            localField: "writingSettings.language_id",
+            foreignField: "_id",
+            as: "language",
+          })
+          .lookup({
+            from: "levels",
+            localField: "writingSettings.level_id",
+            foreignField: "_id",
+            as: "level",
+          })
+          .lookup({
+            from: "tests",
+            localField: "writingSettings.test_id",
+            foreignField: "_id",
+            as: "test",
+          });
       })
     );
+
+    const result = await essays.map((essayArray) => essayArray[0]);
 
     res.status(200).json({
       status: "success",
       data: {
-        essays,
+        essays: result,
       },
     });
   } catch (e) {
@@ -40,7 +69,34 @@ exports.getFavAuthorsEssays = async (req, res, next) => {
 
     const essays = await Promise.all(
       favAuthorsEssaysIds.map((id) => {
-        return Essay.findById(id.toString());
+        //return Essay.findById(id.toString());
+
+        return Essay.aggregate()
+          .match({ _id: id })
+          .lookup({
+            from: "users",
+            localField: "user_id",
+            foreignField: "_id",
+            as: "author",
+          })
+          .lookup({
+            from: "languages",
+            localField: "writingSettings.language_id",
+            foreignField: "_id",
+            as: "language",
+          })
+          .lookup({
+            from: "levels",
+            localField: "writingSettings.level_id",
+            foreignField: "_id",
+            as: "level",
+          })
+          .lookup({
+            from: "tests",
+            localField: "writingSettings.test_id",
+            foreignField: "_id",
+            as: "test",
+          });
       })
     );
 
@@ -62,7 +118,34 @@ exports.getLikedEssays = async (req, res, next) => {
     const user = await User.findById(req.params.id);
     const essays = await Promise.all(
       user.likes.map((id) => {
-        return Essay.findById(id.toString());
+        //return Essay.findById(id.toString());
+
+        return Essay.aggregate()
+          .match({ _id: id })
+          .lookup({
+            from: "users",
+            localField: "user_id",
+            foreignField: "_id",
+            as: "author",
+          })
+          .lookup({
+            from: "languages",
+            localField: "writingSettings.language_id",
+            foreignField: "_id",
+            as: "language",
+          })
+          .lookup({
+            from: "levels",
+            localField: "writingSettings.level_id",
+            foreignField: "_id",
+            as: "level",
+          })
+          .lookup({
+            from: "tests",
+            localField: "writingSettings.test_id",
+            foreignField: "_id",
+            as: "test",
+          });
       })
     );
 
