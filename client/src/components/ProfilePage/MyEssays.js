@@ -17,7 +17,7 @@ const MyEssays = ({ userId }) => {
 
   return (
     <>
-      <Essays toRender={essays} isMyEssay={true} />
+      <Essays toRender={essays} />
     </>
   );
 };

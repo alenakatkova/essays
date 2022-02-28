@@ -17,18 +17,25 @@ const isEssayLiked = (essayId, likes) => {
   return likes.includes(essayId);
 };
 
+const isUserEssay = (essayId, myEssays) => {
+  return myEssays.includes(essayId);
+};
+
 const EssayCard = ({
   essay,
   isOpen = false,
   isDraft = false,
-  isMyEssay = false,
+
   likes,
+  userEssays,
 }) => {
   const { t } = useTranslation();
-  const [isLiked, setIsLiked] = React.useState(true);
+  const [isLiked, setIsLiked] = React.useState(false);
+  const [isMyEssay, setIsMyEssay] = React.useState(false);
 
   React.useEffect(() => {
     likes && setIsLiked(isEssayLiked(essay._id, likes));
+    userEssays && setIsMyEssay(isUserEssay(essay._id, userEssays));
   }, [likes]);
 
   const creationDate = new Date(essay.createdAt).toLocaleDateString();

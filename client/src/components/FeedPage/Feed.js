@@ -8,8 +8,11 @@ const Feed = ({ filters }) => {
 
   const getEssaysFromServer = React.useCallback(async () => {
     const essaysFromServer = await getEssays(language, test, level);
-    if (essaysFromServer === undefined) setEssays([]);
-    else setEssays(essaysFromServer);
+    if (essaysFromServer === undefined) {
+      setEssays([]);
+    } else {
+      setEssays(essaysFromServer);
+    }
   }, [language, test, level]);
 
   React.useEffect(() => {
