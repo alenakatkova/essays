@@ -105,6 +105,7 @@ const Settings = ({
       tests
     );
     setCurrLangTests(testsSpecificToLanguage);
+    setValue("test", testsSpecificToLanguage[0]._id);
     setLangCode(currentLanguage.code);
   };
 

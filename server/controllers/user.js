@@ -3,7 +3,9 @@ const Essay = require("../models/Essay");
 const Language = require("../models/Language");
 const Test = require("../models/Test");
 const Level = require("../models/Level");
+const writingSettingsSchema = require("../models/WritingSettings");
 const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
 
 exports.getUserEssays = async (req, res, next) => {
   try {
@@ -196,38 +198,31 @@ exports.getOneUser = async (req, res, next) => {
 
 exports.signUp = async (req, res) => {
   const { username, password } = req.body;
+  const WritingSettingsModel = mongoose.model(
+    "WritingSettings",
+    writingSettingsSchema
+  );
 
   try {
     const hashPassword = await bcrypt.hash(password, 12);
-    // console.log(req.body);
-    // const language = await Language.find({ i18n: "english" });
-    //
-    // const test = await Test.find({ abbreviation: "TOEFL" }).exec();
-    // const level = await Level.find({ name: "C1" }).exec();
-    // console.log(level[0]._id);
+
+    const language = await Language.find({ i18n: "english" });
+
+    const test = await Test.find({ abbreviation: "TOEFL" }).exec();
+    const level = await Level.find({ name: "C1" }).exec();
+    const newWritingSettings = new WritingSettingsModel({
+      _id: new mongoose.Types.ObjectId(),
+      timingInMinutes: 20,
+      language_id: language[0]._id.toString(),
+      test_id: test[0]._id.toString(),
+      level_id: level[0]._id.toString(),
+      minAmountOfWords: 200,
+    });
     const newUser = await User.create({
       username,
       password: hashPassword,
-      // writingSettings: {
-      //   _id: new mongoose.Types.ObjectId(),
-      //   timingInMinutes: 20,
-      //   language_id: language[0]._id.toString(),
-      //   test_id: test[0]._id.toString(),
-      //   level_id: level[0]._id.toString(),
-      //   minAmountOfWords: 200,
-      // },
+      writingSettings: newWritingSettings,
     });
-
-    // newUser.writingSettings = {
-    //   _id: new mongoose.Types.ObjectId(),
-    //   timingInMinutes: 20,
-    //   language_id: language[0]._id.toString(),
-    //   test_id: test[0]._id.toString(),
-    //   level_id: level[0]._id.toString(),
-    //   minAmountOfWords: 200,
-    // };
-    // console.log(newUser.writingSettings);
-    // newUser.save();
     req.session.user_id = newUser._id;
     res.status(201).json({
       status: "success",
