@@ -83,6 +83,7 @@ const WritingPage = () => {
     setIsStepDisabled({
       ...isStepDisabled,
       settings: true,
+      whichTopic: true,
     });
   };
 
@@ -200,39 +201,43 @@ const WritingPage = () => {
                 />
               </div>
             )}
-            <fieldset className="mb-3" disabled={isStepDisabled.writing}>
-              <Form.Group className="mb-3">
-                <Form.Label>{t("writing.form.essay.title")}</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={1}
-                  {...methods.register("essayTitle")}
-                />
-              </Form.Group>
-              <Form.Group>
-                <div className="row justify-content-between">
-                  <Form.Label className="col">
-                    {t("writing.form.essay.body")}
-                  </Form.Label>
-                  <div className="col d-flex flex-row-reverse">
-                    <WordCounter
-                      text={watchEssayBody}
-                      minAmount={watchWordsCount}
-                      requiresReset={shouldWordsCountReset}
-                      onResetCompletion={onResetWordCounterCompletion}
+            {isTopicChosen && (
+              <>
+                <fieldset className="mb-3" disabled={isStepDisabled.writing}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>{t("writing.form.essay.title")}</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={1}
+                      {...methods.register("essayTitle")}
                     />
-                  </div>
-                </div>
-                <Form.Control
-                  as="textarea"
-                  rows={10}
-                  {...methods.register("essayBody")}
-                />
-              </Form.Group>
-            </fieldset>
-            <Button type="submit" disabled={isStepDisabled.submit}>
-              {t("writing.form.submit")}
-            </Button>
+                  </Form.Group>
+                  <Form.Group>
+                    <div className="row justify-content-between">
+                      <Form.Label className="col">
+                        {t("writing.form.essay.body")}
+                      </Form.Label>
+                      <div className="col d-flex flex-row-reverse">
+                        <WordCounter
+                          text={watchEssayBody}
+                          minAmount={watchWordsCount}
+                          requiresReset={shouldWordsCountReset}
+                          onResetCompletion={onResetWordCounterCompletion}
+                        />
+                      </div>
+                    </div>
+                    <Form.Control
+                      as="textarea"
+                      rows={10}
+                      {...methods.register("essayBody")}
+                    />
+                  </Form.Group>
+                </fieldset>
+                <Button type="submit" disabled={isStepDisabled.submit}>
+                  {t("writing.form.submit")}
+                </Button>
+              </>
+            )}
           </Form>
         </FormProvider>
       </div>
