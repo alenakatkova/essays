@@ -13,10 +13,14 @@ const EssayRating = ({ ratings, essayId, isMyEssay = false }) => {
   const [ratingByCurrentUser, setRatingByCurrentUser] = React.useState(null);
 
   React.useEffect(() => {
-    console.log(ratings);
+    const ratingByCurrUser = ratings.find((rating) => rating.user_id === user);
+    if (ratingByCurrUser) {
+      setRatingByCurrentUser(ratingByCurrUser.mark);
+    }
   }, [ratings]);
-  const onSubmit = (data) => {
-    postRating(Number(data.rating), user, essayId);
+
+  const onSubmit = async (data) => {
+    await postRating(Number(data.rating), user, essayId);
     setRatingByCurrentUser(data.rating);
   };
 
@@ -44,7 +48,11 @@ const EssayRating = ({ ratings, essayId, isMyEssay = false }) => {
                     <Form.Control
                       type="number"
                       placeholder={t("essayCard.rating.form.placeholder")}
-                      {...register("rating")}
+                      {...register("rating", {
+                        required: true,
+                        min: 0,
+                        max: 100,
+                      })}
                     />
                   </Col>
                   <Col xs="auto">

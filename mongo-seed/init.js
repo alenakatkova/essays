@@ -425,6 +425,12 @@ const essaysIds = {
   essay10: ObjectId(),
 };
 
+const ratingsIds = {
+  rating01: ObjectId(),
+  rating02: ObjectId(),
+  rating03: ObjectId(),
+};
+
 const writingSettings = {
   settings01: {
     _id: ObjectId(),
@@ -623,7 +629,11 @@ db.essays.insertMany([
     comments: [],
     editSuggestionsComments: [],
     writingSettings: writingSettings.settings01,
-    ratings: [],
+    ratings: [
+      { user_id: usersIds.user01, mark: 57, _id: ratingsIds.rating01 },
+      { user_id: usersIds.user03, mark: 67, _id: ratingsIds.rating02 },
+      { user_id: usersIds.user04, mark: 99, _id: ratingsIds.rating02 },
+    ],
     createdAt: "2022-02-19T20:25:59.949Z",
     updatedAt: "2022-02-19T20:25:59.949Z",
   },
