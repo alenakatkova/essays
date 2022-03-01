@@ -85,3 +85,14 @@ export const postEditSuggestions = async (data, essayId) => {
     console.error(e.response.data.errors);
   }
 };
+
+export const postRating = async (rating, userId, essayId) => {
+  try {
+    return await instance.post(`essays/${essayId}/rating`, {
+      user_id: userId,
+      rating: rating,
+    });
+  } catch (e) {
+    console.error(e.response.data.errors);
+  }
+};

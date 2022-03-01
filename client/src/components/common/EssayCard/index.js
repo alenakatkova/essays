@@ -71,7 +71,11 @@ const EssayCard = ({
           </Col>
           {!isDraft && (
             <Col xs="auto">
-              <EssayRating isMyEssay={isMyEssay} />
+              <EssayRating
+                isMyEssay={isMyEssay}
+                ratings={essay.ratings}
+                essayId={essay._id}
+              />
             </Col>
           )}
         </Row>

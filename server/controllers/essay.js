@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Comment = require("../models/Comment");
 const mongoose = require("mongoose");
 const EditSuggestionsComment = require("../models/EditSuggestionsComment");
+const Rating = require("../models/Rating");
 
 exports.getEssays = async (req, res, next) => {
   try {
@@ -266,5 +267,28 @@ exports.getEditSuggestionsComments = async (req, res, next) => {
     res.status(400).json({
       status: "fail",
     });
+  }
+};
+
+exports.postRating = async (req, res, next) => {
+  try {
+    const essay = await Essay.findById(req.params.id);
+    essay.ratings.push({
+      _id: new mongoose.Types.ObjectId(),
+      user_id: req.body.user_id,
+      mark: req.body.rating,
+    });
+
+    essay.save();
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        rating: essay.ratings,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
   }
 };

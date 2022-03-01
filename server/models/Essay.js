@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const writingSettingsSchema = require("./WritingSettings");
+const ratingSchema = require("./Rating");
 
 const essaySchema = new mongoose.Schema(
   {
@@ -32,6 +33,7 @@ const essaySchema = new mongoose.Schema(
       },
     ],
     writingSettings: writingSettingsSchema,
+    ratings: [ratingSchema],
   },
   { timestamps: true }
 );

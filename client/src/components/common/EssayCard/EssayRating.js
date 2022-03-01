@@ -2,15 +2,22 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../../contexts/authProvider";
+import { postRating } from "../../../api/EssayAPI";
 
-const EssayRating = ({ ratings, currentUserId, isMyEssay = false }) => {
+const EssayRating = ({ ratings, essayId, isMyEssay = false }) => {
   const { t } = useTranslation();
   const { register, handleSubmit } = useForm();
+  const { user } = useAuth();
   const [rating, setRating] = React.useState(null);
-  const [ratingByCurrentUser, setRatingByCurrentUser] = React.useState(10);
+  const [ratingByCurrentUser, setRatingByCurrentUser] = React.useState(null);
 
+  React.useEffect(() => {
+    console.log(ratings);
+  }, [ratings]);
   const onSubmit = (data) => {
-    console.log(data);
+    postRating(Number(data.rating), user, essayId);
+    setRatingByCurrentUser(data.rating);
   };
 
   return (
