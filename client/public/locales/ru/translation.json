@@ -136,6 +136,7 @@
     "rating": {
       "noRating": "Нет оценок",
       "youRated": "Ваша оценка",
+      "averageRating": "Средняя оценка",
       "form": {
         "label": "Ваша оценка",
         "placeholder": "От 0 до 100",

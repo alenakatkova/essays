@@ -17,6 +17,11 @@ const EssayRating = ({ ratings, essayId, isMyEssay = false }) => {
     if (ratingByCurrUser) {
       setRatingByCurrentUser(ratingByCurrUser.mark);
     }
+
+    if (ratings.length > 0) {
+      const ratingsSum = ratings.reduce((acc, curr) => acc + curr.mark, 0);
+      setRating(ratingsSum / ratings.length);
+    }
   }, [ratings]);
 
   const onSubmit = async (data) => {
@@ -27,7 +32,13 @@ const EssayRating = ({ ratings, essayId, isMyEssay = false }) => {
   return (
     <div className="d-flex flex-column">
       <div className="mb-1" style={{ textAlign: "end" }}>
-        {rating ? rating : t("essayCard.rating.noRating")}
+        {rating ? (
+          <div>
+            {t("essayCard.rating.averageRating")}: {rating}
+          </div>
+        ) : (
+          t("essayCard.rating.noRating")
+        )}
       </div>
       {!isMyEssay && (
         <div>
