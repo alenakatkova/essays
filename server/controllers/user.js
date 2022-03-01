@@ -1,7 +1,8 @@
 const User = require("../models/User");
 const Essay = require("../models/Essay");
 const Language = require("../models/Language");
-const Draft = require("../models/Draft");
+const Test = require("../models/Test");
+const Level = require("../models/Level");
 const bcrypt = require("bcryptjs");
 
 exports.getUserEssays = async (req, res, next) => {
@@ -195,10 +196,38 @@ exports.getOneUser = async (req, res, next) => {
 
 exports.signUp = async (req, res) => {
   const { username, password } = req.body;
-  const hashPassword = await bcrypt.hash(password, 12);
 
   try {
-    const newUser = await User.create({ username, password: hashPassword });
+    const hashPassword = await bcrypt.hash(password, 12);
+    // console.log(req.body);
+    // const language = await Language.find({ i18n: "english" });
+    //
+    // const test = await Test.find({ abbreviation: "TOEFL" }).exec();
+    // const level = await Level.find({ name: "C1" }).exec();
+    // console.log(level[0]._id);
+    const newUser = await User.create({
+      username,
+      password: hashPassword,
+      // writingSettings: {
+      //   _id: new mongoose.Types.ObjectId(),
+      //   timingInMinutes: 20,
+      //   language_id: language[0]._id.toString(),
+      //   test_id: test[0]._id.toString(),
+      //   level_id: level[0]._id.toString(),
+      //   minAmountOfWords: 200,
+      // },
+    });
+
+    // newUser.writingSettings = {
+    //   _id: new mongoose.Types.ObjectId(),
+    //   timingInMinutes: 20,
+    //   language_id: language[0]._id.toString(),
+    //   test_id: test[0]._id.toString(),
+    //   level_id: level[0]._id.toString(),
+    //   minAmountOfWords: 200,
+    // };
+    // console.log(newUser.writingSettings);
+    // newUser.save();
     req.session.user_id = newUser._id;
     res.status(201).json({
       status: "success",

@@ -35,7 +35,9 @@ const Settings = ({
     const userInfo = await getUserInfo(userId);
 
     const testsSpecificToLanguage = getTestsSpecificToLanguage(
-      userInfo.writingSettings.language_id,
+      userInfo.writingSettings
+        ? userInfo.writingSettings.language_id
+        : languagesFromServer[0]._id,
       testsFromServer
     );
 
@@ -51,14 +53,25 @@ const Settings = ({
   }, [getSettingsFromServer]);
 
   const setInitialValues = () => {
-    setValue("wordsCount", userDefaultSettings.minAmountOfWords);
-    setValue("timingInMinutes", userDefaultSettings.timingInMinutes);
-    setValue("language", userDefaultSettings.language_id);
-    // setValue("test", userDefaultSettings.test_id);
-    setValue("level", userDefaultSettings.level_id);
+    if (userDefaultSettings === undefined) {
+      setValue("wordsCount", 200);
+      setValue("timingInMinutes", 15);
+      setValue("language", languages[0]._id);
+      // setValue("test", userDefaultSettings.test_id);
+      setValue("level", levels[0]._id);
+    } else {
+      setValue("wordsCount", userDefaultSettings.minAmountOfWords);
+      setValue("timingInMinutes", userDefaultSettings.timingInMinutes);
+      setValue("language", userDefaultSettings.language_id);
+      // setValue("test", userDefaultSettings.test_id);
+      setValue("level", userDefaultSettings.level_id);
+    }
 
+    const currentLanguageId = userDefaultSettings
+      ? userDefaultSettings.language_id
+      : languages[0]._id;
     const currentLanguage = languages.find(
-      (language) => language._id === userDefaultSettings.language_id
+      (language) => language._id === currentLanguageId
     );
     currentLanguage && setLangCode(currentLanguage.code);
   };
@@ -68,9 +81,11 @@ const Settings = ({
   }, [userDefaultSettings]);
 
   React.useEffect(() => {
-    const currLang = getValues("language");
-    if (currLang === userDefaultSettings.language_id) {
-      setValue("test", userDefaultSettings.test_id);
+    if (userDefaultSettings) {
+      const currLang = getValues("language");
+      if (currLang === userDefaultSettings.language_id) {
+        setValue("test", userDefaultSettings.test_id);
+      }
     }
   }, [currLangTests]);
 
