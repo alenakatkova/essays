@@ -78,6 +78,10 @@
     "title": "Тренажер",
     "link": "Тренажер",
     "form": {
+      "whichTopic": {
+        "enterMine": "Ввести свою тему",
+        "generateRandom": "Сгенерировать случайные"
+      },
       "settings": {
         "title": "Настройки",
         "wordsCount": "Количество слов",

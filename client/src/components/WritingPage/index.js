@@ -25,11 +25,13 @@ const WritingPage = () => {
     React.useState(false);
   const [isTopicChosen, setIsTopicChosen] = React.useState(false);
   const [langCode, setLangCode] = React.useState("");
+  const [whichTopic, setWhichTopic] = React.useState("not chosen");
   const [isStepDisabled, setIsStepDisabled] = React.useState({
     settings: false,
-    randomTopics: false,
+    topicChoice: false,
     writing: true,
     submit: true,
+    whichTopic: false,
   });
 
   const watchEssayBody = methods.watch("essayBody");
@@ -40,9 +42,10 @@ const WritingPage = () => {
     setIsStepDisabled({
       ...isStepDisabled,
       settings: true,
-      randomTopics: true,
+      topicChoice: true,
       writing: false,
       submit: false,
+      whichTopic: true,
     });
   };
 
@@ -53,11 +56,13 @@ const WritingPage = () => {
     setIsStepDisabled({
       ...isStepDisabled,
       settings: false,
-      randomTopics: false,
+      topicChoice: false,
       writing: true,
       submit: true,
+      whichTopic: false,
     });
     setIsTopicChosen(false);
+    setWhichTopic("not chosen");
     methods.setValue("essayTitle", "");
     methods.setValue("essayBody", "");
   };
@@ -74,14 +79,15 @@ const WritingPage = () => {
     setShouldWordsCountReset(false);
   };
 
-  const onTopicsGeneration = () => {
+  const disablePrevStepsWhenChoosingTopic = () => {
     setIsStepDisabled({
       ...isStepDisabled,
       settings: true,
     });
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    console.log(data);
     if (data["saveSettings"]) {
       const newWritingSettings = {
         timingInMinutes: data.timingInMinutes,
@@ -90,17 +96,15 @@ const WritingPage = () => {
         level_id: data.level,
         minAmountOfWords: data.wordsCount,
       };
-      updateUserWritingSettings(newWritingSettings, auth.user).then((res) =>
-        console.log(res)
-      );
+      await updateUserWritingSettings(newWritingSettings, auth.user);
     }
 
     const totalWords = countWords(data.essayBody);
 
     if (totalWords >= watchWordsCount) {
-      postEssay({ ...data, userId: auth.user });
+      await postEssay({ ...data, userId: auth.user });
     } else {
-      postDraft(data, auth.user);
+      await postDraft(data, auth.user);
     }
 
     reset();
@@ -135,14 +139,57 @@ const WritingPage = () => {
                 onResetCompletion={onResetSettingsCompletion}
               />
             </fieldset>
-            <fieldset className="mb-3" disabled={isStepDisabled.randomTopics}>
-              <RandomTopics
-                langCode={langCode}
-                setIsTopicChosen={setIsTopicChosen}
-                onTopicListGeneration={onTopicsGeneration}
-                requiresReset={shouldRandomTopicsReset}
-                onResetCompletion={onResetRandomTopicsCompletion}
-              />
+            <fieldset className="mb-3" disabled={isStepDisabled.whichTopic}>
+              <Button
+                className="me-1"
+                onClick={() => {
+                  setWhichTopic("mine");
+                  disablePrevStepsWhenChoosingTopic();
+                }}
+              >
+                {t("writing.form.whichTopic.enterMine")}
+              </Button>
+              <Button
+                onClick={() => {
+                  setWhichTopic("random");
+                  disablePrevStepsWhenChoosingTopic();
+                }}
+              >
+                {t("writing.form.whichTopic.generateRandom")}
+              </Button>
+            </fieldset>
+            <fieldset className="mb-3" disabled={isStepDisabled.topicChoice}>
+              {whichTopic === "random" && (
+                <RandomTopics
+                  langCode={langCode}
+                  setIsTopicChosen={setIsTopicChosen}
+                  onTopicListGeneration={disablePrevStepsWhenChoosingTopic}
+                  requiresReset={shouldRandomTopicsReset}
+                  onResetCompletion={onResetRandomTopicsCompletion}
+                />
+              )}
+              {whichTopic === "mine" && (
+                <Form.Group className="mb-3">
+                  <Form.Label>{t("writing.form.topic.title")}</Form.Label>
+                  <Form.Control
+                    className="mb-3"
+                    as="textarea"
+                    rows={3}
+                    {...methods.register("topic")}
+                  />
+                  <Button
+                    onClick={() => {
+                      setIsTopicChosen(true);
+                      setIsStepDisabled({
+                        ...isStepDisabled,
+                        topicChoice: true,
+                      });
+                    }}
+                  >
+                    {t("writing.form.topic.ready")}
+                  </Button>
+                </Form.Group>
+              )}
             </fieldset>
             {isTopicChosen && (
               <div className="mb-3">
