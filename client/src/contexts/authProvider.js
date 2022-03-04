@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { instance } from "../api/APIUtils";
 import { createUser } from "../api/UserAPI";
 import { logUserIn, logUserOut } from "../api/AuthAPI";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext(null);
 
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = React.useState(false);
   const [loadingInitial, setLoadingInitial] = React.useState(true);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
 
   React.useEffect(() => {
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         setUser(res.data.data.user);
         setIsAuthenticated(true);
+        navigate("/");
       })
       .catch((error) => setError(error))
       .finally(() => {
@@ -55,6 +57,7 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         setUser(res.data.data.user);
         setIsAuthenticated(true);
+        navigate("/");
       })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));

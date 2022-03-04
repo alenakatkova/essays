@@ -10,14 +10,13 @@ const SignUpPage = () => {
   const { register, handleSubmit, getValues } = useForm();
   const [passwordError, setPasswordError] = React.useState(null);
 
-  const onSignUpButtonClick = async (data, e) => {
+  const onSignUpButtonClick = (data, e) => {
     e.preventDefault();
     if (getValues("password") !== getValues("passwordRepeat")) {
       setPasswordError(t("signUp.passwordError"));
     } else {
       setPasswordError(null);
-
-      await signUp(data.username, data.password);
+      signUp(data.username, data.password);
     }
   };
 
