@@ -61,7 +61,7 @@ const ProfilePage = () => {
                   <MyEssays userId={user._id} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="drafts">
-                  <Drafts drafts={user.drafts} />
+                  <Drafts drafts={user.drafts || []} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="essaysOfFavouriteAuthors">
                   <FavAuthorsEssays userId={user._id} />
