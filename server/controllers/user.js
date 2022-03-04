@@ -198,6 +198,7 @@ exports.getOneUser = async (req, res, next) => {
 
 exports.signUp = async (req, res) => {
   const { username, password } = req.body;
+
   const WritingSettingsModel = mongoose.model(
     "WritingSettings",
     writingSettingsSchema

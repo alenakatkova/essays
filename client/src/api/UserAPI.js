@@ -7,7 +7,7 @@ export const createUser = async (username, password) => {
       password,
     });
   } catch (e) {
-    console.error(e);
+    console.log(e);
   }
 };
 

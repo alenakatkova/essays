@@ -29,8 +29,14 @@
     "link": "Регистрация",
     "form": {
       "username": "Имя пользователя",
-      "password": "Пароль"
-    }
+      "password": "Пароль",
+      "repeatPassword": "Повторите пароль",
+      "enterUsername": "Придумайте имя пользователя",
+      "enterPassword": "Придумайте пароль",
+      "passwordRepeat": "Повторите пароль",
+      "submit": "Зарегистрироваться"
+    },
+    "passwordError": "Пароли не совпадают"
   },
   "logIn": {
     "title": "Авторизация",

@@ -20,6 +20,10 @@ const EssayPage = () => {
     getEssayFromServer();
   }, [getEssayFromServer]);
 
+  // likes,
+  //     userEssays,
+  //     favouritesAuthors,
+
   return (
     <RequireAuth>
       <Container>

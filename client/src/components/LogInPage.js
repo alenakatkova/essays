@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/authProvider";
 import { useForm } from "react-hook-form";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-// TODO редирект если юзер залогинен
 const LogInPage = () => {
   const { t } = useTranslation();
   const { loading, logIn } = useAuth();
@@ -43,27 +42,6 @@ const LogInPage = () => {
         </Form>
       </Col>
     </Row>
-
-    // <div>
-    //   <p>{t("logIn.title")}</p>
-    //   <form action="" method="post" onSubmit={onLogInBtnClick}>
-    //     <label htmlFor="username">{t("logIn.form.username")}</label>
-    //     <input
-    //       name="username"
-    //       id="username"
-    //       value={username}
-    //       onChange={(e) => setUsername(e.target.value)}
-    //     />
-    //     <label htmlFor="password">{t("logIn.form.password")}</label>
-    //     <input
-    //       name="password"
-    //       id="password"
-    //       value={password}
-    //       onChange={(e) => setPassword(e.target.value)}
-    //     />
-    //     <input type="submit" value="send" disabled={loading} />
-    //   </form>
-    // </div>
   );
 };
 

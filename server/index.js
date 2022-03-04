@@ -30,7 +30,7 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 
 const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
-
+console.log(mongoUrl);
 const connectWithRetry = () => {
   mongoose
     .connect(mongoUrl, {
