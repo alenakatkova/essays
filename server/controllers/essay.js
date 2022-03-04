@@ -41,7 +41,8 @@ exports.getEssays = async (req, res, next) => {
         localField: "writingSettings.test_id",
         foreignField: "_id",
         as: "test",
-      });
+      })
+      .sort({ createdAt: "desc" });
 
     res.status(200).json({
       status: "success",

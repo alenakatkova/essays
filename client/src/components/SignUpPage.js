@@ -7,7 +7,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 const SignUpPage = () => {
   const { t } = useTranslation();
   const { loading, signUp } = useAuth();
-  const { register, handleSubmit, getValues, errors } = useForm();
+  const { register, handleSubmit, getValues } = useForm();
   const [passwordError, setPasswordError] = React.useState(null);
 
   const onSignUpButtonClick = async (data, e) => {

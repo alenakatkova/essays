@@ -42,7 +42,9 @@ exports.getUserEssays = async (req, res, next) => {
       })
     );
 
-    const result = await essays.map((essayArray) => essayArray[0]);
+    const result = await essays
+      .map((essayArray) => essayArray[0])
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     res.status(200).json({
       status: "success",
@@ -101,7 +103,9 @@ exports.getFavAuthorsEssays = async (req, res, next) => {
       })
     );
 
-    const result = await essays.map((essayArray) => essayArray[0]);
+    const result = await essays
+      .map((essayArray) => essayArray[0])
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     res.status(200).json({
       status: "success",
@@ -149,7 +153,9 @@ exports.getLikedEssays = async (req, res, next) => {
           });
       })
     );
-    const result = await essays.map((essayArray) => essayArray[0]);
+    const result = await essays
+      .map((essayArray) => essayArray[0])
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.status(200).json({
       status: "success",
       data: {

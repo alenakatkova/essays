@@ -2,7 +2,10 @@ import React from "react";
 import Essays from "../common/Essays";
 
 const Drafts = ({ drafts }) => {
-  return <Essays toRender={drafts} isDraft={true} />;
+  const sortedByDate = drafts.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+  return <Essays toRender={sortedByDate} isDraft={true} />;
 };
 
 export default Drafts;
