@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Essay from "./components/Essay";
+import MainPage from "./components/MainPage";
 import Header from "./components/Header";
 import SignUpPage from "./components/SignUpPage";
 import LogInPage from "./components/LogInPage";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/writing" element={<WritingPage />} />
           <Route path="/registration" element={<SignUpPage />} />
           <Route path="/login" element={<LogInPage />} />
-          <Route path="/" element={<Essay />} />
+          <Route path="/" element={<MainPage />} />
         </Routes>
       </div>
     </AuthProvider>

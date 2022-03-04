@@ -14,11 +14,11 @@ const essaySchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: [true, "Essay must have title"],
+      required: [true, "MainPage must have title"],
     },
     body: {
       type: String,
-      required: [true, "Essay must have body"],
+      required: [true, "MainPage must have body"],
     },
     comments: [
       {
