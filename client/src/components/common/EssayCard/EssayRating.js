@@ -20,7 +20,7 @@ const EssayRating = ({ ratings, essayId, isMyEssay = false }) => {
 
     if (ratings.length > 0) {
       const ratingsSum = ratings.reduce((acc, curr) => acc + curr.mark, 0);
-      setRating(ratingsSum / ratings.length);
+      setRating(Math.floor(ratingsSum / ratings.length));
     }
   }, [ratings]);
 
