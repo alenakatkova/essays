@@ -3,32 +3,183 @@
     "english": "English",
     "german": "German",
     "russian": "Russian",
-    "french": "French"
+    "french": "French",
+    "arabic": "Arabic",
+    "czech": "Czech",
+    "italian": "Italian",
+    "korean": "Korean",
+    "portuguese": "Portuguese",
+    "spanish": "Spanish",
+    "chinese": "Chinese",
+    "dutch": "Dutch",
+    "hebrew": "Hebrew",
+    "japanese": "Japanese",
+    "polish": "Polish",
+    "swedish": "Swedish"
+  },
+  "auth": {
+    "logOutBtn": "Log out"
+  },
+  "main": {
+    "title": "Let's write essays together!",
+    "passage01": "Practice every day. The more - the better!",
+    "passage02": "Choose your own topic or generate random ones",
+    "passage03": "Random topics are Wiki articles. You can choose how many topics will be generated. Take a challenge: pick more complicated topics, read article, think of the aspect of this topic you can write about, set timer and write!",
+    "passage04": "You can see all the essays written by all the users, like essays and add users to favourite - so you never loose those essay you'd like to reread in the future",
+    "passage05": "Write comments",
+    "passage06": "Edit your own essays and essays of the others",
+    "contactSupport": "If you have any question about this website or if you forgot your password - contact our support team:"
   },
   "home": {
-    "title": "Home"
+    "title": "Home",
+    "link": "Home"
   },
-  "essay": {
-    "title": "Preview"
-  },
-  "sign-up": {
+  "signUp": {
     "title": "Sign up",
+    "link": "Sign up",
     "form": {
       "username": "Username",
-      "password": "Password"
+      "password": "Password",
+      "repeatPassword": "Repeat your password",
+      "enterUsername": "Enter username",
+      "enterPassword": "Enter password",
+      "passwordRepeat": "Repeat your password",
+      "submit": "Sign up"
+    },
+    "passwordError": "Passwords do not match"
+  },
+  "logIn": {
+    "title": "Log in",
+    "link": "Log in",
+    "form": {
+      "username": "Username",
+      "password": "Password",
+      "enterUsername": "Enter your username",
+      "enterPassword": "Enter your password",
+      "submit": "Log in"
     }
   },
   "profile": {
-    "title": "Profile"
+    "title": "Profile",
+    "link": "Profile",
+    "youAreLoggedInAs": "You're logged in as",
+    "tabs": {
+      "myEssays": "My essays",
+      "drafts": "My drafts",
+      "essaysOfFavouriteAuthors": "Essays of my favourite authors",
+      "likes": "Liked essays"
+    }
+  },
+  "favAuthor": {
+    "btnToAdd": {
+      "tooltip": "Add to favourite authors"
+    },
+    "btnDelete": {
+      "tooltip": "Remove from favourite authors"
+    }
+  },
+  "essayLikes": {
+    "btnToLike": {
+      "tooltip": "Like"
+    },
+    "btnDelete": {
+      "tooltip": "Dislike"
+    }
   },
   "feed": {
-    "title": "Feed"
+    "title": "Feed",
+    "link": "Feed"
   },
   "writing": {
     "title": "Writing",
+    "link": "Writing",
     "form": {
-      "title": "Title",
-      "text": "Text"
+      "whichTopic": {
+        "enterMine": "Enter your own topic",
+        "generateRandom": "Generate random topics"
+      },
+      "topic": {
+        "title": "Enter your own topic",
+        "ready": "Ready"
+      },
+      "settings": {
+        "title": "Settings",
+        "wordsCount": "Amount of words",
+        "timingInMinutes": "Time, in minutes",
+        "language": "Language",
+        "test": "Test",
+        "level": "Level",
+        "saveSettings": "Save these settings for future"
+      },
+      "articles": {
+        "howMany": "Amount of topics:",
+        "link": "Open",
+        "generate": "Generate"
+      },
+      "essay": {
+        "title": "Title",
+        "body": "Write your essay here"
+      },
+      "submit": "Submit",
+      "reset": "Reset form and start from the beginning"
     }
+  },
+  "timer": {
+    "start": "Начать"
+  },
+  "wordsCounter": {
+    "title": "Счетчик слов"
+  },
+  "essay": {
+    "commentsTabs": {
+      "commentsList": {
+        "title": "Comments",
+        "noComments": "No comments added"
+      },
+      "editSuggestionsList": {
+        "title": "Edit suggestions"
+      },
+      "toComment": {
+        "title": "Comment",
+        "submit": "Submit",
+        "placeholder": "Enter your comment"
+      },
+      "toSuggestEdits": {
+        "title": "Suggest edits",
+        "submit": "Submit"
+      }
+    }
+  },
+  "essayCard": {
+    "test": "Test",
+    "level": "Level",
+    "language": "Language",
+    "comments": {
+      "btnInFeed": "Comments"
+    },
+    "rating": {
+      "noRating": "No one rated this essay",
+      "youRated": "Your rating",
+      "averageRating": "Average rating",
+      "form": {
+        "label": "Your rating",
+        "placeholder": "From 0 to 100",
+        "submit": "Rate"
+      }
+    }
+  },
+  "filters": {
+    "title": "Filters",
+    "levels": {
+      "title": "Levels"
+    },
+    "languages": {
+      "title": "Languages"
+    },
+    "tests": {
+      "title": "Tests"
+    },
+    "submit": "Apply",
+    "reset": "Reset"
   }
 }
