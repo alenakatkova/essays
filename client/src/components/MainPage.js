@@ -27,7 +27,7 @@ const MainPage = () => {
                 {t("main.passage05")}
               </ListGroup.Item>
               <ListGroup.Item className="px-0 py-3">
-                {t("main.passage06")}
+                {t("main.passage06")} :
               </ListGroup.Item>
               <ListGroup.Item className="px-0 py-3 text-muted">
                 {t("main.contactSupport")}: support@lf-essays.ru
