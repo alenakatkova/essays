@@ -30,7 +30,7 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 
 const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
-console.log(mongoUrl);
+
 const connectWithRetry = () => {
   mongoose
     .connect(mongoUrl, {
@@ -55,7 +55,7 @@ app.use(
     cookie: {
       secure: false,
       httpOnly: false,
-      maxAge: 12000000,
+      maxAge: 99000000000,
     },
   })
 );

@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { getOneEssay } from "../../api/EssayAPI";
 import CommentsTabs from "./CommentsTabs";
 import { useAuth } from "../../contexts/authProvider";
-import { useTranslation } from "react-i18next";
 import { getUserInfo } from "../../api/UserAPI";
 
 const EssayPage = () => {
